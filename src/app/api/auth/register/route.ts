@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import prisma from "@/src/lib/prisma";
 import bcrypt from "bcryptjs";
 
 // Fíjate aquí: NO dice "export default", dice "export async function POST"

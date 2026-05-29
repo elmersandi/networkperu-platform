@@ -1,5 +1,4 @@
 // Archivo: src/app/contacto/page.tsx
-import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Clock, ChevronDown } from "lucide-react";
 
@@ -7,8 +6,6 @@ export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans selection:bg-[#1A73E8] selection:text-white">
 
-      {/* NAVEGACIÓN */}
-      <Navbar />
 
       {/* CABECERA */}
       <div className="relative w-full h-[40vh] bg-black">

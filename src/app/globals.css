@@ -3,11 +3,12 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==========================================================================
-   1. TOKENS GLOBALES (Directo del Manual de Word)
+   1. TOKENS GLOBALES (Paleta de Colores y Fuentes B2B)
    Estos colores ahora se pueden usar como bg-marca, text-peligro, etc.
 ========================================================================== */
 @theme {
-  --font-sans: var(--font-poppins), sans-serif;
+  /* Enlazamos con la variable exacta de layout.tsx (Montserrat) */
+  --font-sans: var(--font-montserrat), sans-serif;
 
   /* Colores de Acción */
   --color-marca: #1D4ED8;
@@ -27,36 +28,51 @@
 }
 
 /* ==========================================================================
-   2. REGLAS BASE Y TIPOGRAFÍA
+   2. REGLAS BASE Y SISTEMA TIPOGRÁFICO (El Design System)
+   Reglas universales de lectura, tamaños responsivos y grosores corporativos.
 ========================================================================== */
 @layer base {
-  /* Transiciones premium para cambiar de modo claro a oscuro */
+  /* Transiciones premium para cambiar de modo claro a oscuro fluidamente */
   * {
     transition-property: background-color, border-color, color;
     transition-timing-function: ease-in-out;
     transition-duration: 300ms;
   }
 
-  /* Fondo Global Modo Claro */
+  /* Fondo Global Modo Claro (Regla de lectura óptima: 16px, font-normal, relajado) */
   body {
-    @apply bg-light-bg text-slate-600 antialiased selection:bg-marca selection:text-white;
+    @apply bg-light-bg text-slate-600 text-[16px] font-normal leading-relaxed antialiased selection:bg-marca selection:text-white;
   }
 
   /* Fondo Global Modo Oscuro */
   .dark body {
-    @apply bg-dark-bg text-[#9CA3AF] selection:bg-marca selection:text-white;
+    @apply bg-dark-bg text-slate-300 selection:bg-marca selection:text-white;
   }
 
-  /* Jerarquía de Títulos (H1 - H6) */
+  /* --- JERARQUÍA DE TÍTULOS (Sólidos, Serios y Responsivos) --- */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-[#0F172A] dark:text-[#F3F4F6];
+    /* font-semibold (600) y tracking-tighter para máxima seriedad */
+    @apply font-semibold tracking-tighter text-slate-900 dark:text-slate-100;
   }
   
-  h1 { @apply text-3xl md:text-5xl mb-4; }
-  h2 { @apply text-2xl md:text-4xl mb-3; }
-  h3 { @apply text-xl md:text-3xl mb-3; }
+  /* H1: Para portadas/Heros (Muy grande en PC, adaptado en móvil) */
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl mb-4 leading-none; }
   
-  /* Reset general para inputs en todo el sistema */
+  /* H2: Para secciones principales (Ej: "Nuestros Servicios") */
+  h2 { @apply text-3xl md:text-4xl mb-3 leading-tight; }
+  
+  /* H3: Para tarjetas de servicios o bloques de contenido */
+  h3 { @apply text-xl md:text-2xl mb-3 leading-snug; }
+  
+  /* H4: Para subtítulos pequeños o etiquetas */
+  h4 { @apply text-lg md:text-xl mb-2 leading-snug; }
+
+  /* --- PÁRRAFOS GLOBALES --- */
+  p {
+    @apply mb-4 text-base md:text-[16px] text-slate-600 dark:text-slate-300 font-normal leading-relaxed;
+  }
+  
+  /* --- RESET GENERAL PARA INPUTS --- */
   input:focus, select:focus, textarea:focus {
     outline: none;
     @apply border-marca shadow-[0_0_0_1px_#1D4ED8] dark:shadow-none;
@@ -65,15 +81,17 @@
 
 /* ==========================================================================
    3. COMPONENTES GLOBALES B2B (Botones, Tablas y Paneles)
+   Elementos reutilizables en toda la web.
 ========================================================================== */
 @layer components {
   /* --- Botones --- */
   .btn-primario {
+    /* Usamos font-medium para botones (legibilidad sin ser muy tosco) */
     @apply bg-marca text-white font-medium px-5 py-2.5 rounded-md transition-colors hover:bg-marca-hover active:scale-95 cursor-pointer shadow-none border-none;
   }
 
   .btn-secundario {
-    @apply bg-transparent font-medium px-5 py-2.5 rounded-md transition-colors border border-light-border dark:border-dark-border text-[#0F172A] dark:text-[#F3F4F6] hover:bg-light-border dark:hover:bg-dark-border cursor-pointer shadow-none;
+    @apply bg-transparent font-medium px-5 py-2.5 rounded-md transition-colors border border-light-border dark:border-dark-border text-slate-900 dark:text-slate-100 hover:bg-light-border dark:hover:bg-dark-border cursor-pointer shadow-none;
   }
 
   .btn-peligro {
@@ -90,11 +108,11 @@
   }
 
   th {
-    @apply px-6 py-4 text-xs uppercase font-semibold tracking-wider text-[#64748B] dark:text-[#9CA3AF];
+    @apply px-6 py-4 text-xs uppercase font-semibold tracking-wider text-slate-500 dark:text-slate-400;
   }
 
   td {
-    @apply px-6 py-4 border-b border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-[#0F172A] dark:text-[#F3F4F6];
+    @apply px-6 py-4 border-b border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-900 dark:text-slate-100;
   }
 
   tbody tr:hover td {
@@ -109,19 +127,25 @@
 
 /* ==========================================================================
    4. CLASES HEREDADAS DEL SISTEMA ADMIN B2B
-   Mantiene la compatibilidad con los layouts que ya programamos
+   Actualizadas para respetar la nueva jerarquía de Montserrat.
 ========================================================================== */
 @layer components {
   .admin-b2b, .admin-auth-b2b {
-    @apply text-[#64748B] bg-light-bg dark:text-[#9CA3AF] dark:bg-dark-bg;
+    @apply text-slate-500 bg-light-bg dark:text-slate-400 dark:bg-dark-bg;
   }
 
+  /* El H1 del Admin ahora hereda el tracking-tighter y font-semibold del sistema */
   .admin-b2b h1, .admin-auth-b2b h1 {
-    @apply text-3xl font-bold tracking-tight text-[#0F172A] dark:text-[#F3F4F6];
+    @apply text-3xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100;
+  }
+
+  /* Subtítulos de secciones en el Admin  */
+  .admin-b2b h2, .admin-auth-b2b h2 {
+    @apply text-xl md:text-2xl font-semibold tracking-tighter text-slate-800 dark:text-slate-200 mb-4 mt-6;
   }
 
   .admin-b2b p, .admin-auth-b2b p {
-    @apply text-[#64748B] dark:text-[#9CA3AF];
+    @apply text-slate-500 dark:text-slate-400;
   }
 
   .admin-b2b .b2b-surface, .admin-auth-b2b .b2b-surface {

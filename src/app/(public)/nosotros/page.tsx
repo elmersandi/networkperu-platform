@@ -1,5 +1,4 @@
 // Archivo: src/app/nosotros/page.tsx
-import Navbar from "../../components/Navbar";
 import Image from "next/image";
 
 const team = [
@@ -26,7 +25,6 @@ const team = [
 export default function Nosotros() {
   return (
     <div className="font-sans selection:bg-[#1A73E8] selection:text-white">
-      <Navbar />
       
       {/* CABECERA SIMPLE */}
       <div className="bg-[#0a0a0a] pt-32 pb-20 px-6 sm:px-8">

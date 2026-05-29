@@ -1,22 +1,31 @@
+// ==========================================================================
+// 1. IMPORTACIONES PRINCIPALES
+// ==========================================================================
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
+import { Montserrat } from "next/font/google"; // Inyectamos la fuente corporativa
+import "./globals.css"; // Estilos globales maestros (Tokens y Design System)
 
-// Usamos ruta relativa segura para evitar problemas con el alias
-import Footer from "../components/Footer";
-
-// Configuramos Poppins con los grosores que necesitamos para el B2B
-const poppins = Poppins({ 
+// ==========================================================================
+// 2. CONFIGURACIÓN DE TIPOGRAFÍA B2B (Montserrat)
+// ==========================================================================
+// Inicializamos Montserrat mapeando la variable CSS exacta para globals.css
+const montserrat = Montserrat({ 
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-poppins', // Creamos la variable CSS para Tailwind
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-montserrat', 
 });
 
+// ==========================================================================
+// 3. METADATOS DEL SISTEMA (SEO Corporativo Global)
+// ==========================================================================
 export const metadata: Metadata = {
   title: "Networks & Systems Perú | Plataforma B2B",
   description: "Infraestructura y telecomunicaciones corporativas de alto nivel.",
 };
 
+// ==========================================================================
+// 4. ESTRUCTURA MAESTRA DEL LAYOUT GLOBAL (Root Skeleton)
+// ==========================================================================
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* EL SCRIPT GUARDIÁN: Evita el pantallazo blanco leyendo la memoria al instante */}
+        {/* EL SCRIPT GUARDIÁN: Bloquea el parpadeo blanco leyendo el LocalStorage de inmediato */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -40,23 +49,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      {/* NOTA DEL INGENIERO: Se quitaron los 'bg-gray' fijos de aquí.
-        Ahora la clase 'font-sans' activa Poppins, y globals.css maneja los colores mate.
+      
+      {/* NOTA DE ARQUITECTURA: Se inyecta la variable de fuente.
+        Dejamos el body limpio de divs estructurales fijos. 
+        Next.js inyectará aquí los sub-layouts de (public) o (private) según la ruta.
       */}
-      <body className={`${poppins.variable} font-sans antialiased`}>
+      <body className={`${montserrat.variable} font-sans antialiased`}>
         
-        {/* Este contenedor empuja el Footer siempre hacia abajo */}
-        <div className="min-h-screen flex flex-col">
-          
-          {/* Aquí se renderizan todas tus páginas (Web y Admin) */}
-          <main className="flex-grow">
-            {children}
-          </main>
-
-          {/* AQUÍ ESTÁ EL FOOTER */}
-          <Footer />
-
-        </div>
+        {children}
         
       </body>
     </html>
