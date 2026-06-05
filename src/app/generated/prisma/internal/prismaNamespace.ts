@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.5.0",
-  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -387,11 +387,10 @@ export const ModelName = {
   Usuario: 'Usuario',
   CodigoVerificacion: 'CodigoVerificacion',
   Categoria: 'Categoria',
+  Subcategoria: 'Subcategoria',
   Producto: 'Producto',
-  Pedido: 'Pedido',
   Servicio: 'Servicio',
-  Prospecto: 'Prospecto',
-  Notificacion: 'Notificacion'
+  ConfiguracionWeb: 'ConfiguracionWeb'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "usuario" | "codigoVerificacion" | "categoria" | "producto" | "pedido" | "servicio" | "prospecto" | "notificacion"
+    modelProps: "usuario" | "codigoVerificacion" | "categoria" | "subcategoria" | "producto" | "servicio" | "configuracionWeb"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -633,6 +632,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Subcategoria: {
+      payload: Prisma.$SubcategoriaPayload<ExtArgs>
+      fields: Prisma.SubcategoriaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SubcategoriaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SubcategoriaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        findFirst: {
+          args: Prisma.SubcategoriaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SubcategoriaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        findMany: {
+          args: Prisma.SubcategoriaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>[]
+        }
+        create: {
+          args: Prisma.SubcategoriaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        createMany: {
+          args: Prisma.SubcategoriaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SubcategoriaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>[]
+        }
+        delete: {
+          args: Prisma.SubcategoriaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        update: {
+          args: Prisma.SubcategoriaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        deleteMany: {
+          args: Prisma.SubcategoriaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SubcategoriaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SubcategoriaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>[]
+        }
+        upsert: {
+          args: Prisma.SubcategoriaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoriaPayload>
+        }
+        aggregate: {
+          args: Prisma.SubcategoriaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubcategoria>
+        }
+        groupBy: {
+          args: Prisma.SubcategoriaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubcategoriaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SubcategoriaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubcategoriaCountAggregateOutputType> | number
+        }
+      }
+    }
     Producto: {
       payload: Prisma.$ProductoPayload<ExtArgs>
       fields: Prisma.ProductoFieldRefs
@@ -704,80 +777,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProductoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProductoCountAggregateOutputType> | number
-        }
-      }
-    }
-    Pedido: {
-      payload: Prisma.$PedidoPayload<ExtArgs>
-      fields: Prisma.PedidoFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.PedidoFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.PedidoFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        findFirst: {
-          args: Prisma.PedidoFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.PedidoFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        findMany: {
-          args: Prisma.PedidoFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>[]
-        }
-        create: {
-          args: Prisma.PedidoCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        createMany: {
-          args: Prisma.PedidoCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.PedidoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>[]
-        }
-        delete: {
-          args: Prisma.PedidoDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        update: {
-          args: Prisma.PedidoUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        deleteMany: {
-          args: Prisma.PedidoDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.PedidoUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.PedidoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>[]
-        }
-        upsert: {
-          args: Prisma.PedidoUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PedidoPayload>
-        }
-        aggregate: {
-          args: Prisma.PedidoAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePedido>
-        }
-        groupBy: {
-          args: Prisma.PedidoGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PedidoGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.PedidoCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PedidoCountAggregateOutputType> | number
         }
       }
     }
@@ -855,151 +854,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Prospecto: {
-      payload: Prisma.$ProspectoPayload<ExtArgs>
-      fields: Prisma.ProspectoFieldRefs
+    ConfiguracionWeb: {
+      payload: Prisma.$ConfiguracionWebPayload<ExtArgs>
+      fields: Prisma.ConfiguracionWebFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ProspectoFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload> | null
+          args: Prisma.ConfiguracionWebFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ProspectoFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         findFirst: {
-          args: Prisma.ProspectoFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload> | null
+          args: Prisma.ConfiguracionWebFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ProspectoFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         findMany: {
-          args: Prisma.ProspectoFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>[]
+          args: Prisma.ConfiguracionWebFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>[]
         }
         create: {
-          args: Prisma.ProspectoCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         createMany: {
-          args: Prisma.ProspectoCreateManyArgs<ExtArgs>
+          args: Prisma.ConfiguracionWebCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ProspectoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>[]
+          args: Prisma.ConfiguracionWebCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>[]
         }
         delete: {
-          args: Prisma.ProspectoDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         update: {
-          args: Prisma.ProspectoUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         deleteMany: {
-          args: Prisma.ProspectoDeleteManyArgs<ExtArgs>
+          args: Prisma.ConfiguracionWebDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ProspectoUpdateManyArgs<ExtArgs>
+          args: Prisma.ConfiguracionWebUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ProspectoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>[]
+          args: Prisma.ConfiguracionWebUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>[]
         }
         upsert: {
-          args: Prisma.ProspectoUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProspectoPayload>
+          args: Prisma.ConfiguracionWebUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfiguracionWebPayload>
         }
         aggregate: {
-          args: Prisma.ProspectoAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateProspecto>
+          args: Prisma.ConfiguracionWebAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConfiguracionWeb>
         }
         groupBy: {
-          args: Prisma.ProspectoGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ProspectoGroupByOutputType>[]
+          args: Prisma.ConfiguracionWebGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfiguracionWebGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ProspectoCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ProspectoCountAggregateOutputType> | number
-        }
-      }
-    }
-    Notificacion: {
-      payload: Prisma.$NotificacionPayload<ExtArgs>
-      fields: Prisma.NotificacionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.NotificacionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.NotificacionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        findFirst: {
-          args: Prisma.NotificacionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.NotificacionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        findMany: {
-          args: Prisma.NotificacionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>[]
-        }
-        create: {
-          args: Prisma.NotificacionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        createMany: {
-          args: Prisma.NotificacionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.NotificacionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>[]
-        }
-        delete: {
-          args: Prisma.NotificacionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        update: {
-          args: Prisma.NotificacionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        deleteMany: {
-          args: Prisma.NotificacionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.NotificacionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.NotificacionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>[]
-        }
-        upsert: {
-          args: Prisma.NotificacionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificacionPayload>
-        }
-        aggregate: {
-          args: Prisma.NotificacionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateNotificacion>
-        }
-        groupBy: {
-          args: Prisma.NotificacionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.NotificacionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.NotificacionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.NotificacionCountAggregateOutputType> | number
+          args: Prisma.ConfiguracionWebCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfiguracionWebCountAggregateOutputType> | number
         }
       }
     }
@@ -1044,24 +969,14 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UsuarioScalarFieldEnum = {
   id: 'id',
-  dni: 'dni',
-  nombre: 'nombre',
   email: 'email',
-  telefono: 'telefono',
   password: 'password',
-  rol: 'rol',
+  nombre: 'nombre',
   imagen: 'imagen',
-  portada: 'portada',
-  bio: 'bio',
-  temaOscuro: 'temaOscuro',
-  recibirEmail: 'recibirEmail',
-  recibirWA: 'recibirWA',
-  isVerificado: 'isVerificado',
-  estadoAcceso: 'estadoAcceso',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   resetToken: 'resetToken',
-  resetTokenExpiry: 'resetTokenExpiry'
+  resetTokenExpiry: 'resetTokenExpiry',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
@@ -1082,6 +997,7 @@ export const CategoriaScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   slug: 'slug',
+  tipo: 'tipo',
   descripcion: 'descripcion',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1090,20 +1006,28 @@ export const CategoriaScalarFieldEnum = {
 export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
 
 
+export const SubcategoriaScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  slug: 'slug',
+  categoriaId: 'categoriaId'
+} as const
+
+export type SubcategoriaScalarFieldEnum = (typeof SubcategoriaScalarFieldEnum)[keyof typeof SubcategoriaScalarFieldEnum]
+
+
 export const ProductoScalarFieldEnum = {
   id: 'id',
   sku: 'sku',
   nombre: 'nombre',
   slug: 'slug',
-  modelo: 'modelo',
   descripcion: 'descripcion',
-  marca: 'marca',
   precio: 'precio',
   stock: 'stock',
   imagenPrincipal: 'imagenPrincipal',
   galeria: 'galeria',
   isActivo: 'isActivo',
-  categoriaId: 'categoriaId',
+  subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1111,29 +1035,17 @@ export const ProductoScalarFieldEnum = {
 export type ProductoScalarFieldEnum = (typeof ProductoScalarFieldEnum)[keyof typeof ProductoScalarFieldEnum]
 
 
-export const PedidoScalarFieldEnum = {
-  id: 'id',
-  clienteNombre: 'clienteNombre',
-  telefonoWa: 'telefonoWa',
-  empresa: 'empresa',
-  total: 'total',
-  estado: 'estado',
-  detalles: 'detalles',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
-
-
 export const ServicioScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   slug: 'slug',
   descripcion: 'descripcion',
+  precioBase: 'precioBase',
   portada: 'portada',
   galeria: 'galeria',
+  videoUrl: 'videoUrl',
   isActivo: 'isActivo',
+  subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1141,35 +1053,37 @@ export const ServicioScalarFieldEnum = {
 export type ServicioScalarFieldEnum = (typeof ServicioScalarFieldEnum)[keyof typeof ServicioScalarFieldEnum]
 
 
-export const ProspectoScalarFieldEnum = {
+export const ConfiguracionWebScalarFieldEnum = {
   id: 'id',
-  nombre: 'nombre',
-  empresa: 'empresa',
+  nombreEmpresa: 'nombreEmpresa',
+  razonSocial: 'razonSocial',
   ruc: 'ruc',
-  email: 'email',
-  telefono: 'telefono',
-  requerimiento: 'requerimiento',
-  mensaje: 'mensaje',
-  estado: 'estado',
-  createdAt: 'createdAt',
+  tituloSitio: 'tituloSitio',
+  descripcionSeo: 'descripcionSeo',
+  faviconUrl: 'faviconUrl',
+  logoUrl: 'logoUrl',
+  whatsapp: 'whatsapp',
+  emailCotizacion: 'emailCotizacion',
+  emailPersonal: 'emailPersonal',
+  telefonoPrincipal: 'telefonoPrincipal',
+  telefonoSecundario: 'telefonoSecundario',
+  direccion: 'direccion',
+  horarioAtencion: 'horarioAtencion',
+  mapaUrl: 'mapaUrl',
+  facebook: 'facebook',
+  instagram: 'instagram',
+  linkedin: 'linkedin',
+  youtube: 'youtube',
+  tiktok: 'tiktok',
+  mision: 'mision',
+  vision: 'vision',
+  heroTitulo: 'heroTitulo',
+  heroSubtitulo: 'heroSubtitulo',
+  textoFooter: 'textoFooter',
   updatedAt: 'updatedAt'
 } as const
 
-export type ProspectoScalarFieldEnum = (typeof ProspectoScalarFieldEnum)[keyof typeof ProspectoScalarFieldEnum]
-
-
-export const NotificacionScalarFieldEnum = {
-  id: 'id',
-  usuarioId: 'usuarioId',
-  titulo: 'titulo',
-  mensaje: 'mensaje',
-  leido: 'leido',
-  tipo: 'tipo',
-  enlace: 'enlace',
-  createdAt: 'createdAt'
-} as const
-
-export type NotificacionScalarFieldEnum = (typeof NotificacionScalarFieldEnum)[keyof typeof NotificacionScalarFieldEnum]
+export type ConfiguracionWebScalarFieldEnum = (typeof ConfiguracionWebScalarFieldEnum)[keyof typeof ConfiguracionWebScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1178,13 +1092,6 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1201,15 +1108,6 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1233,41 +1131,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Role'
- */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-/**
- * Reference to a field of type 'Role[]'
- */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'EstadoAcceso'
- */
-export type EnumEstadoAccesoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoAcceso'>
-    
-
-
-/**
- * Reference to a field of type 'EstadoAcceso[]'
- */
-export type ListEnumEstadoAccesoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoAcceso[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1278,6 +1141,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TipoCategoria'
+ */
+export type EnumTipoCategoriaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoCategoria'>
+    
+
+
+/**
+ * Reference to a field of type 'TipoCategoria[]'
+ */
+export type ListEnumTipoCategoriaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoCategoria[]'>
     
 
 
@@ -1310,44 +1187,9 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'EstadoPedido'
+ * Reference to a field of type 'Boolean'
  */
-export type EnumEstadoPedidoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoPedido'>
-    
-
-
-/**
- * Reference to a field of type 'EstadoPedido[]'
- */
-export type ListEnumEstadoPedidoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoPedido[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-/**
- * Reference to a field of type 'EstadoProspecto'
- */
-export type EnumEstadoProspectoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoProspecto'>
-    
-
-
-/**
- * Reference to a field of type 'EstadoProspecto[]'
- */
-export type ListEnumEstadoProspectoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoProspecto[]'>
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**
@@ -1443,16 +1285,30 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
+  /**
+   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
+   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
+   * performance for applications that execute a large number of unique queries, while a smaller
+   * cache size can reduce memory usage.
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   queryPlanCacheMaxSize: 100,
+   * })
+   * ```
+   */
+  queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
   usuario?: Prisma.UsuarioOmit
   codigoVerificacion?: Prisma.CodigoVerificacionOmit
   categoria?: Prisma.CategoriaOmit
+  subcategoria?: Prisma.SubcategoriaOmit
   producto?: Prisma.ProductoOmit
-  pedido?: Prisma.PedidoOmit
   servicio?: Prisma.ServicioOmit
-  prospecto?: Prisma.ProspectoOmit
-  notificacion?: Prisma.NotificacionOmit
+  configuracionWeb?: Prisma.ConfiguracionWebOmit
 }
 
 /* Types for Logging */

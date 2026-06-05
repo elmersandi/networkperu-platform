@@ -3,16 +3,17 @@
 // ==========================================================================
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google"; // Inyectamos la fuente corporativa
+import { Toaster } from "sonner"; // 🔥 1. IMPORTAMOS EL COMPONENTE GLOBAL DE SONNER
 import "./globals.css"; // Estilos globales maestros (Tokens y Design System)
 
 // ==========================================================================
 // 2. CONFIGURACIÓN DE TIPOGRAFÍA B2B (Montserrat)
 // ==========================================================================
 // Inicializamos Montserrat mapeando la variable CSS exacta para globals.css
-const montserrat = Montserrat({ 
+const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-montserrat', 
+  variable: '--font-montserrat',
 });
 
 // ==========================================================================
@@ -49,15 +50,18 @@ export default function RootLayout({
           }}
         />
       </head>
-      
+
       {/* NOTA DE ARQUITECTURA: Se inyecta la variable de fuente.
         Dejamos el body limpio de divs estructurales fijos. 
         Next.js inyectará aquí los sub-layouts de (public) o (private) según la ruta.
       */}
       <body className={`${montserrat.variable} font-sans antialiased`}>
-        
+
+        {/* 🔥 2. EL TOASTER GLOBAL: Escuchará los mensajes desde cualquier pantalla */}
+        <Toaster position="top-right" richColors closeButton duration={4000} />
+
         {children}
-        
+
       </body>
     </html>
   );

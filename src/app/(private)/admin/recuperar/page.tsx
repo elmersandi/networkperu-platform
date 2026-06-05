@@ -1,123 +1,135 @@
+// =====================================================================
+// ARCHIVO: src/app/(private)/admin/recuperar/page.tsx
+// =====================================================================
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import Link from 'next/link';
-import { Mail, ArrowLeft, Loader2, CheckCircle2, AlertCircle, KeyRound } from 'lucide-react';
+import Image from 'next/image';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Mail, ArrowLeft, Loader2, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner'; // 🔥 IMPORTAMOS SONNER
+
+import { enviarCorreoRecuperacion } from '@/src/app/actions/recuperar.action';
+
+// =====================================================================
+// 1. ESQUEMA DE ZOD
+// =====================================================================
+const recuperarSchema = z.object({
+  email: z.string().min(1, 'El correo es obligatorio').email('Formato de correo inválido'),
+});
+
+type RecuperarFormValues = z.infer<typeof recuperarSchema>;
 
 export default function RecuperarPage() {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm<RecuperarFormValues>({
+    // @ts-expect-error: Conflicto interno de tipos
+    resolver: zodResolver(recuperarSchema),
+    mode: 'onChange',
+  });
+
+  const [isPending, startTransition] = useTransition();
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  // 🗑️ Eliminamos errorGlobal, ahora usamos Sonner
 
-  const handleRecover = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const res = await fetch('/api/usuarios/recuperar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || 'Error al procesar la solicitud');
+  // =====================================================================
+  // 2. EJECUCIÓN CON SONNER
+  // =====================================================================
+  const onSubmit: SubmitHandler<RecuperarFormValues> = (data) => {
+    startTransition(async () => {
+      try {
+        const respuesta = await enviarCorreoRecuperacion(data.email);
+        
+        if (respuesta.error) {
+          // 🔥 Toast de error elegante
+          toast.error(respuesta.error);
+        } else {
+          // Si es éxito, cambiamos la UI y lanzamos un pequeño toast de confirmación
+          setSuccess(true);
+          toast.success(respuesta.message || "Instrucciones enviadas.");
+        }
+      } catch (err) {
+        toast.error("Error de conexión", {
+          description: "Revisa tu conexión a internet e inténtalo de nuevo."
+        });
       }
-      
-      setSuccess(true);
-    } catch (err: unknown) {
-      // Reemplazamos el "any" por una validación estricta de TypeScript
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Ocurrió un error al conectar con el servidor.");
-      }
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
+  // =====================================================================
+  // 3. INTERFAZ DE USUARIO (UI)
+  // =====================================================================
   return (
-    <div className="admin-auth-b2b min-h-screen flex flex-col justify-center items-center bg-[#F8FAFC] dark:bg-[#000000] p-4 transition-colors">
-      
-      <div className="b2b-surface w-full max-w-[420px] rounded-2xl p-8 sm:p-10 transition-colors">
-        
+    // 🔥 Cambiado a min-h-[100dvh]
+    <div className="min-h-[100dvh] flex flex-col justify-center items-center bg-[#F8FAFC] p-4 transition-colors">
+      <div className="w-full max-w-[420px] rounded-2xl p-8 sm:p-10 shadow-sm border border-slate-200 bg-white">
+
         {/* LOGO Y TÍTULO */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-500 mb-4 border border-blue-100 dark:border-blue-900/50">
-            <KeyRound size={28} strokeWidth={2.5} />
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <Link href="/" className="mb-5 block hover:opacity-90 transition-opacity cursor-pointer">
+            <Image src="/logo.png" alt="Logo Networks Perú" width={180} height={50} className="h-10 w-auto object-contain" priority />
+          </Link>
+          <h1 className="text-2xl font-semibold text-slate-900 tracking-tight">
             Recuperar Acceso
           </h1>
-          <p className="text-sm font-medium text-slate-500 dark:text-neutral-400 mt-2 leading-relaxed">
-            {success 
-              ? "Revisa tu bandeja de entrada" 
-              : "Ingresa tu correo corporativo y te enviaremos instrucciones."}
+          <p className="text-sm font-medium text-slate-500 mt-2 leading-relaxed">
+            {success ? "Revisa tu bandeja de entrada" : "Te enviaremos un enlace de recuperación."}
           </p>
         </div>
 
-        {/* PANTALLA DE ÉXITO */}
+        {/* PANTALLA DE ÉXITO MINIMALISTA */}
         {success ? (
-          <div className="space-y-6 animate-in fade-in zoom-in duration-500">
-            <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl flex flex-col items-center text-center gap-3">
-              <CheckCircle2 size={32} className="text-emerald-600 dark:text-emerald-400" />
-              <p className="text-sm text-emerald-800 dark:text-emerald-300 font-medium leading-relaxed">
-                Hemos enviado un enlace de recuperación seguro a:<br/>
-                <span className="font-bold">{email}</span>
+          <div className="flex flex-col items-center text-center space-y-6 animate-in fade-in zoom-in duration-500 mt-2">
+            <CheckCircle2 size={48} className="text-emerald-500" />
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-slate-900">Correo Enviado</h3>
+              <p className="text-sm text-slate-500 leading-relaxed px-4">
+                Enviamos un enlace de recuperación a:<br />
+                <span className="font-semibold text-slate-800 mt-1 inline-block">{getValues('email')}</span>
               </p>
             </div>
-            <Link href="/admin/login" className="w-full flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-3.5 rounded-xl transition-all shadow-lg hover:opacity-90 active:scale-[0.98]">
-              Volver al Login
-            </Link>
+            {/* ENLACE TEXTUAL MINIMALISTA */}
+            <div className="pt-4 text-center w-full">
+              <Link href="/admin/login" className="group inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors cursor-pointer">
+                <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" /> Volver al login
+              </Link>
+            </div>
           </div>
         ) : (
           /* FORMULARIO DE RECUPERACIÓN */
-          <form onSubmit={handleRecover} className="space-y-5 animate-in fade-in duration-300">
-            
-            {error && (
-              <div className="p-3.5 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 rounded-xl flex items-start gap-2.5 text-rose-600 dark:text-rose-400 text-sm font-bold">
-                <AlertCircle size={18} className="shrink-0 mt-0.5" />
-                <p className="leading-tight">{error}</p>
-              </div>
-            )}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 animate-in fade-in duration-300">
+
+            {/* 🗑️ Eliminado el bloque estático de errorGlobal */}
 
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-widest ml-1">Correo Electrónico</label>
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest ml-1">
+                Correo Electrónico
+              </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-neutral-500">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
                   <Mail size={18} />
                 </div>
-                <input 
-                  type="email" 
-                  required 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ejemplo@networksperu.com" 
-                  className="w-full bg-slate-50 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 py-3.5 pl-11 pr-4 rounded-xl text-sm outline-none focus:bg-white dark:focus:bg-neutral-900 focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-neutral-600"
+                <input
+                  {...register('email')}
+                  disabled={isPending}
+                  aria-invalid={!!errors.email} // 👈 Accesibilidad
+                  placeholder="ejemplo@networksperu.com"
+                  className={`w-full bg-slate-50 border ${errors.email ? 'border-rose-500' : 'border-slate-200'} py-3.5 pl-11 pr-4 rounded-xl text-sm outline-none focus:bg-white focus:border-blue-500 transition-all text-slate-900 placeholder:text-slate-400`}
                 />
               </div>
+              {errors.email && <p className="text-rose-500 text-xs font-semibold ml-1 animate-in fade-in">{errors.email.message}</p>}
             </div>
 
-            <button 
-              type="submit" 
-              disabled={loading || !email}
-              className="b2b-primary w-full flex items-center justify-center gap-2 py-3.5 rounded-md transition-colors active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <Loader2 size={18} className="animate-spin" />
-              ) : (
-                'Enviar código de acceso'
-              )}
+            <button type="submit" disabled={isPending || !isValid} className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl transition-all duration-300 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold cursor-pointer hover:shadow-lg hover:shadow-blue-600/20">
+              {isPending ? <Loader2 size={18} className="animate-spin" /> : 'Enviar código de acceso'}
             </button>
-            
-            <div className="pt-4 text-center">
-              <Link href="/admin/login" className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-500 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                <ArrowLeft size={16} /> Volver atrás
+
+            {/* 🔥 Enlace "Volver" unificado con la animación group-hover y centrado perfecto */}
+            <div className="pt-4 text-center w-full">
+              <Link href="/admin/login" className="group inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors cursor-pointer">
+                <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" /> Volver al login
               </Link>
             </div>
           </form>

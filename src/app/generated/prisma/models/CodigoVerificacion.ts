@@ -158,7 +158,7 @@ export type CodigoVerificacionGroupByOutputType = {
   _max: CodigoVerificacionMaxAggregateOutputType | null
 }
 
-type GetCodigoVerificacionGroupByPayload<T extends CodigoVerificacionGroupByArgs> = Prisma.PrismaPromise<
+export type GetCodigoVerificacionGroupByPayload<T extends CodigoVerificacionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CodigoVerificacionGroupByOutputType, T['by']> &
       {

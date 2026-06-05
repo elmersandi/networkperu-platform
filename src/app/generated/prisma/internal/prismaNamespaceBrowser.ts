@@ -54,11 +54,10 @@ export const ModelName = {
   Usuario: 'Usuario',
   CodigoVerificacion: 'CodigoVerificacion',
   Categoria: 'Categoria',
+  Subcategoria: 'Subcategoria',
   Producto: 'Producto',
-  Pedido: 'Pedido',
   Servicio: 'Servicio',
-  Prospecto: 'Prospecto',
-  Notificacion: 'Notificacion'
+  ConfiguracionWeb: 'ConfiguracionWeb'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,24 +78,14 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UsuarioScalarFieldEnum = {
   id: 'id',
-  dni: 'dni',
-  nombre: 'nombre',
   email: 'email',
-  telefono: 'telefono',
   password: 'password',
-  rol: 'rol',
+  nombre: 'nombre',
   imagen: 'imagen',
-  portada: 'portada',
-  bio: 'bio',
-  temaOscuro: 'temaOscuro',
-  recibirEmail: 'recibirEmail',
-  recibirWA: 'recibirWA',
-  isVerificado: 'isVerificado',
-  estadoAcceso: 'estadoAcceso',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   resetToken: 'resetToken',
-  resetTokenExpiry: 'resetTokenExpiry'
+  resetTokenExpiry: 'resetTokenExpiry',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
@@ -117,6 +106,7 @@ export const CategoriaScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   slug: 'slug',
+  tipo: 'tipo',
   descripcion: 'descripcion',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -125,20 +115,28 @@ export const CategoriaScalarFieldEnum = {
 export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
 
 
+export const SubcategoriaScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  slug: 'slug',
+  categoriaId: 'categoriaId'
+} as const
+
+export type SubcategoriaScalarFieldEnum = (typeof SubcategoriaScalarFieldEnum)[keyof typeof SubcategoriaScalarFieldEnum]
+
+
 export const ProductoScalarFieldEnum = {
   id: 'id',
   sku: 'sku',
   nombre: 'nombre',
   slug: 'slug',
-  modelo: 'modelo',
   descripcion: 'descripcion',
-  marca: 'marca',
   precio: 'precio',
   stock: 'stock',
   imagenPrincipal: 'imagenPrincipal',
   galeria: 'galeria',
   isActivo: 'isActivo',
-  categoriaId: 'categoriaId',
+  subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -146,29 +144,17 @@ export const ProductoScalarFieldEnum = {
 export type ProductoScalarFieldEnum = (typeof ProductoScalarFieldEnum)[keyof typeof ProductoScalarFieldEnum]
 
 
-export const PedidoScalarFieldEnum = {
-  id: 'id',
-  clienteNombre: 'clienteNombre',
-  telefonoWa: 'telefonoWa',
-  empresa: 'empresa',
-  total: 'total',
-  estado: 'estado',
-  detalles: 'detalles',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof PedidoScalarFieldEnum]
-
-
 export const ServicioScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   slug: 'slug',
   descripcion: 'descripcion',
+  precioBase: 'precioBase',
   portada: 'portada',
   galeria: 'galeria',
+  videoUrl: 'videoUrl',
   isActivo: 'isActivo',
+  subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -176,35 +162,37 @@ export const ServicioScalarFieldEnum = {
 export type ServicioScalarFieldEnum = (typeof ServicioScalarFieldEnum)[keyof typeof ServicioScalarFieldEnum]
 
 
-export const ProspectoScalarFieldEnum = {
+export const ConfiguracionWebScalarFieldEnum = {
   id: 'id',
-  nombre: 'nombre',
-  empresa: 'empresa',
+  nombreEmpresa: 'nombreEmpresa',
+  razonSocial: 'razonSocial',
   ruc: 'ruc',
-  email: 'email',
-  telefono: 'telefono',
-  requerimiento: 'requerimiento',
-  mensaje: 'mensaje',
-  estado: 'estado',
-  createdAt: 'createdAt',
+  tituloSitio: 'tituloSitio',
+  descripcionSeo: 'descripcionSeo',
+  faviconUrl: 'faviconUrl',
+  logoUrl: 'logoUrl',
+  whatsapp: 'whatsapp',
+  emailCotizacion: 'emailCotizacion',
+  emailPersonal: 'emailPersonal',
+  telefonoPrincipal: 'telefonoPrincipal',
+  telefonoSecundario: 'telefonoSecundario',
+  direccion: 'direccion',
+  horarioAtencion: 'horarioAtencion',
+  mapaUrl: 'mapaUrl',
+  facebook: 'facebook',
+  instagram: 'instagram',
+  linkedin: 'linkedin',
+  youtube: 'youtube',
+  tiktok: 'tiktok',
+  mision: 'mision',
+  vision: 'vision',
+  heroTitulo: 'heroTitulo',
+  heroSubtitulo: 'heroSubtitulo',
+  textoFooter: 'textoFooter',
   updatedAt: 'updatedAt'
 } as const
 
-export type ProspectoScalarFieldEnum = (typeof ProspectoScalarFieldEnum)[keyof typeof ProspectoScalarFieldEnum]
-
-
-export const NotificacionScalarFieldEnum = {
-  id: 'id',
-  usuarioId: 'usuarioId',
-  titulo: 'titulo',
-  mensaje: 'mensaje',
-  leido: 'leido',
-  tipo: 'tipo',
-  enlace: 'enlace',
-  createdAt: 'createdAt'
-} as const
-
-export type NotificacionScalarFieldEnum = (typeof NotificacionScalarFieldEnum)[keyof typeof NotificacionScalarFieldEnum]
+export type ConfiguracionWebScalarFieldEnum = (typeof ConfiguracionWebScalarFieldEnum)[keyof typeof ConfiguracionWebScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -213,13 +201,6 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -236,13 +217,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

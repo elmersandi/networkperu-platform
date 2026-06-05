@@ -1,186 +1,157 @@
-// 1. Configuración inicial
-generator client {
-  provider = "prisma-client"
-  output   = "../src/app/generated/prisma"
+// =====================================================================
+// 1. CONFIGURACIÓN PRINCIPAL
+// =====================================================================
+generator client { // Define el motor que generará el código para interactuar con la BD
+  provider = "prisma-client" // Usamos el cliente oficial de Prisma para JavaScript/TypeScript
+  output   = "../src/app/generated/prisma" // Ruta donde se guardará el cliente generado
 }
 
-datasource db {
-  provider = "postgresql"
-  // Tu config de base de datos
+datasource db { // Define a qué base de datos nos vamos a conectar
+  provider = "postgresql" // Indicamos que el motor de base de datos es PostgreSQL (Neon DB)
+  url      = env("DATABASE_URL") // Jala la URL de conexión segura desde tu archivo .env
 }
 
-// ==========================================
-// ENUMS (Listas de valores cerrados)
-// ==========================================
-enum Role {
-  ADMIN
-  VENDEDOR
-  SOPORTE
+// =====================================================================
+// 2. LISTAS FIJAS (ENUMS)
+// =====================================================================
+enum TipoCategoria { // Crea una lista de opciones estrictas para no equivocarnos al teclear
+  PRODUCTO  // Etiqueta para clasificar todo lo que sea hardware físico
+  SERVICIO  // Etiqueta para clasificar instalaciones, soporte o mano de obra
 }
 
-enum EstadoAcceso {
-  PENDIENTE
-  APROBADO
-  BLOQUEADO
+// =====================================================================
+// 3. MÓDULO DE AUTENTICACIÓN Y SEGURIDAD
+// =====================================================================
+model Usuario { // Define la tabla donde se guardan los administradores del panel
+  id               String    @id @default(cuid()) // Llave principal (ID) única, corta y segura
+  email            String    @unique // Correo corporativo (No permite correos duplicados)
+  password         String // Guarda la contraseña ya encriptada (nunca en texto plano)
+  nombre           String    @default("Administrador") // Nombre del admin, con valor por defecto
+  imagen           String? // Enlace a su foto de perfil (El signo '?' significa que es opcional)
+  resetToken       String?   @unique // Código encriptado temporal para recuperar la clave
+  resetTokenExpiry DateTime? // Fecha y hora exacta en la que el token dejará de funcionar
+  createdAt        DateTime  @default(now()) // Guarda automáticamente la fecha en que se registró
+  updatedAt        DateTime  @updatedAt // Se actualiza solo cada vez que modificas al usuario
 }
 
-enum EstadoProspecto {
-  NUEVO
-  CONTACTADO
-  COTIZADO
-  CERRADO
+model CodigoVerificacion { // Tabla temporal para los códigos OTP de 6 dígitos
+  id        String   @id @default(cuid()) // ID único del registro del código
+  email     String // Correo al que se le envió el código de seguridad
+  codigo    String // El número de 6 dígitos que el usuario debe escribir
+  expiraEn  DateTime // El minuto exacto en que el código se vuelve inservible
+  createdAt DateTime @default(now()) // Fecha y hora en que se generó este código
+
+  @@unique([email, codigo]) // Regla: Un mismo correo no puede tener el mismo código activo a la vez
+  @@index([email]) // Índice para encontrar y borrar rápidamente los códigos de un correo
 }
 
-enum EstadoPedido {
-  PENDIENTE
-  CONFIRMADO
-  CANCELADO
+// =====================================================================
+// 4. MÓDULO DE INVENTARIO Y CATÁLOGO
+// =====================================================================
+model Categoria { // Tabla de categorías principales (Padres)
+  id            String         @id @default(cuid()) // ID único de la categoría
+  nombre        String         @unique // Nombre visible (Ej: "Cámaras de Seguridad")
+  slug          String         @unique // Nombre en minúsculas y con guiones para la URL de la web
+  tipo          TipoCategoria // Selecciona si esta categoría pertenece a PRODUCTO o SERVICIO
+  descripcion   String? // Texto opcional para describir qué hay en esta categoría
+  subcategorias Subcategoria[] // Relación: Una categoría puede tener muchas subcategorías adentro
+  createdAt     DateTime       @default(now()) // Fecha de creación
+  updatedAt     DateTime       @updatedAt // Fecha de última edición
+
+  @@index([tipo]) // Índice para filtrar súper rápido entre "Solo Productos" o "Solo Servicios"
 }
 
-// ==========================================
-// MÓDULO DE SEGURIDAD Y PERFIL DE USUARIO
-// ==========================================
-model Usuario {
-  id            String       @id @default(cuid())
-  dni           String       @unique
-  nombre        String
-  email         String       @unique
-  telefono      String       
-  password      String       
-  rol           Role         @default(VENDEDOR)
+model Subcategoria { // Tabla de clasificaciones secundarias (Hijas)
+  id          String     @id @default(cuid()) // ID único de la subcategoría
+  nombre      String // Nombre visible (Ej: "Cámaras IP")
+  slug        String     @unique // Texto para la URL (Ej: "camaras-ip")
+  categoriaId String // ID de la Categoría Padre a la que pertenece
   
-  // --- NUEVOS CAMPOS PARA PERFIL Y PERSONALIZACIÓN ---
-  imagen        String?      // URL de la foto de perfil (avatar)
-  portada       String?      // URL de la foto de portada (estilo LinkedIn)
-  bio           String?      @db.Text // Descripción breve del cargo o persona
+  // Relación con protección: Impide borrar la Categoría Padre si aún tiene Subcategorías adentro
+  categoria   Categoria  @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
   
-  // --- PREFERENCIAS DE INTERFAZ Y ALERTAS ---
-  temaOscuro    Boolean      @default(false) // Control para el "Dark Mode"
-  recibirEmail  Boolean      @default(true)  // Alertas al correo
-  recibirWA     Boolean      @default(false) // Alertas por WhatsApp (futuro)
-  
-  // Controles de acceso
-  isVerificado  Boolean      @default(false) 
-  estadoAcceso  EstadoAcceso @default(PENDIENTE) 
-  
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  
-  // La recuperación de claves:
-  resetToken       String?   @unique // El código secreto que viaja en la URL
-  resetTokenExpiry DateTime?         // Fecha límite (ej: 1 hora para usar el código)
+  productos   Producto[] // Relación: Esta subcategoría contiene muchos productos
+  servicios   Servicio[] // Relación: Esta subcategoría contiene muchos servicios
 
-  // Relación con las notificaciones
-  notificaciones Notificacion[]
-
+  @@index([categoriaId]) // Índice para cargar al instante las subcategorías de un padre específico
 }
 
-// ==========================================
-// TABLA PARA CÓDIGOS OTP (Verificación y Recuperar Clave)
-// ==========================================
-model CodigoVerificacion {
-  id        String   @id @default(cuid())
-  email     String
-  codigo    String   
-  expiraEn  DateTime 
-  createdAt DateTime @default(now())
-
-  @@unique([email, codigo])
-}
-// ==========================================
-// MÓDULO DE INVENTARIO B2B (Hardware)
-// ==========================================
-model Categoria {
-  id          String     @id @default(cuid())
-  nombre      String     @unique
-  slug        String     @unique
-  descripcion String?
-  productos   Producto[] 
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-}
-
-model Producto {
-  id          String   @id @default(cuid())
-  sku         String   @unique 
-  nombre      String
-  slug        String    @unique
-  modelo      String?  
-  descripcion String   @db.Text
-  marca       String?
-  precio      Float    
-  stock       Int      @default(0)
-  imagenPrincipal String?  // Para la foto principal del catálogo
-  galeria         String[] // URLs para las demás fotos
-  isActivo    Boolean  @default(true) 
-
-  categoriaId String
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
-
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-// ==========================================
-// MÓDULO DE VENTAS DIRECTAS (Carrito -> WhatsApp)
-// ==========================================
-model Pedido {
-  id            String       @id @default(cuid())
-  clienteNombre String
-  telefonoWa    String       // Número de WhatsApp del cliente
-  empresa       String?      // Si es una compra B2B
-  total         Float        // Suma total a pagar
-  estado        EstadoPedido @default(PENDIENTE)
+model Producto { // Tabla del inventario físico (Equipos y Hardware)
+  id              String       @id @default(cuid()) // ID único en la base de datos
+  sku             String       @unique // Código de barras o identificador único comercial
+  nombre          String // Nombre del producto (Ej: "Router MikroTik...")
+  slug            String       @unique // URL amigable del producto
+  descripcion     String       @db.Text // Texto largo para la ficha técnica completa
+  precio          Float // Precio de venta con decimales
+  stock           Int          @default(0) // Cantidad de unidades disponibles en almacén
+  imagenPrincipal String? // Enlace a la foto de portada del producto
+  galeria         String[] // Lista (array) con enlaces a más fotos del producto
+  isActivo        Boolean      @default(true) // Switch para apagar o prender el producto en la web
+  subcategoriaId  String // ID de la subcategoría a la que pertenece
   
-  // Guardamos los items del carrito en un JSON para hacerlo rápido y flexible
-  // Estructura: [{ codigo: "SKU-1", nombre: "Camara", cantidad: 2, precio: 150 }]
-  detalles      Json         
+  // Relación con protección: Impide borrar la Subcategoría si hay productos asociados a ella
+  subcategoria    Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  
+  createdAt       DateTime     @default(now()) // Fecha en que ingresó al sistema
+  updatedAt       DateTime     @updatedAt // Fecha de su última actualización de precio o stock
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  @@index([nombre]) // Índice para que el buscador en tiempo real vuele al teclear el nombre
+  @@index([subcategoriaId, isActivo]) // Índice doble para filtrar catálogos de la web al instante
 }
 
-// ==========================================
-// MÓDULO DE SERVICIOS Y COTIZACIONES (Prospectos)
-// ==========================================
-model Servicio {
-  id          String   @id @default(cuid())
-  nombre      String
-  slug        String   @unique // Para URLs limpias como /servicios/fibra-optica
-  descripcion String   @db.Text
-  portada         String?  // Imagen principal del servicio
-  galeria         String[] // URLs para mostrar trabajos realizados
-  isActivo    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Servicio { // Tabla del catálogo de servicios (Mano de obra, instalaciones)
+  id              String       @id @default(cuid()) // ID único del servicio
+  nombre          String // Título del servicio (Ej: "Certificación de Fibra")
+  slug            String       @unique // URL amigable
+  descripcion     String       @db.Text // Detalles completos de qué incluye el trabajo
+  precioBase      Float // Tarifa mínima o precio "desde"
+  portada         String? // Imagen principal para publicitar el servicio
+  galeria         String[] // Lista de fotos de trabajos anteriores similares
+  videoUrl        String? // Link a un video explicativo en YouTube
+  isActivo        Boolean      @default(true) // Switch para mostrar/ocultar el servicio en la web
+  subcategoriaId  String // ID de la subcategoría de servicios
+  
+  // Relación con protección: Impide borrar clasificaciones en uso
+  subcategoria    Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  
+  createdAt       DateTime     @default(now()) // Fecha en que se creó el servicio
+  updatedAt       DateTime     @updatedAt // Fecha de última actualización
+
+  @@index([nombre]) // Índice rápido para el buscador del panel
+  @@index([subcategoriaId, isActivo]) // Índice rápido para cargar la grilla de la página web
 }
 
-model Prospecto {
-  id             String          @id @default(cuid())
-  nombre         String
-  empresa        String?         // Clave para negocios B2B
-  ruc            String?         
-  email          String
-  telefono       String
-  requerimiento  String          // Qué servicio le interesa
-  mensaje        String?         @db.Text
-  estado         EstadoProspecto @default(NUEVO) 
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-}
-
-model Notificacion {
-  id        String   @id @default(cuid())
-  usuarioId String
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+// =====================================================================
+// 5. MÓDULO DE CONFIGURACIÓN GLOBAL (Sitio Web)
+// =====================================================================
+model ConfiguracionWeb { // Tabla para controlar los textos y datos de contacto de la web pública
+  id                 String   @id @default("1") // Se fuerza siempre al ID "1" para tener una sola fila
   
-  titulo    String   // Ej: "Nueva Cotización de Empresa X"
-  mensaje   String   // Ej: "Revisa el panel para ver los detalles de los servicios solicitados."
-  leido     Boolean  @default(false)
+  nombreEmpresa      String // Nombre comercial corto
+  razonSocial        String? // Nombre legal completo para facturación
+  ruc                String? // Número de RUC de la empresa
+  tituloSitio        String // Título que sale en la pestaña del navegador web
+  descripcionSeo     String?  @db.Text // Texto oculto para que Google entienda de qué trata la web
+  faviconUrl         String? // Link al ícono chiquito de la pestaña
+  logoUrl            String? // Link al logo grande de la cabecera
+  whatsapp           String // Número de celular para el botón de WhatsApp
+  emailCotizacion    String // Correo donde llegan las solicitudes de clientes
+  emailPersonal      String? // Correo secundario o personal
+  telefonoPrincipal  String // Teléfono fijo o celular principal
+  telefonoSecundario String? // Teléfono alternativo opcional
+  direccion          String // Dirección física de la oficina
+  horarioAtencion    String? // Texto libre (Ej: Lunes a Viernes 9am - 6pm)
+  mapaUrl            String?  @db.Text // Código iframe para incrustar Google Maps
+  facebook           String? // Link al perfil de Facebook
+  instagram          String? // Link al perfil de Instagram
+  linkedin           String? // Link al perfil de LinkedIn
+  youtube            String? // Link al canal de YouTube
+  tiktok             String? // Link al perfil de TikTok
+  mision             String   @db.Text // Texto corporativo de Misión
+  vision             String   @db.Text // Texto corporativo de Visión
+  heroTitulo         String // Título principal gigante del banner de la web
+  heroSubtitulo      String // Texto debajo del título principal
+  textoFooter        String?  @db.Text // Mensaje de derechos reservados o frase en el pie de página
   
-  // Para saber de qué trata y a dónde enviar al usuario al hacer clic
-  tipo      String   // Ej: 'COTIZACION', 'VENTA', 'SOPORTE', 'SISTEMA'
-  enlace    String?  // Ej: '/admin/prospectos/123'
-  
-  createdAt DateTime @default(now())
+  updatedAt          DateTime @updatedAt // Registra cuándo se modificó la web por última vez
 }

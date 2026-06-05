@@ -7,8 +7,13 @@ export default withAuth({
   },
 });
 
-// Aquí le decimos al Guardián qué rutas debe proteger.
-// Protege TODO lo que empiece con /admin, EXCEPTO login, registro y recuperar clave.
+// =====================================================================
+// 🛡️ EL GUARDIÁN DE RUTAS (MATCHER OPTIMIZADO)
+// =====================================================================
+// Protege de forma ultra rápida todo lo que esté bajo /admin
+// EXCEPTO: login, registro, recuperar y restablecer (necesaria para el token de correo).
 export const config = {
-  matcher: ["/admin/((?!login|registro|recuperar).*)"],
+  matcher: [
+    "/admin/((?!login|registro|recuperar|restablecer).*)"
+  ],
 };

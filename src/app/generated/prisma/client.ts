@@ -57,27 +57,22 @@ export type CodigoVerificacion = Prisma.CodigoVerificacionModel
  */
 export type Categoria = Prisma.CategoriaModel
 /**
+ * Model Subcategoria
+ * 
+ */
+export type Subcategoria = Prisma.SubcategoriaModel
+/**
  * Model Producto
  * 
  */
 export type Producto = Prisma.ProductoModel
-/**
- * Model Pedido
- * 
- */
-export type Pedido = Prisma.PedidoModel
 /**
  * Model Servicio
  * 
  */
 export type Servicio = Prisma.ServicioModel
 /**
- * Model Prospecto
+ * Model ConfiguracionWeb
  * 
  */
-export type Prospecto = Prisma.ProspectoModel
-/**
- * Model Notificacion
- * 
- */
-export type Notificacion = Prisma.NotificacionModel
+export type ConfiguracionWeb = Prisma.ConfiguracionWebModel

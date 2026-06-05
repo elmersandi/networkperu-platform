@@ -26,136 +26,76 @@ export type AggregateUsuario = {
 
 export type UsuarioMinAggregateOutputType = {
   id: string | null
-  dni: string | null
-  nombre: string | null
   email: string | null
-  telefono: string | null
   password: string | null
-  rol: $Enums.Role | null
+  nombre: string | null
   imagen: string | null
-  portada: string | null
-  bio: string | null
-  temaOscuro: boolean | null
-  recibirEmail: boolean | null
-  recibirWA: boolean | null
-  isVerificado: boolean | null
-  estadoAcceso: $Enums.EstadoAcceso | null
-  createdAt: Date | null
-  updatedAt: Date | null
   resetToken: string | null
   resetTokenExpiry: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UsuarioMaxAggregateOutputType = {
   id: string | null
-  dni: string | null
-  nombre: string | null
   email: string | null
-  telefono: string | null
   password: string | null
-  rol: $Enums.Role | null
+  nombre: string | null
   imagen: string | null
-  portada: string | null
-  bio: string | null
-  temaOscuro: boolean | null
-  recibirEmail: boolean | null
-  recibirWA: boolean | null
-  isVerificado: boolean | null
-  estadoAcceso: $Enums.EstadoAcceso | null
-  createdAt: Date | null
-  updatedAt: Date | null
   resetToken: string | null
   resetTokenExpiry: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UsuarioCountAggregateOutputType = {
   id: number
-  dni: number
-  nombre: number
   email: number
-  telefono: number
   password: number
-  rol: number
+  nombre: number
   imagen: number
-  portada: number
-  bio: number
-  temaOscuro: number
-  recibirEmail: number
-  recibirWA: number
-  isVerificado: number
-  estadoAcceso: number
-  createdAt: number
-  updatedAt: number
   resetToken: number
   resetTokenExpiry: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type UsuarioMinAggregateInputType = {
   id?: true
-  dni?: true
-  nombre?: true
   email?: true
-  telefono?: true
   password?: true
-  rol?: true
+  nombre?: true
   imagen?: true
-  portada?: true
-  bio?: true
-  temaOscuro?: true
-  recibirEmail?: true
-  recibirWA?: true
-  isVerificado?: true
-  estadoAcceso?: true
-  createdAt?: true
-  updatedAt?: true
   resetToken?: true
   resetTokenExpiry?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UsuarioMaxAggregateInputType = {
   id?: true
-  dni?: true
-  nombre?: true
   email?: true
-  telefono?: true
   password?: true
-  rol?: true
+  nombre?: true
   imagen?: true
-  portada?: true
-  bio?: true
-  temaOscuro?: true
-  recibirEmail?: true
-  recibirWA?: true
-  isVerificado?: true
-  estadoAcceso?: true
-  createdAt?: true
-  updatedAt?: true
   resetToken?: true
   resetTokenExpiry?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UsuarioCountAggregateInputType = {
   id?: true
-  dni?: true
-  nombre?: true
   email?: true
-  telefono?: true
   password?: true
-  rol?: true
+  nombre?: true
   imagen?: true
-  portada?: true
-  bio?: true
-  temaOscuro?: true
-  recibirEmail?: true
-  recibirWA?: true
-  isVerificado?: true
-  estadoAcceso?: true
-  createdAt?: true
-  updatedAt?: true
   resetToken?: true
   resetTokenExpiry?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -233,30 +173,20 @@ export type UsuarioGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type UsuarioGroupByOutputType = {
   id: string
-  dni: string
-  nombre: string
   email: string
-  telefono: string
   password: string
-  rol: $Enums.Role
+  nombre: string
   imagen: string | null
-  portada: string | null
-  bio: string | null
-  temaOscuro: boolean
-  recibirEmail: boolean
-  recibirWA: boolean
-  isVerificado: boolean
-  estadoAcceso: $Enums.EstadoAcceso
-  createdAt: Date
-  updatedAt: Date
   resetToken: string | null
   resetTokenExpiry: Date | null
+  createdAt: Date
+  updatedAt: Date
   _count: UsuarioCountAggregateOutputType | null
   _min: UsuarioMinAggregateOutputType | null
   _max: UsuarioMaxAggregateOutputType | null
 }
 
-type GetUsuarioGroupByPayload<T extends UsuarioGroupByArgs> = Prisma.PrismaPromise<
+export type GetUsuarioGroupByPayload<T extends UsuarioGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UsuarioGroupByOutputType, T['by']> &
       {
@@ -276,96 +206,53 @@ export type UsuarioWhereInput = {
   OR?: Prisma.UsuarioWhereInput[]
   NOT?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
   id?: Prisma.StringFilter<"Usuario"> | string
-  dni?: Prisma.StringFilter<"Usuario"> | string
-  nombre?: Prisma.StringFilter<"Usuario"> | string
   email?: Prisma.StringFilter<"Usuario"> | string
-  telefono?: Prisma.StringFilter<"Usuario"> | string
   password?: Prisma.StringFilter<"Usuario"> | string
-  rol?: Prisma.EnumRoleFilter<"Usuario"> | $Enums.Role
+  nombre?: Prisma.StringFilter<"Usuario"> | string
   imagen?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  portada?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  bio?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  temaOscuro?: Prisma.BoolFilter<"Usuario"> | boolean
-  recibirEmail?: Prisma.BoolFilter<"Usuario"> | boolean
-  recibirWA?: Prisma.BoolFilter<"Usuario"> | boolean
-  isVerificado?: Prisma.BoolFilter<"Usuario"> | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFilter<"Usuario"> | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   resetToken?: Prisma.StringNullableFilter<"Usuario"> | string | null
   resetTokenExpiry?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
-  notificaciones?: Prisma.NotificacionListRelationFilter
+  createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
 }
 
 export type UsuarioOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  dni?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  telefono?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  rol?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
   imagen?: Prisma.SortOrderInput | Prisma.SortOrder
-  portada?: Prisma.SortOrderInput | Prisma.SortOrder
-  bio?: Prisma.SortOrderInput | Prisma.SortOrder
-  temaOscuro?: Prisma.SortOrder
-  recibirEmail?: Prisma.SortOrder
-  recibirWA?: Prisma.SortOrder
-  isVerificado?: Prisma.SortOrder
-  estadoAcceso?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   resetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
-  notificaciones?: Prisma.NotificacionOrderByRelationAggregateInput
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  dni?: string
   email?: string
   resetToken?: string
   AND?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
   OR?: Prisma.UsuarioWhereInput[]
   NOT?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
-  nombre?: Prisma.StringFilter<"Usuario"> | string
-  telefono?: Prisma.StringFilter<"Usuario"> | string
   password?: Prisma.StringFilter<"Usuario"> | string
-  rol?: Prisma.EnumRoleFilter<"Usuario"> | $Enums.Role
+  nombre?: Prisma.StringFilter<"Usuario"> | string
   imagen?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  portada?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  bio?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  temaOscuro?: Prisma.BoolFilter<"Usuario"> | boolean
-  recibirEmail?: Prisma.BoolFilter<"Usuario"> | boolean
-  recibirWA?: Prisma.BoolFilter<"Usuario"> | boolean
-  isVerificado?: Prisma.BoolFilter<"Usuario"> | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFilter<"Usuario"> | $Enums.EstadoAcceso
+  resetTokenExpiry?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
-  resetTokenExpiry?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
-  notificaciones?: Prisma.NotificacionListRelationFilter
-}, "id" | "dni" | "email" | "resetToken">
+}, "id" | "email" | "resetToken">
 
 export type UsuarioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  dni?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  telefono?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  rol?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
   imagen?: Prisma.SortOrderInput | Prisma.SortOrder
-  portada?: Prisma.SortOrderInput | Prisma.SortOrder
-  bio?: Prisma.SortOrderInput | Prisma.SortOrder
-  temaOscuro?: Prisma.SortOrder
-  recibirEmail?: Prisma.SortOrder
-  recibirWA?: Prisma.SortOrder
-  isVerificado?: Prisma.SortOrder
-  estadoAcceso?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   resetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UsuarioCountOrderByAggregateInput
   _max?: Prisma.UsuarioMaxOrderByAggregateInput
   _min?: Prisma.UsuarioMinOrderByAggregateInput
@@ -376,555 +263,217 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   OR?: Prisma.UsuarioScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UsuarioScalarWhereWithAggregatesInput | Prisma.UsuarioScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
-  dni?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
-  nombre?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   email?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
-  telefono?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   password?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
-  rol?: Prisma.EnumRoleWithAggregatesFilter<"Usuario"> | $Enums.Role
+  nombre?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   imagen?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
-  portada?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
-  bio?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
-  temaOscuro?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
-  recibirEmail?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
-  recibirWA?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
-  isVerificado?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoWithAggregatesFilter<"Usuario"> | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   resetToken?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   resetTokenExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"Usuario"> | Date | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
 }
 
 export type UsuarioCreateInput = {
   id?: string
-  dni: string
-  nombre: string
   email: string
-  telefono: string
   password: string
-  rol?: $Enums.Role
+  nombre?: string
   imagen?: string | null
-  portada?: string | null
-  bio?: string | null
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: $Enums.EstadoAcceso
-  createdAt?: Date | string
-  updatedAt?: Date | string
   resetToken?: string | null
   resetTokenExpiry?: Date | string | null
-  notificaciones?: Prisma.NotificacionCreateNestedManyWithoutUsuarioInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UsuarioUncheckedCreateInput = {
   id?: string
-  dni: string
-  nombre: string
   email: string
-  telefono: string
   password: string
-  rol?: $Enums.Role
+  nombre?: string
   imagen?: string | null
-  portada?: string | null
-  bio?: string | null
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: $Enums.EstadoAcceso
-  createdAt?: Date | string
-  updatedAt?: Date | string
   resetToken?: string | null
   resetTokenExpiry?: Date | string | null
-  notificaciones?: Prisma.NotificacionUncheckedCreateNestedManyWithoutUsuarioInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UsuarioUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  notificaciones?: Prisma.NotificacionUpdateManyWithoutUsuarioNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UsuarioUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  notificaciones?: Prisma.NotificacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UsuarioCreateManyInput = {
   id?: string
-  dni: string
-  nombre: string
   email: string
-  telefono: string
   password: string
-  rol?: $Enums.Role
+  nombre?: string
   imagen?: string | null
-  portada?: string | null
-  bio?: string | null
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: $Enums.EstadoAcceso
-  createdAt?: Date | string
-  updatedAt?: Date | string
   resetToken?: string | null
   resetTokenExpiry?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UsuarioUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UsuarioUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
   imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UsuarioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  dni?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  telefono?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  rol?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
   imagen?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
-  bio?: Prisma.SortOrder
-  temaOscuro?: Prisma.SortOrder
-  recibirEmail?: Prisma.SortOrder
-  recibirWA?: Prisma.SortOrder
-  isVerificado?: Prisma.SortOrder
-  estadoAcceso?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiry?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UsuarioMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  dni?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  telefono?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  rol?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
   imagen?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
-  bio?: Prisma.SortOrder
-  temaOscuro?: Prisma.SortOrder
-  recibirEmail?: Prisma.SortOrder
-  recibirWA?: Prisma.SortOrder
-  isVerificado?: Prisma.SortOrder
-  estadoAcceso?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiry?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UsuarioMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  dni?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  telefono?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  rol?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
   imagen?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
-  bio?: Prisma.SortOrder
-  temaOscuro?: Prisma.SortOrder
-  recibirEmail?: Prisma.SortOrder
-  recibirWA?: Prisma.SortOrder
-  isVerificado?: Prisma.SortOrder
-  estadoAcceso?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiry?: Prisma.SortOrder
-}
-
-export type UsuarioScalarRelationFilter = {
-  is?: Prisma.UsuarioWhereInput
-  isNot?: Prisma.UsuarioWhereInput
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type EnumRoleFieldUpdateOperationsInput = {
-  set?: $Enums.Role
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type EnumEstadoAccesoFieldUpdateOperationsInput = {
-  set?: $Enums.EstadoAcceso
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type UsuarioCreateNestedOneWithoutNotificacionesInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutNotificacionesInput, Prisma.UsuarioUncheckedCreateWithoutNotificacionesInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutNotificacionesInput
-  connect?: Prisma.UsuarioWhereUniqueInput
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
-export type UsuarioUpdateOneRequiredWithoutNotificacionesNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutNotificacionesInput, Prisma.UsuarioUncheckedCreateWithoutNotificacionesInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutNotificacionesInput
-  upsert?: Prisma.UsuarioUpsertWithoutNotificacionesInput
-  connect?: Prisma.UsuarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutNotificacionesInput, Prisma.UsuarioUpdateWithoutNotificacionesInput>, Prisma.UsuarioUncheckedUpdateWithoutNotificacionesInput>
-}
-
-export type UsuarioCreateWithoutNotificacionesInput = {
-  id?: string
-  dni: string
-  nombre: string
-  email: string
-  telefono: string
-  password: string
-  rol?: $Enums.Role
-  imagen?: string | null
-  portada?: string | null
-  bio?: string | null
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: $Enums.EstadoAcceso
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  resetToken?: string | null
-  resetTokenExpiry?: Date | string | null
-}
-
-export type UsuarioUncheckedCreateWithoutNotificacionesInput = {
-  id?: string
-  dni: string
-  nombre: string
-  email: string
-  telefono: string
-  password: string
-  rol?: $Enums.Role
-  imagen?: string | null
-  portada?: string | null
-  bio?: string | null
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: $Enums.EstadoAcceso
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  resetToken?: string | null
-  resetTokenExpiry?: Date | string | null
-}
-
-export type UsuarioCreateOrConnectWithoutNotificacionesInput = {
-  where: Prisma.UsuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutNotificacionesInput, Prisma.UsuarioUncheckedCreateWithoutNotificacionesInput>
-}
-
-export type UsuarioUpsertWithoutNotificacionesInput = {
-  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutNotificacionesInput, Prisma.UsuarioUncheckedUpdateWithoutNotificacionesInput>
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutNotificacionesInput, Prisma.UsuarioUncheckedCreateWithoutNotificacionesInput>
-  where?: Prisma.UsuarioWhereInput
-}
-
-export type UsuarioUpdateToOneWithWhereWithoutNotificacionesInput = {
-  where?: Prisma.UsuarioWhereInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutNotificacionesInput, Prisma.UsuarioUncheckedUpdateWithoutNotificacionesInput>
-}
-
-export type UsuarioUpdateWithoutNotificacionesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type UsuarioUncheckedUpdateWithoutNotificacionesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dni?: Prisma.StringFieldUpdateOperationsInput | string
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  rol?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  imagen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  temaOscuro?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  recibirWA?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isVerificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  estadoAcceso?: Prisma.EnumEstadoAccesoFieldUpdateOperationsInput | $Enums.EstadoAcceso
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resetTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-
-/**
- * Count Type UsuarioCountOutputType
- */
-
-export type UsuarioCountOutputType = {
-  notificaciones: number
-}
-
-export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  notificaciones?: boolean | UsuarioCountOutputTypeCountNotificacionesArgs
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UsuarioCountOutputType
-   */
-  select?: Prisma.UsuarioCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountNotificacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.NotificacionWhereInput
-}
 
 
 export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  dni?: boolean
-  nombre?: boolean
   email?: boolean
-  telefono?: boolean
   password?: boolean
-  rol?: boolean
+  nombre?: boolean
   imagen?: boolean
-  portada?: boolean
-  bio?: boolean
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   resetToken?: boolean
   resetTokenExpiry?: boolean
-  notificaciones?: boolean | Prisma.Usuario$notificacionesArgs<ExtArgs>
-  _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  dni?: boolean
-  nombre?: boolean
   email?: boolean
-  telefono?: boolean
   password?: boolean
-  rol?: boolean
+  nombre?: boolean
   imagen?: boolean
-  portada?: boolean
-  bio?: boolean
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   resetToken?: boolean
   resetTokenExpiry?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  dni?: boolean
-  nombre?: boolean
   email?: boolean
-  telefono?: boolean
   password?: boolean
-  rol?: boolean
+  nombre?: boolean
   imagen?: boolean
-  portada?: boolean
-  bio?: boolean
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   resetToken?: boolean
   resetTokenExpiry?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectScalar = {
   id?: boolean
-  dni?: boolean
-  nombre?: boolean
   email?: boolean
-  telefono?: boolean
   password?: boolean
-  rol?: boolean
+  nombre?: boolean
   imagen?: boolean
-  portada?: boolean
-  bio?: boolean
-  temaOscuro?: boolean
-  recibirEmail?: boolean
-  recibirWA?: boolean
-  isVerificado?: boolean
-  estadoAcceso?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   resetToken?: boolean
   resetTokenExpiry?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dni" | "nombre" | "email" | "telefono" | "password" | "rol" | "imagen" | "portada" | "bio" | "temaOscuro" | "recibirEmail" | "recibirWA" | "isVerificado" | "estadoAcceso" | "createdAt" | "updatedAt" | "resetToken" | "resetTokenExpiry", ExtArgs["result"]["usuario"]>
-export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  notificaciones?: boolean | Prisma.Usuario$notificacionesArgs<ExtArgs>
-  _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "nombre" | "imagen" | "resetToken" | "resetTokenExpiry" | "createdAt" | "updatedAt", ExtArgs["result"]["usuario"]>
 
 export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Usuario"
-  objects: {
-    notificaciones: Prisma.$NotificacionPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    dni: string
-    nombre: string
     email: string
-    telefono: string
     password: string
-    rol: $Enums.Role
+    nombre: string
     imagen: string | null
-    portada: string | null
-    bio: string | null
-    temaOscuro: boolean
-    recibirEmail: boolean
-    recibirWA: boolean
-    isVerificado: boolean
-    estadoAcceso: $Enums.EstadoAcceso
-    createdAt: Date
-    updatedAt: Date
     resetToken: string | null
     resetTokenExpiry: Date | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["usuario"]>
   composites: {}
 }
@@ -1319,7 +868,6 @@ readonly fields: UsuarioFieldRefs;
  */
 export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  notificaciones<T extends Prisma.Usuario$notificacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$notificacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1350,24 +898,14 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface UsuarioFieldRefs {
   readonly id: Prisma.FieldRef<"Usuario", 'String'>
-  readonly dni: Prisma.FieldRef<"Usuario", 'String'>
-  readonly nombre: Prisma.FieldRef<"Usuario", 'String'>
   readonly email: Prisma.FieldRef<"Usuario", 'String'>
-  readonly telefono: Prisma.FieldRef<"Usuario", 'String'>
   readonly password: Prisma.FieldRef<"Usuario", 'String'>
-  readonly rol: Prisma.FieldRef<"Usuario", 'Role'>
+  readonly nombre: Prisma.FieldRef<"Usuario", 'String'>
   readonly imagen: Prisma.FieldRef<"Usuario", 'String'>
-  readonly portada: Prisma.FieldRef<"Usuario", 'String'>
-  readonly bio: Prisma.FieldRef<"Usuario", 'String'>
-  readonly temaOscuro: Prisma.FieldRef<"Usuario", 'Boolean'>
-  readonly recibirEmail: Prisma.FieldRef<"Usuario", 'Boolean'>
-  readonly recibirWA: Prisma.FieldRef<"Usuario", 'Boolean'>
-  readonly isVerificado: Prisma.FieldRef<"Usuario", 'Boolean'>
-  readonly estadoAcceso: Prisma.FieldRef<"Usuario", 'EstadoAcceso'>
-  readonly createdAt: Prisma.FieldRef<"Usuario", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Usuario", 'DateTime'>
   readonly resetToken: Prisma.FieldRef<"Usuario", 'String'>
   readonly resetTokenExpiry: Prisma.FieldRef<"Usuario", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"Usuario", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Usuario", 'DateTime'>
 }
     
 
@@ -1384,10 +922,6 @@ export type UsuarioFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Usuario
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
   /**
    * Filter, which Usuario to fetch.
    */
@@ -1407,10 +941,6 @@ export type UsuarioFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  /**
    * Filter, which Usuario to fetch.
    */
   where: Prisma.UsuarioWhereUniqueInput
@@ -1428,10 +958,6 @@ export type UsuarioFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Usuario
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
   /**
    * Filter, which Usuario to fetch.
    */
@@ -1481,10 +1007,6 @@ export type UsuarioFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  /**
    * Filter, which Usuario to fetch.
    */
   where?: Prisma.UsuarioWhereInput
@@ -1532,10 +1054,6 @@ export type UsuarioFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Usuario
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
   /**
    * Filter, which Usuarios to fetch.
    */
@@ -1585,10 +1103,6 @@ export type UsuarioCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  /**
    * The data needed to create a Usuario.
    */
   data: Prisma.XOR<Prisma.UsuarioCreateInput, Prisma.UsuarioUncheckedCreateInput>
@@ -1636,10 +1150,6 @@ export type UsuarioUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Usuario
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
   /**
    * The data needed to update a Usuario.
    */
@@ -1707,10 +1217,6 @@ export type UsuarioUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  /**
    * The filter to search for the Usuario to update in case it exists.
    */
   where: Prisma.UsuarioWhereUniqueInput
@@ -1737,10 +1243,6 @@ export type UsuarioDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  /**
    * Filter which Usuario to delete.
    */
   where: Prisma.UsuarioWhereUniqueInput
@@ -1761,30 +1263,6 @@ export type UsuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Usuario.notificaciones
- */
-export type Usuario$notificacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Notificacion
-   */
-  select?: Prisma.NotificacionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Notificacion
-   */
-  omit?: Prisma.NotificacionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.NotificacionInclude<ExtArgs> | null
-  where?: Prisma.NotificacionWhereInput
-  orderBy?: Prisma.NotificacionOrderByWithRelationInput | Prisma.NotificacionOrderByWithRelationInput[]
-  cursor?: Prisma.NotificacionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.NotificacionScalarFieldEnum | Prisma.NotificacionScalarFieldEnum[]
-}
-
-/**
  * Usuario without action
  */
 export type UsuarioDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1796,8 +1274,4 @@ export type UsuarioDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Usuario
    */
   omit?: Prisma.UsuarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
 }
