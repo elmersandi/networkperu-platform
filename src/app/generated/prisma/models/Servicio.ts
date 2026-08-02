@@ -27,22 +27,25 @@ export type AggregateServicio = {
 }
 
 export type ServicioAvgAggregateOutputType = {
-  precioBase: number | null
+  precio: number | null
 }
 
 export type ServicioSumAggregateOutputType = {
-  precioBase: number | null
+  precio: number | null
 }
 
 export type ServicioMinAggregateOutputType = {
   id: string | null
+  sku: string | null
   nombre: string | null
   slug: string | null
+  descripcionCorta: string | null
   descripcion: string | null
-  precioBase: number | null
-  portada: string | null
+  precio: number | null
+  imagenPrincipal: string | null
   videoUrl: string | null
   isActivo: boolean | null
+  categoriaId: string | null
   subcategoriaId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,13 +53,16 @@ export type ServicioMinAggregateOutputType = {
 
 export type ServicioMaxAggregateOutputType = {
   id: string | null
+  sku: string | null
   nombre: string | null
   slug: string | null
+  descripcionCorta: string | null
   descripcion: string | null
-  precioBase: number | null
-  portada: string | null
+  precio: number | null
+  imagenPrincipal: string | null
   videoUrl: string | null
   isActivo: boolean | null
+  categoriaId: string | null
   subcategoriaId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,14 +70,17 @@ export type ServicioMaxAggregateOutputType = {
 
 export type ServicioCountAggregateOutputType = {
   id: number
+  sku: number
   nombre: number
   slug: number
+  descripcionCorta: number
   descripcion: number
-  precioBase: number
-  portada: number
+  precio: number
+  imagenPrincipal: number
   galeria: number
   videoUrl: number
   isActivo: number
+  categoriaId: number
   subcategoriaId: number
   createdAt: number
   updatedAt: number
@@ -80,22 +89,25 @@ export type ServicioCountAggregateOutputType = {
 
 
 export type ServicioAvgAggregateInputType = {
-  precioBase?: true
+  precio?: true
 }
 
 export type ServicioSumAggregateInputType = {
-  precioBase?: true
+  precio?: true
 }
 
 export type ServicioMinAggregateInputType = {
   id?: true
+  sku?: true
   nombre?: true
   slug?: true
+  descripcionCorta?: true
   descripcion?: true
-  precioBase?: true
-  portada?: true
+  precio?: true
+  imagenPrincipal?: true
   videoUrl?: true
   isActivo?: true
+  categoriaId?: true
   subcategoriaId?: true
   createdAt?: true
   updatedAt?: true
@@ -103,13 +115,16 @@ export type ServicioMinAggregateInputType = {
 
 export type ServicioMaxAggregateInputType = {
   id?: true
+  sku?: true
   nombre?: true
   slug?: true
+  descripcionCorta?: true
   descripcion?: true
-  precioBase?: true
-  portada?: true
+  precio?: true
+  imagenPrincipal?: true
   videoUrl?: true
   isActivo?: true
+  categoriaId?: true
   subcategoriaId?: true
   createdAt?: true
   updatedAt?: true
@@ -117,14 +132,17 @@ export type ServicioMaxAggregateInputType = {
 
 export type ServicioCountAggregateInputType = {
   id?: true
+  sku?: true
   nombre?: true
   slug?: true
+  descripcionCorta?: true
   descripcion?: true
-  precioBase?: true
-  portada?: true
+  precio?: true
+  imagenPrincipal?: true
   galeria?: true
   videoUrl?: true
   isActivo?: true
+  categoriaId?: true
   subcategoriaId?: true
   createdAt?: true
   updatedAt?: true
@@ -219,14 +237,17 @@ export type ServicioGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type ServicioGroupByOutputType = {
   id: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada: string | null
+  precio: number
+  imagenPrincipal: string | null
   galeria: string[]
   videoUrl: string | null
   isActivo: boolean
+  categoriaId: string
   subcategoriaId: string
   createdAt: Date
   updatedAt: Date
@@ -257,65 +278,80 @@ export type ServicioWhereInput = {
   OR?: Prisma.ServicioWhereInput[]
   NOT?: Prisma.ServicioWhereInput | Prisma.ServicioWhereInput[]
   id?: Prisma.StringFilter<"Servicio"> | string
+  sku?: Prisma.StringFilter<"Servicio"> | string
   nombre?: Prisma.StringFilter<"Servicio"> | string
   slug?: Prisma.StringFilter<"Servicio"> | string
+  descripcionCorta?: Prisma.StringFilter<"Servicio"> | string
   descripcion?: Prisma.StringFilter<"Servicio"> | string
-  precioBase?: Prisma.FloatFilter<"Servicio"> | number
-  portada?: Prisma.StringNullableFilter<"Servicio"> | string | null
+  precio?: Prisma.FloatFilter<"Servicio"> | number
+  imagenPrincipal?: Prisma.StringNullableFilter<"Servicio"> | string | null
   galeria?: Prisma.StringNullableListFilter<"Servicio">
   videoUrl?: Prisma.StringNullableFilter<"Servicio"> | string | null
   isActivo?: Prisma.BoolFilter<"Servicio"> | boolean
+  categoriaId?: Prisma.StringFilter<"Servicio"> | string
   subcategoriaId?: Prisma.StringFilter<"Servicio"> | string
   createdAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   subcategoria?: Prisma.XOR<Prisma.SubcategoriaScalarRelationFilter, Prisma.SubcategoriaWhereInput>
 }
 
 export type ServicioOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  descripcionCorta?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  precioBase?: Prisma.SortOrder
-  portada?: Prisma.SortOrderInput | Prisma.SortOrder
+  precio?: Prisma.SortOrder
+  imagenPrincipal?: Prisma.SortOrderInput | Prisma.SortOrder
   galeria?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isActivo?: Prisma.SortOrder
+  categoriaId?: Prisma.SortOrder
   subcategoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  categoria?: Prisma.CategoriaOrderByWithRelationInput
   subcategoria?: Prisma.SubcategoriaOrderByWithRelationInput
 }
 
 export type ServicioWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  sku?: string
   slug?: string
   AND?: Prisma.ServicioWhereInput | Prisma.ServicioWhereInput[]
   OR?: Prisma.ServicioWhereInput[]
   NOT?: Prisma.ServicioWhereInput | Prisma.ServicioWhereInput[]
   nombre?: Prisma.StringFilter<"Servicio"> | string
+  descripcionCorta?: Prisma.StringFilter<"Servicio"> | string
   descripcion?: Prisma.StringFilter<"Servicio"> | string
-  precioBase?: Prisma.FloatFilter<"Servicio"> | number
-  portada?: Prisma.StringNullableFilter<"Servicio"> | string | null
+  precio?: Prisma.FloatFilter<"Servicio"> | number
+  imagenPrincipal?: Prisma.StringNullableFilter<"Servicio"> | string | null
   galeria?: Prisma.StringNullableListFilter<"Servicio">
   videoUrl?: Prisma.StringNullableFilter<"Servicio"> | string | null
   isActivo?: Prisma.BoolFilter<"Servicio"> | boolean
+  categoriaId?: Prisma.StringFilter<"Servicio"> | string
   subcategoriaId?: Prisma.StringFilter<"Servicio"> | string
   createdAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   subcategoria?: Prisma.XOR<Prisma.SubcategoriaScalarRelationFilter, Prisma.SubcategoriaWhereInput>
-}, "id" | "slug">
+}, "id" | "sku" | "slug">
 
 export type ServicioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  descripcionCorta?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  precioBase?: Prisma.SortOrder
-  portada?: Prisma.SortOrderInput | Prisma.SortOrder
+  precio?: Prisma.SortOrder
+  imagenPrincipal?: Prisma.SortOrderInput | Prisma.SortOrder
   galeria?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isActivo?: Prisma.SortOrder
+  categoriaId?: Prisma.SortOrder
   subcategoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -331,14 +367,17 @@ export type ServicioScalarWhereWithAggregatesInput = {
   OR?: Prisma.ServicioScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ServicioScalarWhereWithAggregatesInput | Prisma.ServicioScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
+  sku?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
   nombre?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
+  descripcionCorta?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
   descripcion?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
-  precioBase?: Prisma.FloatWithAggregatesFilter<"Servicio"> | number
-  portada?: Prisma.StringNullableWithAggregatesFilter<"Servicio"> | string | null
+  precio?: Prisma.FloatWithAggregatesFilter<"Servicio"> | number
+  imagenPrincipal?: Prisma.StringNullableWithAggregatesFilter<"Servicio"> | string | null
   galeria?: Prisma.StringNullableListFilter<"Servicio">
   videoUrl?: Prisma.StringNullableWithAggregatesFilter<"Servicio"> | string | null
   isActivo?: Prisma.BoolWithAggregatesFilter<"Servicio"> | boolean
+  categoriaId?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
   subcategoriaId?: Prisma.StringWithAggregatesFilter<"Servicio"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Servicio"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Servicio"> | Date | string
@@ -346,29 +385,35 @@ export type ServicioScalarWhereWithAggregatesInput = {
 
 export type ServicioCreateInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  categoria: Prisma.CategoriaCreateNestedOneWithoutServiciosInput
   subcategoria: Prisma.SubcategoriaCreateNestedOneWithoutServiciosInput
 }
 
 export type ServicioUncheckedCreateInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
+  categoriaId: string
   subcategoriaId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -376,29 +421,35 @@ export type ServicioUncheckedCreateInput = {
 
 export type ServicioUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutServiciosNestedInput
   subcategoria?: Prisma.SubcategoriaUpdateOneRequiredWithoutServiciosNestedInput
 }
 
 export type ServicioUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   subcategoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -406,14 +457,17 @@ export type ServicioUncheckedUpdateInput = {
 
 export type ServicioCreateManyInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
+  categoriaId: string
   subcategoriaId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -421,11 +475,13 @@ export type ServicioCreateManyInput = {
 
 export type ServicioUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -435,14 +491,17 @@ export type ServicioUpdateManyMutationInput = {
 
 export type ServicioUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   subcategoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -460,32 +519,38 @@ export type ServicioOrderByRelationAggregateInput = {
 
 export type ServicioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  descripcionCorta?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  precioBase?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
+  precio?: Prisma.SortOrder
+  imagenPrincipal?: Prisma.SortOrder
   galeria?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   isActivo?: Prisma.SortOrder
+  categoriaId?: Prisma.SortOrder
   subcategoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ServicioAvgOrderByAggregateInput = {
-  precioBase?: Prisma.SortOrder
+  precio?: Prisma.SortOrder
 }
 
 export type ServicioMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  descripcionCorta?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  precioBase?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
+  precio?: Prisma.SortOrder
+  imagenPrincipal?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   isActivo?: Prisma.SortOrder
+  categoriaId?: Prisma.SortOrder
   subcategoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -493,20 +558,65 @@ export type ServicioMaxOrderByAggregateInput = {
 
 export type ServicioMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  descripcionCorta?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  precioBase?: Prisma.SortOrder
-  portada?: Prisma.SortOrder
+  precio?: Prisma.SortOrder
+  imagenPrincipal?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   isActivo?: Prisma.SortOrder
+  categoriaId?: Prisma.SortOrder
   subcategoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ServicioSumOrderByAggregateInput = {
-  precioBase?: Prisma.SortOrder
+  precio?: Prisma.SortOrder
+}
+
+export type ServicioCreateNestedManyWithoutCategoriaInput = {
+  create?: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput> | Prisma.ServicioCreateWithoutCategoriaInput[] | Prisma.ServicioUncheckedCreateWithoutCategoriaInput[]
+  connectOrCreate?: Prisma.ServicioCreateOrConnectWithoutCategoriaInput | Prisma.ServicioCreateOrConnectWithoutCategoriaInput[]
+  createMany?: Prisma.ServicioCreateManyCategoriaInputEnvelope
+  connect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+}
+
+export type ServicioUncheckedCreateNestedManyWithoutCategoriaInput = {
+  create?: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput> | Prisma.ServicioCreateWithoutCategoriaInput[] | Prisma.ServicioUncheckedCreateWithoutCategoriaInput[]
+  connectOrCreate?: Prisma.ServicioCreateOrConnectWithoutCategoriaInput | Prisma.ServicioCreateOrConnectWithoutCategoriaInput[]
+  createMany?: Prisma.ServicioCreateManyCategoriaInputEnvelope
+  connect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+}
+
+export type ServicioUpdateManyWithoutCategoriaNestedInput = {
+  create?: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput> | Prisma.ServicioCreateWithoutCategoriaInput[] | Prisma.ServicioUncheckedCreateWithoutCategoriaInput[]
+  connectOrCreate?: Prisma.ServicioCreateOrConnectWithoutCategoriaInput | Prisma.ServicioCreateOrConnectWithoutCategoriaInput[]
+  upsert?: Prisma.ServicioUpsertWithWhereUniqueWithoutCategoriaInput | Prisma.ServicioUpsertWithWhereUniqueWithoutCategoriaInput[]
+  createMany?: Prisma.ServicioCreateManyCategoriaInputEnvelope
+  set?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  disconnect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  delete?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  connect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  update?: Prisma.ServicioUpdateWithWhereUniqueWithoutCategoriaInput | Prisma.ServicioUpdateWithWhereUniqueWithoutCategoriaInput[]
+  updateMany?: Prisma.ServicioUpdateManyWithWhereWithoutCategoriaInput | Prisma.ServicioUpdateManyWithWhereWithoutCategoriaInput[]
+  deleteMany?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
+}
+
+export type ServicioUncheckedUpdateManyWithoutCategoriaNestedInput = {
+  create?: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput> | Prisma.ServicioCreateWithoutCategoriaInput[] | Prisma.ServicioUncheckedCreateWithoutCategoriaInput[]
+  connectOrCreate?: Prisma.ServicioCreateOrConnectWithoutCategoriaInput | Prisma.ServicioCreateOrConnectWithoutCategoriaInput[]
+  upsert?: Prisma.ServicioUpsertWithWhereUniqueWithoutCategoriaInput | Prisma.ServicioUpsertWithWhereUniqueWithoutCategoriaInput[]
+  createMany?: Prisma.ServicioCreateManyCategoriaInputEnvelope
+  set?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  disconnect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  delete?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  connect?: Prisma.ServicioWhereUniqueInput | Prisma.ServicioWhereUniqueInput[]
+  update?: Prisma.ServicioUpdateWithWhereUniqueWithoutCategoriaInput | Prisma.ServicioUpdateWithWhereUniqueWithoutCategoriaInput[]
+  updateMany?: Prisma.ServicioUpdateManyWithWhereWithoutCategoriaInput | Prisma.ServicioUpdateManyWithWhereWithoutCategoriaInput[]
+  deleteMany?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
 }
 
 export type ServicioCreateNestedManyWithoutSubcategoriaInput = {
@@ -560,30 +670,117 @@ export type ServicioUpdategaleriaInput = {
   push?: string | string[]
 }
 
-export type ServicioCreateWithoutSubcategoriaInput = {
+export type ServicioCreateWithoutCategoriaInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  subcategoria: Prisma.SubcategoriaCreateNestedOneWithoutServiciosInput
+}
+
+export type ServicioUncheckedCreateWithoutCategoriaInput = {
+  id?: string
+  sku: string
+  nombre: string
+  slug: string
+  descripcionCorta: string
+  descripcion: string
+  precio: number
+  imagenPrincipal?: string | null
+  galeria?: Prisma.ServicioCreategaleriaInput | string[]
+  videoUrl?: string | null
+  isActivo?: boolean
+  subcategoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ServicioCreateOrConnectWithoutCategoriaInput = {
+  where: Prisma.ServicioWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput>
+}
+
+export type ServicioCreateManyCategoriaInputEnvelope = {
+  data: Prisma.ServicioCreateManyCategoriaInput | Prisma.ServicioCreateManyCategoriaInput[]
+  skipDuplicates?: boolean
+}
+
+export type ServicioUpsertWithWhereUniqueWithoutCategoriaInput = {
+  where: Prisma.ServicioWhereUniqueInput
+  update: Prisma.XOR<Prisma.ServicioUpdateWithoutCategoriaInput, Prisma.ServicioUncheckedUpdateWithoutCategoriaInput>
+  create: Prisma.XOR<Prisma.ServicioCreateWithoutCategoriaInput, Prisma.ServicioUncheckedCreateWithoutCategoriaInput>
+}
+
+export type ServicioUpdateWithWhereUniqueWithoutCategoriaInput = {
+  where: Prisma.ServicioWhereUniqueInput
+  data: Prisma.XOR<Prisma.ServicioUpdateWithoutCategoriaInput, Prisma.ServicioUncheckedUpdateWithoutCategoriaInput>
+}
+
+export type ServicioUpdateManyWithWhereWithoutCategoriaInput = {
+  where: Prisma.ServicioScalarWhereInput
+  data: Prisma.XOR<Prisma.ServicioUpdateManyMutationInput, Prisma.ServicioUncheckedUpdateManyWithoutCategoriaInput>
+}
+
+export type ServicioScalarWhereInput = {
+  AND?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
+  OR?: Prisma.ServicioScalarWhereInput[]
+  NOT?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
+  id?: Prisma.StringFilter<"Servicio"> | string
+  sku?: Prisma.StringFilter<"Servicio"> | string
+  nombre?: Prisma.StringFilter<"Servicio"> | string
+  slug?: Prisma.StringFilter<"Servicio"> | string
+  descripcionCorta?: Prisma.StringFilter<"Servicio"> | string
+  descripcion?: Prisma.StringFilter<"Servicio"> | string
+  precio?: Prisma.FloatFilter<"Servicio"> | number
+  imagenPrincipal?: Prisma.StringNullableFilter<"Servicio"> | string | null
+  galeria?: Prisma.StringNullableListFilter<"Servicio">
+  videoUrl?: Prisma.StringNullableFilter<"Servicio"> | string | null
+  isActivo?: Prisma.BoolFilter<"Servicio"> | boolean
+  categoriaId?: Prisma.StringFilter<"Servicio"> | string
+  subcategoriaId?: Prisma.StringFilter<"Servicio"> | string
+  createdAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
+}
+
+export type ServicioCreateWithoutSubcategoriaInput = {
+  id?: string
+  sku: string
+  nombre: string
+  slug: string
+  descripcionCorta: string
+  descripcion: string
+  precio: number
+  imagenPrincipal?: string | null
+  galeria?: Prisma.ServicioCreategaleriaInput | string[]
+  videoUrl?: string | null
+  isActivo?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categoria: Prisma.CategoriaCreateNestedOneWithoutServiciosInput
 }
 
 export type ServicioUncheckedCreateWithoutSubcategoriaInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
+  categoriaId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -614,76 +811,138 @@ export type ServicioUpdateManyWithWhereWithoutSubcategoriaInput = {
   data: Prisma.XOR<Prisma.ServicioUpdateManyMutationInput, Prisma.ServicioUncheckedUpdateManyWithoutSubcategoriaInput>
 }
 
-export type ServicioScalarWhereInput = {
-  AND?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
-  OR?: Prisma.ServicioScalarWhereInput[]
-  NOT?: Prisma.ServicioScalarWhereInput | Prisma.ServicioScalarWhereInput[]
-  id?: Prisma.StringFilter<"Servicio"> | string
-  nombre?: Prisma.StringFilter<"Servicio"> | string
-  slug?: Prisma.StringFilter<"Servicio"> | string
-  descripcion?: Prisma.StringFilter<"Servicio"> | string
-  precioBase?: Prisma.FloatFilter<"Servicio"> | number
-  portada?: Prisma.StringNullableFilter<"Servicio"> | string | null
-  galeria?: Prisma.StringNullableListFilter<"Servicio">
-  videoUrl?: Prisma.StringNullableFilter<"Servicio"> | string | null
-  isActivo?: Prisma.BoolFilter<"Servicio"> | boolean
-  subcategoriaId?: Prisma.StringFilter<"Servicio"> | string
-  createdAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Servicio"> | Date | string
+export type ServicioCreateManyCategoriaInput = {
+  id?: string
+  sku: string
+  nombre: string
+  slug: string
+  descripcionCorta: string
+  descripcion: string
+  precio: number
+  imagenPrincipal?: string | null
+  galeria?: Prisma.ServicioCreategaleriaInput | string[]
+  videoUrl?: string | null
+  isActivo?: boolean
+  subcategoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ServicioUpdateWithoutCategoriaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  galeria?: Prisma.ServicioUpdategaleriaInput | string[]
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcategoria?: Prisma.SubcategoriaUpdateOneRequiredWithoutServiciosNestedInput
+}
+
+export type ServicioUncheckedUpdateWithoutCategoriaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  galeria?: Prisma.ServicioUpdategaleriaInput | string[]
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subcategoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ServicioUncheckedUpdateManyWithoutCategoriaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.StringFieldUpdateOperationsInput | string
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  galeria?: Prisma.ServicioUpdategaleriaInput | string[]
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subcategoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ServicioCreateManySubcategoriaInput = {
   id?: string
+  sku: string
   nombre: string
   slug: string
+  descripcionCorta: string
   descripcion: string
-  precioBase: number
-  portada?: string | null
+  precio: number
+  imagenPrincipal?: string | null
   galeria?: Prisma.ServicioCreategaleriaInput | string[]
   videoUrl?: string | null
   isActivo?: boolean
+  categoriaId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ServicioUpdateWithoutSubcategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutServiciosNestedInput
 }
 
 export type ServicioUncheckedUpdateWithoutSubcategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ServicioUncheckedUpdateManyWithoutSubcategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcionCorta?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
-  precioBase?: Prisma.FloatFieldUpdateOperationsInput | number
-  portada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  precio?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagenPrincipal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   galeria?: Prisma.ServicioUpdategaleriaInput | string[]
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActivo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -692,93 +951,115 @@ export type ServicioUncheckedUpdateManyWithoutSubcategoriaInput = {
 
 export type ServicioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  sku?: boolean
   nombre?: boolean
   slug?: boolean
+  descripcionCorta?: boolean
   descripcion?: boolean
-  precioBase?: boolean
-  portada?: boolean
+  precio?: boolean
+  imagenPrincipal?: boolean
   galeria?: boolean
   videoUrl?: boolean
   isActivo?: boolean
+  categoriaId?: boolean
   subcategoriaId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["servicio"]>
 
 export type ServicioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  sku?: boolean
   nombre?: boolean
   slug?: boolean
+  descripcionCorta?: boolean
   descripcion?: boolean
-  precioBase?: boolean
-  portada?: boolean
+  precio?: boolean
+  imagenPrincipal?: boolean
   galeria?: boolean
   videoUrl?: boolean
   isActivo?: boolean
+  categoriaId?: boolean
   subcategoriaId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["servicio"]>
 
 export type ServicioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  sku?: boolean
   nombre?: boolean
   slug?: boolean
+  descripcionCorta?: boolean
   descripcion?: boolean
-  precioBase?: boolean
-  portada?: boolean
+  precio?: boolean
+  imagenPrincipal?: boolean
   galeria?: boolean
   videoUrl?: boolean
   isActivo?: boolean
+  categoriaId?: boolean
   subcategoriaId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["servicio"]>
 
 export type ServicioSelectScalar = {
   id?: boolean
+  sku?: boolean
   nombre?: boolean
   slug?: boolean
+  descripcionCorta?: boolean
   descripcion?: boolean
-  precioBase?: boolean
-  portada?: boolean
+  precio?: boolean
+  imagenPrincipal?: boolean
   galeria?: boolean
   videoUrl?: boolean
   isActivo?: boolean
+  categoriaId?: boolean
   subcategoriaId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ServicioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "slug" | "descripcion" | "precioBase" | "portada" | "galeria" | "videoUrl" | "isActivo" | "subcategoriaId" | "createdAt" | "updatedAt", ExtArgs["result"]["servicio"]>
+export type ServicioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "nombre" | "slug" | "descripcionCorta" | "descripcion" | "precio" | "imagenPrincipal" | "galeria" | "videoUrl" | "isActivo" | "categoriaId" | "subcategoriaId" | "createdAt" | "updatedAt", ExtArgs["result"]["servicio"]>
 export type ServicioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }
 export type ServicioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }
 export type ServicioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   subcategoria?: boolean | Prisma.SubcategoriaDefaultArgs<ExtArgs>
 }
 
 export type $ServicioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Servicio"
   objects: {
+    categoria: Prisma.$CategoriaPayload<ExtArgs>
     subcategoria: Prisma.$SubcategoriaPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    sku: string
     nombre: string
     slug: string
+    descripcionCorta: string
     descripcion: string
-    precioBase: number
-    portada: string | null
+    precio: number
+    imagenPrincipal: string | null
     galeria: string[]
     videoUrl: string | null
     isActivo: boolean
+    categoriaId: string
     subcategoriaId: string
     createdAt: Date
     updatedAt: Date
@@ -1176,6 +1457,7 @@ readonly fields: ServicioFieldRefs;
  */
 export interface Prisma__ServicioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   subcategoria<T extends Prisma.SubcategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubcategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__SubcategoriaClient<runtime.Types.Result.GetResult<Prisma.$SubcategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1207,14 +1489,17 @@ export interface Prisma__ServicioClient<T, Null = never, ExtArgs extends runtime
  */
 export interface ServicioFieldRefs {
   readonly id: Prisma.FieldRef<"Servicio", 'String'>
+  readonly sku: Prisma.FieldRef<"Servicio", 'String'>
   readonly nombre: Prisma.FieldRef<"Servicio", 'String'>
   readonly slug: Prisma.FieldRef<"Servicio", 'String'>
+  readonly descripcionCorta: Prisma.FieldRef<"Servicio", 'String'>
   readonly descripcion: Prisma.FieldRef<"Servicio", 'String'>
-  readonly precioBase: Prisma.FieldRef<"Servicio", 'Float'>
-  readonly portada: Prisma.FieldRef<"Servicio", 'String'>
+  readonly precio: Prisma.FieldRef<"Servicio", 'Float'>
+  readonly imagenPrincipal: Prisma.FieldRef<"Servicio", 'String'>
   readonly galeria: Prisma.FieldRef<"Servicio", 'String[]'>
   readonly videoUrl: Prisma.FieldRef<"Servicio", 'String'>
   readonly isActivo: Prisma.FieldRef<"Servicio", 'Boolean'>
+  readonly categoriaId: Prisma.FieldRef<"Servicio", 'String'>
   readonly subcategoriaId: Prisma.FieldRef<"Servicio", 'String'>
   readonly createdAt: Prisma.FieldRef<"Servicio", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Servicio", 'DateTime'>

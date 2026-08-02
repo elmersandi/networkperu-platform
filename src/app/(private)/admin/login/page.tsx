@@ -31,7 +31,6 @@ export default function LoginPage() {
   // 2. CONFIGURACIÓN DEL FORMULARIO
   // =====================================================================
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<LoginFormValues>({
-    // @ts-expect-error: Conflicto de tipos conocido entre zod y hookform/resolvers
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
   });
@@ -62,7 +61,7 @@ export default function LoginPage() {
           router.push('/admin');
           router.refresh();
         }
-      } catch (err) {
+      } catch {
         toast.error("Error de conexión", {
           description: "No se pudo conectar con el servidor.",
         });

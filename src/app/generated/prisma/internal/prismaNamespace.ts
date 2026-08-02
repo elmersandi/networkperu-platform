@@ -1010,7 +1010,9 @@ export const SubcategoriaScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   slug: 'slug',
-  categoriaId: 'categoriaId'
+  categoriaId: 'categoriaId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type SubcategoriaScalarFieldEnum = (typeof SubcategoriaScalarFieldEnum)[keyof typeof SubcategoriaScalarFieldEnum]
@@ -1021,12 +1023,16 @@ export const ProductoScalarFieldEnum = {
   sku: 'sku',
   nombre: 'nombre',
   slug: 'slug',
+  marca: 'marca',
+  modelo: 'modelo',
+  descripcionCorta: 'descripcionCorta',
   descripcion: 'descripcion',
   precio: 'precio',
   stock: 'stock',
   imagenPrincipal: 'imagenPrincipal',
   galeria: 'galeria',
   isActivo: 'isActivo',
+  categoriaId: 'categoriaId',
   subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1037,14 +1043,17 @@ export type ProductoScalarFieldEnum = (typeof ProductoScalarFieldEnum)[keyof typ
 
 export const ServicioScalarFieldEnum = {
   id: 'id',
+  sku: 'sku',
   nombre: 'nombre',
   slug: 'slug',
+  descripcionCorta: 'descripcionCorta',
   descripcion: 'descripcion',
-  precioBase: 'precioBase',
-  portada: 'portada',
+  precio: 'precio',
+  imagenPrincipal: 'imagenPrincipal',
   galeria: 'galeria',
   videoUrl: 'videoUrl',
   isActivo: 'isActivo',
+  categoriaId: 'categoriaId',
   subcategoriaId: 'subcategoriaId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

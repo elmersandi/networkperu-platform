@@ -8,7 +8,6 @@ generator client { // Define el motor que generará el código para interactuar 
 
 datasource db { // Define a qué base de datos nos vamos a conectar
   provider = "postgresql" // Indicamos que el motor de base de datos es PostgreSQL (Neon DB)
-  url      = env("DATABASE_URL") // Jala la URL de conexión segura desde tu archivo .env
 }
 
 // =====================================================================
@@ -55,6 +54,8 @@ model Categoria { // Tabla de categorías principales (Padres)
   tipo          TipoCategoria // Selecciona si esta categoría pertenece a PRODUCTO o SERVICIO
   descripcion   String? // Texto opcional para describir qué hay en esta categoría
   subcategorias Subcategoria[] // Relación: Una categoría puede tener muchas subcategorías adentro
+  productos     Producto[] // Relación: Esta categoría contiene muchos productos directamente
+  servicios     Servicio[]     // NUEVO: Relación directa con los servicios
   createdAt     DateTime       @default(now()) // Fecha de creación
   updatedAt     DateTime       @updatedAt // Fecha de última edición
 
@@ -73,52 +74,93 @@ model Subcategoria { // Tabla de clasificaciones secundarias (Hijas)
   productos   Producto[] // Relación: Esta subcategoría contiene muchos productos
   servicios   Servicio[] // Relación: Esta subcategoría contiene muchos servicios
 
+  createdAt     DateTime       @default(now()) // Fecha de creación
+  updatedAt     DateTime       @updatedAt // Fecha de última edición
+
   @@index([categoriaId]) // Índice para cargar al instante las subcategorías de un padre específico
 }
 
-model Producto { // Tabla del inventario físico (Equipos y Hardware)
-  id              String       @id @default(cuid()) // ID único en la base de datos
-  sku             String       @unique // Código de barras o identificador único comercial
-  nombre          String // Nombre del producto (Ej: "Router MikroTik...")
-  slug            String       @unique // URL amigable del producto
-  descripcion     String       @db.Text // Texto largo para la ficha técnica completa
-  precio          Float // Precio de venta con decimales
-  stock           Int          @default(0) // Cantidad de unidades disponibles en almacén
-  imagenPrincipal String? // Enlace a la foto de portada del producto
-  galeria         String[] // Lista (array) con enlaces a más fotos del producto
-  isActivo        Boolean      @default(true) // Switch para apagar o prender el producto en la web
-  subcategoriaId  String // ID de la subcategoría a la que pertenece
+model Producto {
+  id               String       @id @default(cuid())
+  sku              String       @unique // Fundamental para el mensaje de WhatsApp
+  nombre           String       // Ej: "Router EdgeRouter X"
+  slug             String       @unique // Para URLs tipo /productos/router-edgerouter-x
   
-  // Relación con protección: Impide borrar la Subcategoría si hay productos asociados a ella
-  subcategoria    Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  // NUEVOS: Especificaciones técnicas
+  marca            String?      // Ej: "MikroTik", "Ubiquiti"
+  modelo           String?      // Ej: "ER-X"
   
-  createdAt       DateTime     @default(now()) // Fecha en que ingresó al sistema
-  updatedAt       DateTime     @updatedAt // Fecha de su última actualización de precio o stock
+  // SEO y UI Web
+  descripcionCorta String       @db.VarChar(160) // Lo que saldrá en la tarjeta y en WhatsApp
+  descripcion      String       @db.Text // Ficha técnica completa para la vista de detalle
+  
+  // Comercial
+  precio           Float        // Precio unitario para sumar en el carrito
+  stock            Int          @default(0) // Control de inventario
+  
+  // Multimedia
+  imagenPrincipal  String?      // Foto de la tarjeta
+  galeria          String[]     // Fotos del detalle
+  
+  // Estados y Relaciones (Desnormalizadas para Máxima Velocidad)
+  isActivo         Boolean      @default(true) 
+  categoriaId      String       // CLAVE: Permite a la web traer todos los productos de la Categoría Padre al instante
+  subcategoriaId   String       // Para el filtro específico
+  
+  // Llaves foráneas
+  categoria        Categoria    @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  subcategoria     Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 
-  @@index([nombre]) // Índice para que el buscador en tiempo real vuele al teclear el nombre
-  @@index([subcategoriaId, isActivo]) // Índice doble para filtrar catálogos de la web al instante
+  // NDICES DE ALTO RENDIMIENTO (La magia del Arquitecto)
+  @@index([nombre]) // Buscador web al instante
+  @@index([marca]) // Por si luego quieres un filtro por marca
+  @@index([categoriaId, isActivo]) // Para el menú izquierdo de la web (Nivel 1)
+  @@index([subcategoriaId, isActivo]) // Para el menú izquierdo de la web (Nivel 2)
+  @@index([stock]) // Para tu filtro de "Menos Stock" en el panel Admin
+  @@index([precio]) // Para ordenar por precio en la web
 }
 
-model Servicio { // Tabla del catálogo de servicios (Mano de obra, instalaciones)
-  id              String       @id @default(cuid()) // ID único del servicio
-  nombre          String // Título del servicio (Ej: "Certificación de Fibra")
-  slug            String       @unique // URL amigable
-  descripcion     String       @db.Text // Detalles completos de qué incluye el trabajo
-  precioBase      Float // Tarifa mínima o precio "desde"
-  portada         String? // Imagen principal para publicitar el servicio
-  galeria         String[] // Lista de fotos de trabajos anteriores similares
-  videoUrl        String? // Link a un video explicativo en YouTube
-  isActivo        Boolean      @default(true) // Switch para mostrar/ocultar el servicio en la web
-  subcategoriaId  String // ID de la subcategoría de servicios
+model Servicio { // Tabla del catálogo de servicios (Mano de obra, instalaciones, mantenimiento)
+  // --- IDENTIFICADORES BÁSICOS ---
+  id                 String       @id @default(cuid()) // ID único autogenerado por la base de datos
+  sku                String       @unique // Código interno (Ej: SERV-FIB-01). Vital para saber en WhatsApp qué servicio exacto cotizan.
+  nombre             String       // Título principal del servicio (Ej: "Certificación de Fibra Óptica")
+  slug               String       @unique // Texto en minúsculas y guiones para la URL amigable (SEO)
   
-  // Relación con protección: Impide borrar clasificaciones en uso
-  subcategoria    Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  // --- SEO Y CONTENIDO WEB ---
+  descripcionCorta   String       @db.VarChar(160) // Resumen breve. Aparece en la tarjeta de la web y al compartir el link.
+  descripcion        String       @db.Text // Texto enriquecido (HTML) con todo el alcance detallado del trabajo a realizar.
   
-  createdAt       DateTime     @default(now()) // Fecha en que se creó el servicio
-  updatedAt       DateTime     @updatedAt // Fecha de última actualización
+  // --- CONTROL COMERCIAL (ADMINISTRATIVO) ---
+  precio             Float        // Precio base de referencia. Solo visible en el Admin Panel, oculto en la web para forzar la cotización.
+  
+  // --- MULTIMEDIA ---
+  imagenPrincipal    String?      // Foto de portada. Es la que sale en la grilla del catálogo web.
+  galeria            String[]     // Arreglo de fotos extra (Ej: fotos de proyectos pasados que demuestran la calidad del servicio).
+  videoUrl           String?      // Enlace opcional a YouTube/Vimeo para mostrar la instalación en acción.
+  
+  // --- ESTADOS Y JERARQUÍA ---
+  isActivo           Boolean      @default(true) // Switch maestro. Si es false, el servicio desaparece de la web pública al instante.
+  categoriaId        String       // ID de la Categoría Padre. Permite que la web cargue todos los servicios de una rama en milisegundos.
+  subcategoriaId     String       // ID de la Subcategoría específica para filtros más precisos.
+  
+  // --- RELACIONES (PROTECCIÓN DE INTEGRIDAD) ---
+  // OnDelete: Restrict evita que borres una categoría si aún tiene servicios amarrados a ella.
+  categoria          Categoria    @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  subcategoria       Subcategoria @relation(fields: [subcategoriaId], references: [id], onDelete: Restrict)
+  
+  // --- AUDITORÍA DE TIEMPO ---
+  createdAt          DateTime     @default(now()) // Cuándo registraste este servicio por primera vez.
+  updatedAt          DateTime     @updatedAt // Se actualiza solo cada vez que le cambias algo (ej: actualizas la foto o el texto).
 
-  @@index([nombre]) // Índice rápido para el buscador del panel
-  @@index([subcategoriaId, isActivo]) // Índice rápido para cargar la grilla de la página web
+  // --- ÍNDICES DE VELOCIDAD (Para que la BD no sufra) ---
+  @@index([nombre]) // Hace que buscar un servicio por su nombre en el Admin sea instantáneo.
+  @@index([categoriaId, isActivo]) // Índice maestro: El que usa la web cuando el cliente hace clic en el menú principal.
+  @@index([subcategoriaId, isActivo]) // Índice secundario: El que usa la web cuando el cliente filtra por subcategoría.
+  @@index([precio]) // Por si en el futuro decides crear reportes ordenados por rentabilidad en el Admin.
 }
 
 // =====================================================================

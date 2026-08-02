@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { Mail, ArrowLeft, Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner'; // 🔥 IMPORTAMOS SONNER
 
-import { enviarCorreoRecuperacion } from '@/src/app/actions/recuperar.action';
+import { enviarCorreoRecuperacion } from '@/src/actions/recuperar.action';
 
 // =====================================================================
 // 1. ESQUEMA DE ZOD
@@ -25,7 +25,7 @@ type RecuperarFormValues = z.infer<typeof recuperarSchema>;
 
 export default function RecuperarPage() {
   const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm<RecuperarFormValues>({
-    // @ts-expect-error: Conflicto interno de tipos
+    
     resolver: zodResolver(recuperarSchema),
     mode: 'onChange',
   });
@@ -50,7 +50,7 @@ export default function RecuperarPage() {
           setSuccess(true);
           toast.success(respuesta.message || "Instrucciones enviadas.");
         }
-      } catch (err) {
+      } catch {
         toast.error("Error de conexión", {
           description: "Revisa tu conexión a internet e inténtalo de nuevo."
         });

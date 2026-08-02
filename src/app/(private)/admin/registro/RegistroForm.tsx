@@ -14,8 +14,8 @@ import { User, Mail, Lock, ShieldCheck, Eye, EyeOff, CheckCircle2, Send, Loader2
 import { toast } from 'sonner'; // 🔥 IMPORTAMOS SONNER
 
 // 🔥 IMPORTAMOS TUS DOS SERVER ACTIONS
-import { crearAdminSeguro } from '@/src/app/actions/registro.action';
-import { enviarCodigoVerificacion } from '@/src/app/actions/enviar-codigo.action';
+import { crearAdminSeguro } from '@/src/actions/registro.action';
+import { enviarCodigoVerificacion } from '@/src/actions/enviar-codigo.action';
 
 // =====================================================================
 // 1. ESQUEMA DE ZOD
@@ -45,7 +45,6 @@ export default function RegistroForm() {
   // 2. CONFIGURACIÓN DEL FORMULARIO
   // =====================================================================
   const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<RegistroFormValues>({
-    // @ts-expect-error: Conflicto de tipos conocido
     resolver: zodResolver(registroSchema),
     mode: 'onChange',
   });
@@ -129,7 +128,7 @@ export default function RegistroForm() {
           });
           setTimeout(() => router.push("/admin/login"), 2000);
         }
-      } catch (err) {
+      } catch {
         toast.error("Error inesperado", {
           description: "No se pudo procesar el registro."
         });

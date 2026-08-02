@@ -1,38 +1,40 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Home, Briefcase, Box, Building, Phone, Search, UserCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
+
+// 🔥 DEFINIMOS LOS PROPS PARA QUE TYPESCRIPT NO BOTE ERROR ROJO
+// Lo definimos a mano para que TypeScript no moleste
+interface Props {
+  config: {
+    logoUrl?: string | null;
+    nombreEmpresa?: string | null;
+  } | null;
+}
 
 const navigation = [
   { name: 'Inicio', href: '/', icon: Home },
   { name: 'Servicios', href: '/servicios', icon: Briefcase },
   { name: 'Productos', href: '/productos', icon: Box },
-  { name: 'La Empresa', href: '/nosotros', icon: Building },
+  { name: 'Nosotros', href: '/nosotros', icon: Building },
   { name: 'Contacto', href: '/contacto', icon: Phone },
 ];
 
-export default function Navbar() {
+export default function Navbar({ config }: Props) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   
-  const [logoCms, setLogoCms] = useState<string | null>(null);
+  // Valores dinámicos con respaldo
+  const logoUrl = config?.logoUrl;
+  const nombreEmpresa = config?.nombreEmpresa || "Networks Perú";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-
-    fetch('/api/configuracion')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.logoUrl) {
-          setLogoCms(data.logoUrl);
-        }
-      })
-      .catch(err => console.error("Error cargando logo:", err));
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -50,15 +52,18 @@ export default function Navbar() {
 
           {/* ÁREA DEL LOGOTIPO DINÁMICO (TAMAÑO NATURAL OPTIMIZADO) */}
           <div className="flex-shrink-0 flex items-center justify-center w-2/4 md:w-auto md:justify-start">
-            <Link href="/" className="flex items-center group py-2">
-              {logoCms ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img 
-                  src={logoCms} 
-                  alt="Logo Empresa" 
-                  // ELIMINADO EL SCALE HACK. Tamaños reales: h-10 (móvil) y h-14 (escritorio)
-                  className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm"
-                />
+            <Link href="/" className="flex items-center group py-2 outline-none">
+              {logoUrl ? (
+                <div className="relative h-10 md:h-12 w-32 md:w-40 transition-transform duration-300 group-hover:scale-105">
+                  <Image 
+                    src={logoUrl} 
+                    alt={`Logo de ${nombreEmpresa}`} 
+                    fill
+                    sizes="(max-width: 768px) 128px, 160px"
+                    priority
+                    className="object-contain object-center md:object-left drop-shadow-sm"
+                  />
+                </div>
               ) : (
                 <div className="flex gap-1">
                   <span className="text-2xl font-black tracking-tighter text-blue-600 transition-colors">Networks</span>

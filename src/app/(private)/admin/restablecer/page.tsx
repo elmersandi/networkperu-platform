@@ -13,7 +13,7 @@ import { z } from 'zod';
 import { Lock, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner'; // 🔥 IMPORTAMOS SONNER
 
-import { restablecerClaveSegura } from '@/src/app/actions/restablecer.action';
+import { restablecerClaveSegura } from '@/src/actions/restablecer.action';
 
 // =====================================================================
 // 1. ESQUEMA DE ZOD
@@ -43,7 +43,6 @@ function RestablecerForm() {
   const router = useRouter();
 
   const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<RestablecerFormValues>({
-    // @ts-expect-error: Conflicto de tipos
     resolver: zodResolver(restablecerSchema),
     mode: 'onChange',
   });
@@ -107,7 +106,7 @@ function RestablecerForm() {
           toast.success("Tu contraseña ha sido actualizada.");
           setTimeout(() => router.push('/admin/login'), 3500);
         }
-      } catch (error) {
+      } catch {
         toast.error("Error de conexión", {
           description: "Verifica tu conexión a internet e inténtalo nuevamente."
         });

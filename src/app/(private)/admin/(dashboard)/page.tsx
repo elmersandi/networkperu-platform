@@ -1,78 +1,91 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Package, Wrench, Briefcase, ShoppingCart, ArrowUpRight, Loader2, MessageCircle, Target, CalendarDays, ExternalLink, Users, RefreshCcw } from 'lucide-react';
+import { 
+  Box, 
+  Briefcase, 
+  Layers, 
+  Network, 
+  ArrowUpRight, 
+  Loader2, 
+  ExternalLink, 
+  RefreshCcw,
+} from 'lucide-react';
+import { getDashboardStats } from '@/src/actions/dashboard.action'; 
 
 // =====================================================================
-// TÍTULO: 1. TIPADO DE DATOS (INTERFACES)
+// INTERFACES (Flexibilizadas para acoplarse al retorno real del Backend)
 // =====================================================================
 interface DashboardStats {
   counts: {
     productos: number;
     servicios: number;
-    clientes: number;
-    pedidos: number;
+    categorias: number;
+    subcategorias: number;
   };
-  ultimosClientes: {
+  ultimosProductos: {
     id: string;
-    razonSocial: string;
-    nombreContacto: string;
-    ruc: string;
-    email: string;
-    telefono: string;
+    sku: string;
+    nombre: string;
+    marca?: string | null;     
+    modelo?: string | null;    
+    categoria: string;
+    precio: number;
+    stock?: number;            
+    isActivo?: boolean;        
     createdAt: string;
   }[];
 }
 
 interface StatCardProps {
   title: string;
-  count: number | string;
+  count: number;
   icon: React.ElementType;
-  bgClass: string;
-  textClass: string;
   description: string;
   route: string;
   cargando: boolean;
 }
 
 // =====================================================================
-// TÍTULO: 2. COMPONENTE INDEPENDIENTE: TARJETA ESTADÍSTICA (KPI)
+// COMPONENTE: TARJETA ESTADÍSTICA (KPI - Azul Corporativo Unificado)
 // =====================================================================
-const StatCard = ({ title, count, icon: Icon, bgClass, textClass, description, route, cargando }: StatCardProps) => {
+const StatCard = ({ title, count, icon: Icon, description, route, cargando }: StatCardProps) => {
   const router = useRouter();
 
   return (
     <div
       onClick={() => router.push(route)}
-      className="group relative bg-[#FFFFFF] dark:bg-[#121212] p-6 rounded-xl border border-slate-300 dark:border-[#262626] shadow-sm hover:shadow-lg hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 cursor-pointer active:scale-95 overflow-hidden flex flex-col h-full"
+      className="group relative bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 cursor-pointer active:scale-95 flex flex-col h-full"
     >
-      <div className="flex justify-between items-start gap-3 min-h-[48px] mb-2">
-        {/* Título de Tarjeta: Gris oscuro fuerte (slate-700) */}
-        <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest leading-snug line-clamp-2 mt-1">
+      {/* Fila Superior: Título e Ícono con el Azul de la Identidad de Marca */}
+      <div className="flex justify-between items-start gap-3 mb-2">
+        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-1">
           {title}
         </p>
-        <div className={`p-2.5 rounded-xl ${bgClass} transition-all duration-300 border border-slate-200 dark:border-[#262626] group-hover:scale-110 group-hover:rotate-6 shrink-0`}>
-          <Icon className={textClass} size={22} strokeWidth={1.5} />
+        <div className="p-2 rounded-lg bg-blue-50 border border-blue-100/50 text-blue-600 transition-all duration-300 group-hover:bg-blue-100 group-hover:text-blue-700 shrink-0">
+          <Icon size={18} strokeWidth={2} />
         </div>
       </div>
 
-      <div className="mb-5 flex items-end">
-        {/* Número: Negro suave (slate-900) */}
-        <h3 className="text-4xl font-semibold text-slate-900 dark:text-white tracking-tight">
+      {/* Fila Central: Métrica General */}
+      <div className="mb-4 flex items-end">
+        <h3 className="text-3xl font-semibold text-slate-900 tracking-tight">
           {cargando ? (
-            <Loader2 className="animate-spin text-blue-600 dark:text-blue-400" size={32} />
+            <Loader2 className="animate-spin text-slate-400" size={26} />
           ) : (
             <span className="tabular-nums">{count}</span>
           )}
         </h3>
       </div>
 
-      <div className="mt-auto border-t border-slate-200 dark:border-[#262626] pt-4 flex items-center justify-between z-10">
-        {/* Descripción: Gris intermedio (slate-600) */}
-        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">{description}</p>
-        <div className="flex items-center text-[11px] font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
-          GESTIONAR <ExternalLink size={13} className="ml-1" />
+      {/* Fila Inferior: Enlace siempre azul para guiar la interacción */}
+      <div className="mt-auto border-t border-slate-100 pt-3 flex flex-col gap-1.5 w-full">
+        <p className="text-[11px] font-medium text-slate-400 line-clamp-1">
+          {description}
+        </p>
+        <div className="flex items-center text-[10px] font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-200 mt-0.5 uppercase tracking-wider">
+          GESTIONAR MÓDULO <ExternalLink size={10} className="ml-1" />
         </div>
       </div>
     </div>
@@ -80,194 +93,225 @@ const StatCard = ({ title, count, icon: Icon, bgClass, textClass, description, r
 };
 
 // =====================================================================
-// TÍTULO: 3. PÁGINA PRINCIPAL (DASHBOARD OPERATIVO)
+// PÁGINA PRINCIPAL DEL PANEL
 // =====================================================================
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardStats | null>(null);
-  const [cargando, setCargando] = useState(true);
+  const [cargando, setCargando] = useState(true); 
   const [errorConexion, setErrorConexion] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const extraerDatosIniciales = async () => {
-      try {
-        const res = await fetch('/api/dashboard');
-        if (!res.ok) throw new Error("Fallo en API");
-        const stats = await res.json();
-
-        if (isMounted) {
-          setData(stats);
-          setErrorConexion(false);
-        }
-      } catch (error) {
-        if (isMounted) setErrorConexion(true);
-      } finally {
-        if (isMounted) setCargando(false);
-      }
-    };
-
-    extraerDatosIniciales();
-    const intervalo = setInterval(extraerDatosIniciales, 60000);
-
-    return () => {
-      isMounted = false;
-      clearInterval(intervalo);
-    };
-  }, []);
-
-  const handleRefrescarManual = async () => {
-    setCargando(true);
-    setErrorConexion(false);
+  const cargarDatos = useCallback(async () => {
     try {
-      const res = await fetch('/api/dashboard');
-      if (!res.ok) throw new Error("Fallo en API");
-      const stats = await res.json();
-      setData(stats);
-    } catch (error) {
+      const response = await getDashboardStats(); 
+      if (response.success && response.data) {
+        setData(response.data as unknown as DashboardStats);
+        setErrorConexion(false);
+      } else {
+        setErrorConexion(true);
+      }
+    } catch {
       setErrorConexion(true);
     } finally {
-      setTimeout(() => setCargando(false), 400);
+      setCargando(false); 
     }
+  }, []);
+
+  useEffect(() => {
+    const timerInicial = setTimeout(() => {
+      cargarDatos();
+    }, 0);
+
+    const intervalo = setInterval(() => {
+      cargarDatos();
+    }, 60000);
+
+    return () => {
+      clearTimeout(timerInicial);
+      clearInterval(intervalo);
+    };
+  }, [cargarDatos]); 
+
+  const handleRefrescarManual = () => {
+    setCargando(true); 
+    setErrorConexion(false);
+    setTimeout(async () => {
+      await cargarDatos(); 
+    }, 400);
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500 pb-10">
+    <div className="w-full max-w-6xl mx-auto pb-8 animate-in fade-in duration-500">
 
-      {/* =====================================================================
-          TÍTULO: 4. CABECERA Y BOTÓN DE ACCIÓN
-      ===================================================================== */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+      {/* CABECERA GENERAL ESTANDARIZADA */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
         <div>
-          {/* Título Principal y Subtítulo con buena jerarquía */}
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Dashboard Operativo</h1>
-          <p className="text-slate-700 dark:text-slate-300 font-medium mt-1 text-sm whitespace-nowrap">Resumen gerencial de Networks Perú.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
+            Dashboard Operativo
+          </h1>
+          <p className="text-sm font-medium text-slate-500 mt-1 sm:mt-1.5">
+            Resumen en tiempo real del catálogo de Networks Perú.
+          </p>
         </div>
-        <div className="flex items-center gap-3 sm:shrink-0">
+        
+        <div className="flex items-center justify-end w-full sm:w-auto">
           <button
             onClick={handleRefrescarManual}
             disabled={cargando}
             title="Refrescar Datos Manualmente"
-            className="group cursor-pointer disabled:opacity-50 p-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#1A1A1A] border border-slate-300 dark:border-[#262626] text-slate-800 dark:text-slate-200 hover:border-blue-500 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 transition-all duration-300 active:scale-95 shadow-sm flex items-center justify-center"
+            className="group cursor-pointer disabled:opacity-50 p-2 sm:p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900 transition-all duration-300 active:scale-95 shadow-sm flex items-center justify-center"
           >
             <RefreshCcw size={18} strokeWidth={2.5} className={`${cargando ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
           </button>
         </div>
       </div>
 
-      {/* =====================================================================
-          TÍTULO: 5. GRILLA DE INDICADORES (KPIs)
-      ===================================================================== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
-        <StatCard
-          title="Catálogo Activo"
-          count={data?.counts.productos || 0}
-          icon={Package}
-          bgClass="bg-blue-50 dark:bg-blue-900/30"
-          textClass="text-blue-700 dark:text-blue-400"
-          description="Equipos en Inventario"
-          route="/admin/inventario"
-          cargando={cargando}
-        />
-        <StatCard
-          title="Oferta de Servicios"
-          count={data?.counts.servicios || 0}
-          icon={Wrench}
-          bgClass="bg-purple-50 dark:bg-purple-900/30"
-          textClass="text-purple-700 dark:text-purple-400"
-          description="Soluciones Corporativas"
-          route="/admin/servicios"
-          cargando={cargando}
-        />
-        <StatCard
-          title="Directorio de Clientes"
-          count={data?.counts.clientes || 0}
-          icon={Target}
-          bgClass="bg-orange-50 dark:bg-orange-900/30"
-          textClass="text-orange-700 dark:text-orange-400"
-          description="Empresas Registradas"
-          route="/admin/clientes"
-          cargando={cargando}
-        />
-        <StatCard
-          title="Ventas Confirmadas"
-          count={data?.counts.pedidos || 0}
-          icon={ShoppingCart}
-          bgClass="bg-emerald-50 dark:bg-emerald-900/30"
-          textClass="text-emerald-700 dark:text-emerald-400"
-          description="Pedidos Facturados"
-          route="/admin/pedidos"
-          cargando={cargando}
-        />
+      {/* SECCIÓN KPIs - DISEÑO COHESIVO CON AZUL UNIFICADO */}
+      <div className="@container w-full mb-6 md:mb-8">
+        <div className="grid grid-cols-1 @xl:grid-cols-2 @5xl:grid-cols-4 gap-4 sm:gap-5 items-stretch">
+          <StatCard
+            title="Productos"
+            count={data?.counts.productos || 0}
+            icon={Box}
+            description="Equipos e inventario técnico global"
+            route="/admin/productos"
+            cargando={cargando}
+          />
+          <StatCard
+            title="Servicios"
+            count={data?.counts.servicios || 0}
+            icon={Briefcase}
+            description="Soluciones y soporte corporativo"
+            route="/admin/servicios"
+            cargando={cargando}
+          />
+          <StatCard
+            title="Categorías"
+            count={data?.counts.categorias || 0}
+            icon={Layers}
+            description="Líneas de negocio principales"
+            route="/admin/categorias"
+            cargando={cargando}
+          />
+          <StatCard
+            title="Subcategorías"
+            count={data?.counts.subcategorias || 0}
+            icon={Network}
+            description="Familias y especialidades de hardware"
+            route="/admin/subcategorias"
+            cargando={cargando}
+          />
+        </div>
       </div>
 
-      {/* =====================================================================
-          TÍTULO: 6. TABLA DE ÚLTIMOS CLIENTES (JERARQUÍA PERFECTA)
-      ===================================================================== */}
-      <div className="bg-[#FFFFFF] dark:bg-[#121212] rounded-xl border border-slate-300 dark:border-[#262626] shadow-sm overflow-hidden">
-
-        <div className="p-5 border-b border-slate-300 dark:border-[#262626] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-[#FFFFFF] dark:bg-[#121212]">
-          <h2 className="font-bold text-slate-900 dark:text-white flex items-center gap-2.5 text-base">
-            <Briefcase size={20} className="text-slate-800 dark:text-slate-200" />
-            Últimos Clientes Registrados
+      {/* TABLA RESPONSIVA SOBRIA */}
+      <div className="@container bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div className="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white">
+          <h2 className="font-bold text-slate-900 flex items-center gap-2 text-sm sm:text-base">
+            <Box size={18} className="text-blue-600" />
+            Últimos Productos Registrados
           </h2>
           <button
-            onClick={() => router.push('/admin/clientes')}
-            className="w-full sm:w-auto cursor-pointer text-xs font-bold bg-[#FFFFFF] dark:bg-[#1A1A1A] border border-slate-300 dark:border-[#262626] text-slate-800 dark:text-slate-200 px-4 py-2 rounded-md hover:bg-blue-600 hover:border-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:border-blue-600 dark:hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5 active:scale-95 shadow-sm"
+            onClick={() => router.push('/admin/productos')}
+            className="w-full sm:w-auto cursor-pointer text-xs font-bold bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-md hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 flex items-center justify-center gap-1.5 active:scale-95 shadow-sm"
           >
-            Ver Directorio <ArrowUpRight size={14} />
+            Ver Catálogo <ArrowUpRight size={14} />
           </button>
         </div>
 
-        <div className="overflow-x-auto [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 dark:[&::-webkit-scrollbar-thumb]:bg-[#404040]">
-          <table className="w-full text-left text-sm border-collapse whitespace-nowrap">
-            {/* CABECERA: Negro moderado (Gris neutro oscuro) sin reflejos azules */}
-            <thead className="bg-gray-100 dark:bg-[#1A1A1A] border-b border-gray-300 dark:border-[#262626]">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm border-collapse whitespace-nowrap table-auto">
+            <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
-                <th className="px-6 py-4 text-gray-800 dark:text-gray-200 text-xs uppercase font-bold tracking-wider">
-                  Razón Social / Empresa
+                <th className="px-4 sm:px-6 py-3.5 text-slate-500 text-[10px] sm:text-xs uppercase font-bold tracking-wider">
+                  Producto / SKU
                 </th>
-                <th className="px-6 py-4 text-gray-800 dark:text-gray-200 text-xs uppercase font-bold tracking-wider">
-                  Contacto Principal
+                <th className="hidden @3xl:table-cell px-4 sm:px-6 py-3.5 text-slate-500 text-[10px] sm:text-xs uppercase font-bold tracking-wider">
+                  Stock
                 </th>
-                <th className="px-6 py-4 text-gray-800 dark:text-gray-200 text-xs uppercase font-bold tracking-wider">
-                  Teléfono
+                <th className="hidden @4xl:table-cell px-4 sm:px-6 py-3.5 text-slate-500 text-[10px] sm:text-xs uppercase font-bold tracking-wider">
+                  Categoría
                 </th>
-                <th className="px-6 py-4 text-gray-800 dark:text-gray-200 text-xs uppercase font-bold tracking-wider text-right">
-                  Fecha Alta
+                <th className="px-4 sm:px-6 py-3.5 text-slate-500 text-[10px] sm:text-xs uppercase font-bold tracking-wider">
+                  Precio Base
+                </th>
+                <th className="hidden @3xl:table-cell px-4 sm:px-6 py-3.5 text-slate-500 text-[10px] sm:text-xs uppercase font-bold tracking-wider text-center">
+                  Estado Web
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-[#FFFFFF] dark:bg-[#121212]">
+            <tbody className="bg-white">
               {cargando ? (
-                <tr><td colSpan={4} className="px-6 py-20 text-center text-slate-800 dark:text-slate-200 font-semibold"><Loader2 className="animate-spin mx-auto mb-3 text-blue-600 dark:text-blue-400" size={30} />Consultando base de datos...</td></tr>
+                <tr>
+                  <td colSpan={5} className="px-6 py-16 text-center text-slate-500 font-semibold text-sm">
+                    <Loader2 className="animate-spin mx-auto mb-3 text-blue-600" size={28} />
+                    Consultando catálogo indexado...
+                  </td>
+                </tr>
               ) : errorConexion ? (
-                <tr><td colSpan={4} className="px-6 py-20 text-center text-red-600 dark:text-red-400 font-bold text-base">Error de conexión al servidor de datos. Intente refrescar.</td></tr>
-              ) : data?.ultimosClientes?.length === 0 ? (
-                <tr><td colSpan={4} className="px-6 py-20 text-center text-slate-700 dark:text-slate-300 font-medium"><Users size={30} className="mx-auto mb-4 opacity-50" />Aún no hay clientes registrados.</td></tr>
-              ) : data?.ultimosClientes?.map((cliente) => (
-                <tr key={cliente.id} className="hover:bg-slate-50 dark:hover:bg-[#1A1A1A] transition-colors border-b border-slate-200 dark:border-[#262626] last:border-none">
+                <tr>
+                  <td colSpan={5} className="px-6 py-16 text-center text-slate-500 font-bold text-sm">
+                    Error al sincronizar datos con el servidor PostgreSQL.
+                  </td>
+                </tr>
+              ) : !data?.ultimosProductos || data.ultimosProductos.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-16 text-center text-slate-500 font-medium text-sm">
+                    <Box size={28} className="mx-auto mb-3 opacity-40" />
+                    Aún no hay productos registrados en el sistema.
+                  </td>
+                </tr>
+              ) : data.ultimosProductos.map((producto) => (
+                <tr key={producto.id} className="hover:bg-slate-50/50 transition-colors border-b border-slate-100 last:border-none">
+                  
+                  <td className="px-4 sm:px-6 py-3.5">
+                    <div className="font-semibold text-slate-950 text-sm max-w-[220px] sm:max-w-xs truncate">
+                      {producto.nombre} 
+                      {producto.marca && <span className="text-slate-400 font-normal text-xs ml-1">({producto.marca})</span>}
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-bold mt-1 border border-slate-200 inline-block px-1.5 py-0.5 rounded bg-slate-50 tracking-wide">
+                      SKU: {producto.sku}
+                    </div>
+                  </td>
 
-                  {/* Datos Principales (Empresa y Nombre): Fuerte (slate-900) */}
-                  <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">
-                    {cliente.razonSocial}
-                    <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold mt-1 border border-slate-300 dark:border-[#333333] inline-block px-1.5 py-0.5 rounded bg-[#FFFFFF] dark:bg-black">
-                      RUC/DNI: {cliente.ruc}
+                  <td className="hidden @3xl:table-cell px-4 sm:px-6 py-3.5 text-sm">
+                    {producto.stock === undefined ? (
+                      <span className="text-slate-400 text-xs italic">No especificado</span>
+                    ) : producto.stock === 0 ? (
+                      <span className="inline-flex items-center gap-1.5 text-slate-400 font-semibold text-xs bg-slate-50 border border-slate-200 px-2.5 py-0.5 rounded-md">
+                        Agotado
+                      </span>
+                    ) : (
+                      <span className="font-semibold text-slate-800 tabular-nums">
+                        {producto.stock} <span className="text-slate-400 font-normal text-xs">uds</span>
+                      </span>
+                    )}
+                  </td>
+
+                  <td className="hidden @4xl:table-cell px-4 sm:px-6 py-3.5 text-slate-600 font-medium text-sm">
+                    <div className="flex items-center gap-1.5">
+                      <Layers size={13} className="text-slate-400 shrink-0" /> 
+                      {producto.categoria}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-slate-900 dark:text-white font-semibold">
-                    {cliente.nombreContacto}
-                    {/* Dato Secundario (Email): Un tono más bajo (slate-600) */}
-                    <div className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-0.5">{cliente.email}</div>
+
+                  <td className="px-4 sm:px-6 py-3.5 text-sm font-bold text-slate-900 tabular-nums">
+                    S/ {producto.precio.toFixed(2)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-200 tabular-nums">
-                    <div className="flex items-center gap-1.5 justify-start">
-                      <MessageCircle size={15} className="text-emerald-600 dark:text-emerald-500 shrink-0" /> {cliente.telefono}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-right text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center gap-1.5 justify-end tabular-nums">
-                    <CalendarDays size={14} className="text-slate-500 dark:text-slate-400" /> {new Date(cliente.createdAt).toLocaleDateString()}
+
+                  <td className="hidden @3xl:table-cell px-4 sm:px-6 py-3.5 text-center">
+                    {producto.isActivo ?? true ? (
+                      <span className="inline-flex items-center gap-2 text-slate-700 px-2.5 py-1 text-xs font-semibold">
+                        <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                        Activo
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 text-slate-400 px-2.5 py-1 text-xs font-semibold">
+                        <span className="h-2 w-2 rounded-full bg-slate-300" />
+                        Inactivo
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -275,7 +319,6 @@ export default function DashboardPage() {
           </table>
         </div>
       </div>
-
     </div>
   );
 }

@@ -52,11 +52,11 @@ export async function enviarCodigoVerificacion(email: string) {
     ]);
 
     // =================================================================
-    // 5. ENVÍO DE CORREO (Usa tu propio dominio para evitar la carpeta Spam)
+    // 5. ENVÍO DE CORREO 
     // =================================================================
     const { error: resendError } = await resend.emails.send({
-      from: 'Networks Perú <seguridad@tuservicio.com>', // 👈 CAMBIAR AQUÍ EN PRODUCCIÓN
-      to: emailLimpio,
+      from: 'Networks Perú <onboarding@resend.dev>', // 👈 Modo de pruebas de Resend
+      to: emailLimpio, // Solo llegará si es tu propio correo registrado en Resend
       subject: 'Tu código de seguridad - Networks Perú',
       html: `
         <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
@@ -70,7 +70,7 @@ export async function enviarCodigoVerificacion(email: string) {
         </div>
       `
     });
-
+    
     if (resendError) {
       console.error("-> ERROR EN PROVEEDOR EMAIL:", resendError);
       return { error: "No se pudo enviar el correo de verificación. Inténtalo más tarde." };

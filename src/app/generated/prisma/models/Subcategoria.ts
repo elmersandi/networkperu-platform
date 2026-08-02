@@ -29,6 +29,8 @@ export type SubcategoriaMinAggregateOutputType = {
   nombre: string | null
   slug: string | null
   categoriaId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SubcategoriaMaxAggregateOutputType = {
@@ -36,6 +38,8 @@ export type SubcategoriaMaxAggregateOutputType = {
   nombre: string | null
   slug: string | null
   categoriaId: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SubcategoriaCountAggregateOutputType = {
@@ -43,6 +47,8 @@ export type SubcategoriaCountAggregateOutputType = {
   nombre: number
   slug: number
   categoriaId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -52,6 +58,8 @@ export type SubcategoriaMinAggregateInputType = {
   nombre?: true
   slug?: true
   categoriaId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type SubcategoriaMaxAggregateInputType = {
@@ -59,6 +67,8 @@ export type SubcategoriaMaxAggregateInputType = {
   nombre?: true
   slug?: true
   categoriaId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type SubcategoriaCountAggregateInputType = {
@@ -66,6 +76,8 @@ export type SubcategoriaCountAggregateInputType = {
   nombre?: true
   slug?: true
   categoriaId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -146,6 +158,8 @@ export type SubcategoriaGroupByOutputType = {
   nombre: string
   slug: string
   categoriaId: string
+  createdAt: Date
+  updatedAt: Date
   _count: SubcategoriaCountAggregateOutputType | null
   _min: SubcategoriaMinAggregateOutputType | null
   _max: SubcategoriaMaxAggregateOutputType | null
@@ -174,6 +188,8 @@ export type SubcategoriaWhereInput = {
   nombre?: Prisma.StringFilter<"Subcategoria"> | string
   slug?: Prisma.StringFilter<"Subcategoria"> | string
   categoriaId?: Prisma.StringFilter<"Subcategoria"> | string
+  createdAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   productos?: Prisma.ProductoListRelationFilter
   servicios?: Prisma.ServicioListRelationFilter
@@ -184,6 +200,8 @@ export type SubcategoriaOrderByWithRelationInput = {
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   categoria?: Prisma.CategoriaOrderByWithRelationInput
   productos?: Prisma.ProductoOrderByRelationAggregateInput
   servicios?: Prisma.ServicioOrderByRelationAggregateInput
@@ -197,6 +215,8 @@ export type SubcategoriaWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SubcategoriaWhereInput | Prisma.SubcategoriaWhereInput[]
   nombre?: Prisma.StringFilter<"Subcategoria"> | string
   categoriaId?: Prisma.StringFilter<"Subcategoria"> | string
+  createdAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   productos?: Prisma.ProductoListRelationFilter
   servicios?: Prisma.ServicioListRelationFilter
@@ -207,6 +227,8 @@ export type SubcategoriaOrderByWithAggregationInput = {
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.SubcategoriaCountOrderByAggregateInput
   _max?: Prisma.SubcategoriaMaxOrderByAggregateInput
   _min?: Prisma.SubcategoriaMinOrderByAggregateInput
@@ -220,12 +242,16 @@ export type SubcategoriaScalarWhereWithAggregatesInput = {
   nombre?: Prisma.StringWithAggregatesFilter<"Subcategoria"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Subcategoria"> | string
   categoriaId?: Prisma.StringWithAggregatesFilter<"Subcategoria"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subcategoria"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Subcategoria"> | Date | string
 }
 
 export type SubcategoriaCreateInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   categoria: Prisma.CategoriaCreateNestedOneWithoutSubcategoriasInput
   productos?: Prisma.ProductoCreateNestedManyWithoutSubcategoriaInput
   servicios?: Prisma.ServicioCreateNestedManyWithoutSubcategoriaInput
@@ -236,6 +262,8 @@ export type SubcategoriaUncheckedCreateInput = {
   nombre: string
   slug: string
   categoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutSubcategoriaInput
   servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutSubcategoriaInput
 }
@@ -244,6 +272,8 @@ export type SubcategoriaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutSubcategoriasNestedInput
   productos?: Prisma.ProductoUpdateManyWithoutSubcategoriaNestedInput
   servicios?: Prisma.ServicioUpdateManyWithoutSubcategoriaNestedInput
@@ -254,6 +284,8 @@ export type SubcategoriaUncheckedUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productos?: Prisma.ProductoUncheckedUpdateManyWithoutSubcategoriaNestedInput
   servicios?: Prisma.ServicioUncheckedUpdateManyWithoutSubcategoriaNestedInput
 }
@@ -263,12 +295,16 @@ export type SubcategoriaCreateManyInput = {
   nombre: string
   slug: string
   categoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SubcategoriaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SubcategoriaUncheckedUpdateManyInput = {
@@ -276,6 +312,8 @@ export type SubcategoriaUncheckedUpdateManyInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SubcategoriaListRelationFilter = {
@@ -293,6 +331,8 @@ export type SubcategoriaCountOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SubcategoriaMaxOrderByAggregateInput = {
@@ -300,6 +340,8 @@ export type SubcategoriaMaxOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SubcategoriaMinOrderByAggregateInput = {
@@ -307,6 +349,8 @@ export type SubcategoriaMinOrderByAggregateInput = {
   nombre?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SubcategoriaScalarRelationFilter = {
@@ -388,6 +432,8 @@ export type SubcategoriaCreateWithoutCategoriaInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   productos?: Prisma.ProductoCreateNestedManyWithoutSubcategoriaInput
   servicios?: Prisma.ServicioCreateNestedManyWithoutSubcategoriaInput
 }
@@ -396,6 +442,8 @@ export type SubcategoriaUncheckedCreateWithoutCategoriaInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutSubcategoriaInput
   servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutSubcategoriaInput
 }
@@ -434,12 +482,16 @@ export type SubcategoriaScalarWhereInput = {
   nombre?: Prisma.StringFilter<"Subcategoria"> | string
   slug?: Prisma.StringFilter<"Subcategoria"> | string
   categoriaId?: Prisma.StringFilter<"Subcategoria"> | string
+  createdAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Subcategoria"> | Date | string
 }
 
 export type SubcategoriaCreateWithoutProductosInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   categoria: Prisma.CategoriaCreateNestedOneWithoutSubcategoriasInput
   servicios?: Prisma.ServicioCreateNestedManyWithoutSubcategoriaInput
 }
@@ -449,6 +501,8 @@ export type SubcategoriaUncheckedCreateWithoutProductosInput = {
   nombre: string
   slug: string
   categoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutSubcategoriaInput
 }
 
@@ -472,6 +526,8 @@ export type SubcategoriaUpdateWithoutProductosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutSubcategoriasNestedInput
   servicios?: Prisma.ServicioUpdateManyWithoutSubcategoriaNestedInput
 }
@@ -481,6 +537,8 @@ export type SubcategoriaUncheckedUpdateWithoutProductosInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   servicios?: Prisma.ServicioUncheckedUpdateManyWithoutSubcategoriaNestedInput
 }
 
@@ -488,6 +546,8 @@ export type SubcategoriaCreateWithoutServiciosInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   categoria: Prisma.CategoriaCreateNestedOneWithoutSubcategoriasInput
   productos?: Prisma.ProductoCreateNestedManyWithoutSubcategoriaInput
 }
@@ -497,6 +557,8 @@ export type SubcategoriaUncheckedCreateWithoutServiciosInput = {
   nombre: string
   slug: string
   categoriaId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutSubcategoriaInput
 }
 
@@ -520,6 +582,8 @@ export type SubcategoriaUpdateWithoutServiciosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutSubcategoriasNestedInput
   productos?: Prisma.ProductoUpdateManyWithoutSubcategoriaNestedInput
 }
@@ -529,6 +593,8 @@ export type SubcategoriaUncheckedUpdateWithoutServiciosInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   categoriaId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productos?: Prisma.ProductoUncheckedUpdateManyWithoutSubcategoriaNestedInput
 }
 
@@ -536,12 +602,16 @@ export type SubcategoriaCreateManyCategoriaInput = {
   id?: string
   nombre: string
   slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SubcategoriaUpdateWithoutCategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productos?: Prisma.ProductoUpdateManyWithoutSubcategoriaNestedInput
   servicios?: Prisma.ServicioUpdateManyWithoutSubcategoriaNestedInput
 }
@@ -550,6 +620,8 @@ export type SubcategoriaUncheckedUpdateWithoutCategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productos?: Prisma.ProductoUncheckedUpdateManyWithoutSubcategoriaNestedInput
   servicios?: Prisma.ServicioUncheckedUpdateManyWithoutSubcategoriaNestedInput
 }
@@ -558,6 +630,8 @@ export type SubcategoriaUncheckedUpdateManyWithoutCategoriaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -605,6 +679,8 @@ export type SubcategoriaSelect<ExtArgs extends runtime.Types.Extensions.Internal
   nombre?: boolean
   slug?: boolean
   categoriaId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   productos?: boolean | Prisma.Subcategoria$productosArgs<ExtArgs>
   servicios?: boolean | Prisma.Subcategoria$serviciosArgs<ExtArgs>
@@ -616,6 +692,8 @@ export type SubcategoriaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   nombre?: boolean
   slug?: boolean
   categoriaId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subcategoria"]>
 
@@ -624,6 +702,8 @@ export type SubcategoriaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   nombre?: boolean
   slug?: boolean
   categoriaId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subcategoria"]>
 
@@ -632,9 +712,11 @@ export type SubcategoriaSelectScalar = {
   nombre?: boolean
   slug?: boolean
   categoriaId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type SubcategoriaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "slug" | "categoriaId", ExtArgs["result"]["subcategoria"]>
+export type SubcategoriaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "slug" | "categoriaId" | "createdAt" | "updatedAt", ExtArgs["result"]["subcategoria"]>
 export type SubcategoriaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   productos?: boolean | Prisma.Subcategoria$productosArgs<ExtArgs>
@@ -660,6 +742,8 @@ export type $SubcategoriaPayload<ExtArgs extends runtime.Types.Extensions.Intern
     nombre: string
     slug: string
     categoriaId: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["subcategoria"]>
   composites: {}
 }
@@ -1090,6 +1174,8 @@ export interface SubcategoriaFieldRefs {
   readonly nombre: Prisma.FieldRef<"Subcategoria", 'String'>
   readonly slug: Prisma.FieldRef<"Subcategoria", 'String'>
   readonly categoriaId: Prisma.FieldRef<"Subcategoria", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Subcategoria", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Subcategoria", 'DateTime'>
 }
     
 

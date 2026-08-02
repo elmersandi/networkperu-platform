@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 /* ==========================================================================
-   1. TOKENS GLOBALES (Paleta de Colores y Fuentes B2B)
-   Estos colores ahora se pueden usar como bg-marca, text-peligro, etc.
+   1. TOKENS GLOBALES (Paleta de Colores y Fuentes B2B - Solo Modo Claro)
+   Estos colores ahora se pueden usar directamente como bg-marca, text-peligro, etc.
 ========================================================================== */
 @theme {
   /* Enlazamos con la variable exacta de layout.tsx (Montserrat) */
@@ -16,15 +14,10 @@
   --color-peligro: #DC2626;
   --color-exito: #059669;
 
-  /* Superficies y Bordes (Dark Mode) */
-  --color-dark-bg: #000000;
-  --color-dark-surface: #121212;
-  --color-dark-border: #262626;
-
-  /* Superficies y Bordes (Light Mode) */
-  --color-light-bg: #F8FAFC;
-  --color-light-surface: #FFFFFF;
-  --color-light-border: #E2E8F0;
+  /* Superficies y Bordes (Tema Blanco Corporativo) */
+  --color-app-bg: #F8FAFC;
+  --color-app-surface: #FFFFFF;
+  --color-app-border: #E2E8F0;
 }
 
 /* ==========================================================================
@@ -32,27 +25,15 @@
    Reglas universales de lectura, tamaños responsivos y grosores corporativos.
 ========================================================================== */
 @layer base {
-  /* Transiciones premium para cambiar de modo claro a oscuro fluidamente */
-  * {
-    transition-property: background-color, border-color, color;
-    transition-timing-function: ease-in-out;
-    transition-duration: 300ms;
-  }
-
   /* Fondo Global Modo Claro (Regla de lectura óptima: 16px, font-normal, relajado) */
   body {
-    @apply bg-light-bg text-slate-600 text-[16px] font-normal leading-relaxed antialiased selection:bg-marca selection:text-white;
-  }
-
-  /* Fondo Global Modo Oscuro */
-  .dark body {
-    @apply bg-dark-bg text-slate-300 selection:bg-marca selection:text-white;
+    @apply bg-app-bg text-slate-600 text-[16px] font-normal leading-relaxed antialiased selection:bg-marca selection:text-white;
   }
 
   /* --- JERARQUÍA DE TÍTULOS (Sólidos, Serios y Responsivos) --- */
   h1, h2, h3, h4, h5, h6 {
     /* font-semibold (600) y tracking-tighter para máxima seriedad */
-    @apply font-semibold tracking-tighter text-slate-900 dark:text-slate-100;
+    @apply font-semibold tracking-tighter text-slate-900;
   }
   
   /* H1: Para portadas/Heros (Muy grande en PC, adaptado en móvil) */
@@ -69,13 +50,13 @@
 
   /* --- PÁRRAFOS GLOBALES --- */
   p {
-    @apply mb-4 text-base md:text-[16px] text-slate-600 dark:text-slate-300 font-normal leading-relaxed;
+    @apply mb-4 text-base md:text-[16px] text-slate-600 font-normal leading-relaxed;
   }
   
   /* --- RESET GENERAL PARA INPUTS --- */
   input:focus, select:focus, textarea:focus {
     outline: none;
-    @apply border-marca shadow-[0_0_0_1px_#1D4ED8] dark:shadow-none;
+    @apply border-marca shadow-[0_0_0_1px_#1D4ED8];
   }
 }
 
@@ -91,7 +72,7 @@
   }
 
   .btn-secundario {
-    @apply bg-transparent font-medium px-5 py-2.5 rounded-md transition-colors border border-light-border dark:border-dark-border text-slate-900 dark:text-slate-100 hover:bg-light-border dark:hover:bg-dark-border cursor-pointer shadow-none;
+    @apply bg-transparent font-medium px-5 py-2.5 rounded-md transition-colors border border-app-border text-slate-900 hover:bg-app-border cursor-pointer shadow-none;
   }
 
   .btn-peligro {
@@ -104,24 +85,24 @@
   }
 
   thead {
-    @apply bg-[#F1F5F9] dark:bg-dark-bg border-b border-light-border dark:border-dark-border;
+    @apply bg-[#F1F5F9] border-b border-app-border;
   }
 
   th {
-    @apply px-6 py-4 text-xs uppercase font-semibold tracking-wider text-slate-500 dark:text-slate-400;
+    @apply px-6 py-4 text-xs uppercase font-semibold tracking-wider text-slate-500;
   }
 
   td {
-    @apply px-6 py-4 border-b border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-900 dark:text-slate-100;
+    @apply px-6 py-4 border-b border-app-border bg-app-surface text-slate-900;
   }
 
   tbody tr:hover td {
-    @apply bg-light-bg dark:bg-[#1A1A1A];
+    @apply bg-app-bg;
   }
 
   /* --- Contenedores y Tarjetas --- */
   .panel-corporativo {
-    @apply bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-xl shadow-sm dark:shadow-none overflow-hidden;
+    @apply bg-app-surface border border-app-border rounded-xl shadow-sm overflow-hidden;
   }
 }
 
@@ -131,24 +112,24 @@
 ========================================================================== */
 @layer components {
   .admin-b2b, .admin-auth-b2b {
-    @apply text-slate-500 bg-light-bg dark:text-slate-400 dark:bg-dark-bg;
+    @apply text-slate-500 bg-app-bg;
   }
 
   /* El H1 del Admin ahora hereda el tracking-tighter y font-semibold del sistema */
   .admin-b2b h1, .admin-auth-b2b h1 {
-    @apply text-3xl font-semibold tracking-tighter text-slate-900 dark:text-slate-100;
+    @apply text-3xl font-semibold tracking-tighter text-slate-900;
   }
 
   /* Subtítulos de secciones en el Admin  */
   .admin-b2b h2, .admin-auth-b2b h2 {
-    @apply text-xl md:text-2xl font-semibold tracking-tighter text-slate-800 dark:text-slate-200 mb-4 mt-6;
+    @apply text-xl md:text-2xl font-semibold tracking-tighter text-slate-800 mb-4 mt-6;
   }
 
   .admin-b2b p, .admin-auth-b2b p {
-    @apply text-slate-500 dark:text-slate-400;
+    @apply text-slate-500;
   }
 
   .admin-b2b .b2b-surface, .admin-auth-b2b .b2b-surface {
-    @apply bg-light-surface border-light-border dark:bg-dark-surface dark:border-dark-border border;
+    @apply bg-app-surface border-app-border border;
   }
 }

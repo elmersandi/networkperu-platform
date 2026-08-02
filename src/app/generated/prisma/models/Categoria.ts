@@ -199,6 +199,8 @@ export type CategoriaWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   subcategorias?: Prisma.SubcategoriaListRelationFilter
+  productos?: Prisma.ProductoListRelationFilter
+  servicios?: Prisma.ServicioListRelationFilter
 }
 
 export type CategoriaOrderByWithRelationInput = {
@@ -210,6 +212,8 @@ export type CategoriaOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subcategorias?: Prisma.SubcategoriaOrderByRelationAggregateInput
+  productos?: Prisma.ProductoOrderByRelationAggregateInput
+  servicios?: Prisma.ServicioOrderByRelationAggregateInput
 }
 
 export type CategoriaWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +228,8 @@ export type CategoriaWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Categoria"> | Date | string
   subcategorias?: Prisma.SubcategoriaListRelationFilter
+  productos?: Prisma.ProductoListRelationFilter
+  servicios?: Prisma.ServicioListRelationFilter
 }, "id" | "nombre" | "slug">
 
 export type CategoriaOrderByWithAggregationInput = {
@@ -261,6 +267,8 @@ export type CategoriaCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subcategorias?: Prisma.SubcategoriaCreateNestedManyWithoutCategoriaInput
+  productos?: Prisma.ProductoCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaUncheckedCreateInput = {
@@ -272,6 +280,8 @@ export type CategoriaUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subcategorias?: Prisma.SubcategoriaUncheckedCreateNestedManyWithoutCategoriaInput
+  productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaUpdateInput = {
@@ -283,6 +293,8 @@ export type CategoriaUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subcategorias?: Prisma.SubcategoriaUpdateManyWithoutCategoriaNestedInput
+  productos?: Prisma.ProductoUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUpdateManyWithoutCategoriaNestedInput
 }
 
 export type CategoriaUncheckedUpdateInput = {
@@ -294,6 +306,8 @@ export type CategoriaUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subcategorias?: Prisma.SubcategoriaUncheckedUpdateManyWithoutCategoriaNestedInput
+  productos?: Prisma.ProductoUncheckedUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUncheckedUpdateManyWithoutCategoriaNestedInput
 }
 
 export type CategoriaCreateManyInput = {
@@ -379,6 +393,34 @@ export type CategoriaUpdateOneRequiredWithoutSubcategoriasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriaUpdateToOneWithWhereWithoutSubcategoriasInput, Prisma.CategoriaUpdateWithoutSubcategoriasInput>, Prisma.CategoriaUncheckedUpdateWithoutSubcategoriasInput>
 }
 
+export type CategoriaCreateNestedOneWithoutProductosInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutProductosInput, Prisma.CategoriaUncheckedCreateWithoutProductosInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutProductosInput
+  connect?: Prisma.CategoriaWhereUniqueInput
+}
+
+export type CategoriaUpdateOneRequiredWithoutProductosNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutProductosInput, Prisma.CategoriaUncheckedCreateWithoutProductosInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutProductosInput
+  upsert?: Prisma.CategoriaUpsertWithoutProductosInput
+  connect?: Prisma.CategoriaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriaUpdateToOneWithWhereWithoutProductosInput, Prisma.CategoriaUpdateWithoutProductosInput>, Prisma.CategoriaUncheckedUpdateWithoutProductosInput>
+}
+
+export type CategoriaCreateNestedOneWithoutServiciosInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutServiciosInput, Prisma.CategoriaUncheckedCreateWithoutServiciosInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutServiciosInput
+  connect?: Prisma.CategoriaWhereUniqueInput
+}
+
+export type CategoriaUpdateOneRequiredWithoutServiciosNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoriaCreateWithoutServiciosInput, Prisma.CategoriaUncheckedCreateWithoutServiciosInput>
+  connectOrCreate?: Prisma.CategoriaCreateOrConnectWithoutServiciosInput
+  upsert?: Prisma.CategoriaUpsertWithoutServiciosInput
+  connect?: Prisma.CategoriaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriaUpdateToOneWithWhereWithoutServiciosInput, Prisma.CategoriaUpdateWithoutServiciosInput>, Prisma.CategoriaUncheckedUpdateWithoutServiciosInput>
+}
+
 export type CategoriaCreateWithoutSubcategoriasInput = {
   id?: string
   nombre: string
@@ -387,6 +429,8 @@ export type CategoriaCreateWithoutSubcategoriasInput = {
   descripcion?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  productos?: Prisma.ProductoCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaUncheckedCreateWithoutSubcategoriasInput = {
@@ -397,6 +441,8 @@ export type CategoriaUncheckedCreateWithoutSubcategoriasInput = {
   descripcion?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutCategoriaInput
 }
 
 export type CategoriaCreateOrConnectWithoutSubcategoriasInput = {
@@ -423,6 +469,8 @@ export type CategoriaUpdateWithoutSubcategoriasInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productos?: Prisma.ProductoUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUpdateManyWithoutCategoriaNestedInput
 }
 
 export type CategoriaUncheckedUpdateWithoutSubcategoriasInput = {
@@ -433,6 +481,136 @@ export type CategoriaUncheckedUpdateWithoutSubcategoriasInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productos?: Prisma.ProductoUncheckedUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUncheckedUpdateManyWithoutCategoriaNestedInput
+}
+
+export type CategoriaCreateWithoutProductosInput = {
+  id?: string
+  nombre: string
+  slug: string
+  tipo: $Enums.TipoCategoria
+  descripcion?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcategorias?: Prisma.SubcategoriaCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioCreateNestedManyWithoutCategoriaInput
+}
+
+export type CategoriaUncheckedCreateWithoutProductosInput = {
+  id?: string
+  nombre: string
+  slug: string
+  tipo: $Enums.TipoCategoria
+  descripcion?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcategorias?: Prisma.SubcategoriaUncheckedCreateNestedManyWithoutCategoriaInput
+  servicios?: Prisma.ServicioUncheckedCreateNestedManyWithoutCategoriaInput
+}
+
+export type CategoriaCreateOrConnectWithoutProductosInput = {
+  where: Prisma.CategoriaWhereUniqueInput
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutProductosInput, Prisma.CategoriaUncheckedCreateWithoutProductosInput>
+}
+
+export type CategoriaUpsertWithoutProductosInput = {
+  update: Prisma.XOR<Prisma.CategoriaUpdateWithoutProductosInput, Prisma.CategoriaUncheckedUpdateWithoutProductosInput>
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutProductosInput, Prisma.CategoriaUncheckedCreateWithoutProductosInput>
+  where?: Prisma.CategoriaWhereInput
+}
+
+export type CategoriaUpdateToOneWithWhereWithoutProductosInput = {
+  where?: Prisma.CategoriaWhereInput
+  data: Prisma.XOR<Prisma.CategoriaUpdateWithoutProductosInput, Prisma.CategoriaUncheckedUpdateWithoutProductosInput>
+}
+
+export type CategoriaUpdateWithoutProductosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.EnumTipoCategoriaFieldUpdateOperationsInput | $Enums.TipoCategoria
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcategorias?: Prisma.SubcategoriaUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUpdateManyWithoutCategoriaNestedInput
+}
+
+export type CategoriaUncheckedUpdateWithoutProductosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.EnumTipoCategoriaFieldUpdateOperationsInput | $Enums.TipoCategoria
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcategorias?: Prisma.SubcategoriaUncheckedUpdateManyWithoutCategoriaNestedInput
+  servicios?: Prisma.ServicioUncheckedUpdateManyWithoutCategoriaNestedInput
+}
+
+export type CategoriaCreateWithoutServiciosInput = {
+  id?: string
+  nombre: string
+  slug: string
+  tipo: $Enums.TipoCategoria
+  descripcion?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcategorias?: Prisma.SubcategoriaCreateNestedManyWithoutCategoriaInput
+  productos?: Prisma.ProductoCreateNestedManyWithoutCategoriaInput
+}
+
+export type CategoriaUncheckedCreateWithoutServiciosInput = {
+  id?: string
+  nombre: string
+  slug: string
+  tipo: $Enums.TipoCategoria
+  descripcion?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subcategorias?: Prisma.SubcategoriaUncheckedCreateNestedManyWithoutCategoriaInput
+  productos?: Prisma.ProductoUncheckedCreateNestedManyWithoutCategoriaInput
+}
+
+export type CategoriaCreateOrConnectWithoutServiciosInput = {
+  where: Prisma.CategoriaWhereUniqueInput
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutServiciosInput, Prisma.CategoriaUncheckedCreateWithoutServiciosInput>
+}
+
+export type CategoriaUpsertWithoutServiciosInput = {
+  update: Prisma.XOR<Prisma.CategoriaUpdateWithoutServiciosInput, Prisma.CategoriaUncheckedUpdateWithoutServiciosInput>
+  create: Prisma.XOR<Prisma.CategoriaCreateWithoutServiciosInput, Prisma.CategoriaUncheckedCreateWithoutServiciosInput>
+  where?: Prisma.CategoriaWhereInput
+}
+
+export type CategoriaUpdateToOneWithWhereWithoutServiciosInput = {
+  where?: Prisma.CategoriaWhereInput
+  data: Prisma.XOR<Prisma.CategoriaUpdateWithoutServiciosInput, Prisma.CategoriaUncheckedUpdateWithoutServiciosInput>
+}
+
+export type CategoriaUpdateWithoutServiciosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.EnumTipoCategoriaFieldUpdateOperationsInput | $Enums.TipoCategoria
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcategorias?: Prisma.SubcategoriaUpdateManyWithoutCategoriaNestedInput
+  productos?: Prisma.ProductoUpdateManyWithoutCategoriaNestedInput
+}
+
+export type CategoriaUncheckedUpdateWithoutServiciosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo?: Prisma.EnumTipoCategoriaFieldUpdateOperationsInput | $Enums.TipoCategoria
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subcategorias?: Prisma.SubcategoriaUncheckedUpdateManyWithoutCategoriaNestedInput
+  productos?: Prisma.ProductoUncheckedUpdateManyWithoutCategoriaNestedInput
 }
 
 
@@ -442,10 +620,14 @@ export type CategoriaUncheckedUpdateWithoutSubcategoriasInput = {
 
 export type CategoriaCountOutputType = {
   subcategorias: number
+  productos: number
+  servicios: number
 }
 
 export type CategoriaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subcategorias?: boolean | CategoriaCountOutputTypeCountSubcategoriasArgs
+  productos?: boolean | CategoriaCountOutputTypeCountProductosArgs
+  servicios?: boolean | CategoriaCountOutputTypeCountServiciosArgs
 }
 
 /**
@@ -465,6 +647,20 @@ export type CategoriaCountOutputTypeCountSubcategoriasArgs<ExtArgs extends runti
   where?: Prisma.SubcategoriaWhereInput
 }
 
+/**
+ * CategoriaCountOutputType without action
+ */
+export type CategoriaCountOutputTypeCountProductosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductoWhereInput
+}
+
+/**
+ * CategoriaCountOutputType without action
+ */
+export type CategoriaCountOutputTypeCountServiciosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServicioWhereInput
+}
+
 
 export type CategoriaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -475,6 +671,8 @@ export type CategoriaSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdAt?: boolean
   updatedAt?: boolean
   subcategorias?: boolean | Prisma.Categoria$subcategoriasArgs<ExtArgs>
+  productos?: boolean | Prisma.Categoria$productosArgs<ExtArgs>
+  servicios?: boolean | Prisma.Categoria$serviciosArgs<ExtArgs>
   _count?: boolean | Prisma.CategoriaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["categoria"]>
 
@@ -511,6 +709,8 @@ export type CategoriaSelectScalar = {
 export type CategoriaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "slug" | "tipo" | "descripcion" | "createdAt" | "updatedAt", ExtArgs["result"]["categoria"]>
 export type CategoriaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subcategorias?: boolean | Prisma.Categoria$subcategoriasArgs<ExtArgs>
+  productos?: boolean | Prisma.Categoria$productosArgs<ExtArgs>
+  servicios?: boolean | Prisma.Categoria$serviciosArgs<ExtArgs>
   _count?: boolean | Prisma.CategoriaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CategoriaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -520,6 +720,8 @@ export type $CategoriaPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Categoria"
   objects: {
     subcategorias: Prisma.$SubcategoriaPayload<ExtArgs>[]
+    productos: Prisma.$ProductoPayload<ExtArgs>[]
+    servicios: Prisma.$ServicioPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -924,6 +1126,8 @@ readonly fields: CategoriaFieldRefs;
 export interface Prisma__CategoriaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subcategorias<T extends Prisma.Categoria$subcategoriasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Categoria$subcategoriasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubcategoriaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productos<T extends Prisma.Categoria$productosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Categoria$productosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  servicios<T extends Prisma.Categoria$serviciosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Categoria$serviciosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1374,6 +1578,54 @@ export type Categoria$subcategoriasArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.SubcategoriaScalarFieldEnum | Prisma.SubcategoriaScalarFieldEnum[]
+}
+
+/**
+ * Categoria.productos
+ */
+export type Categoria$productosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Producto
+   */
+  select?: Prisma.ProductoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Producto
+   */
+  omit?: Prisma.ProductoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductoInclude<ExtArgs> | null
+  where?: Prisma.ProductoWhereInput
+  orderBy?: Prisma.ProductoOrderByWithRelationInput | Prisma.ProductoOrderByWithRelationInput[]
+  cursor?: Prisma.ProductoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductoScalarFieldEnum | Prisma.ProductoScalarFieldEnum[]
+}
+
+/**
+ * Categoria.servicios
+ */
+export type Categoria$serviciosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Servicio
+   */
+  select?: Prisma.ServicioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Servicio
+   */
+  omit?: Prisma.ServicioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServicioInclude<ExtArgs> | null
+  where?: Prisma.ServicioWhereInput
+  orderBy?: Prisma.ServicioOrderByWithRelationInput | Prisma.ServicioOrderByWithRelationInput[]
+  cursor?: Prisma.ServicioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServicioScalarFieldEnum | Prisma.ServicioScalarFieldEnum[]
 }
 
 /**
