@@ -110,7 +110,7 @@ export default function Footer({ config }: Props) {
         </div>
 
         {/* 🔥 Línea divisoria y Copyright (CON MÁS ESPACIO Y MEJOR DISTRIBUCIÓN) */}
-        <div className="border-t border-gray-800 mt-14 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-center lg:text-left text-gray-500">
+        <div className="border-t border-gray-300 mt-14 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-center lg:text-left text-gray-500">
           <p className="leading-relaxed max-w-2xl">{textoDerechos}</p>
           
           <div className="flex flex-wrap justify-center gap-5">
