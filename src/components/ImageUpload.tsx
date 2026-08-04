@@ -1,7 +1,8 @@
 "use client";
 
 // 1. Importamos las herramientas necesarias (Cloudinary para subir fotos, iconos de Lucide, etc.)
-// @ts-expect-error: Suprimimos la alerta de importación porque la librería no trae un archivo de tipos oficial.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { CldUploadWidget } from "next-cloudinary";
 import { ImagePlus, Camera, Trash } from "lucide-react";
 import Image from "next/image";
