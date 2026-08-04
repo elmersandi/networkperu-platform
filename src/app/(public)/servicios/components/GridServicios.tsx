@@ -106,7 +106,7 @@ export default function GridServicios({ servicios }: GridServiciosProps) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  const numeroWa = "51925030648";
+                  const numeroWa = "51993370797"; // Número de WhatsApp de la empresa
                   const msjWa = encodeURIComponent(`Hola Network Perú, deseo solicitar cotización corporativa para el servicio:\n✔️ ${servicio.nombre}\n▪️ SKU: ${servicio.sku}`);
                   window.open(`https://api.whatsapp.com/send?phone=${numeroWa}&text=${msjWa}`, '_blank');
                 }}

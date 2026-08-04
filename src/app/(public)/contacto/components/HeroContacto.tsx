@@ -1,26 +1,25 @@
-import Image from "next/image";
-
 export default function HeroContacto() {
   return (
-    // py-20 (80px) en móvil, py-32 (128px) en PC. Flujo natural y centrado.
-    <section className="relative w-full bg-[#001f3f] flex flex-col items-center justify-center py-20 md:py-32">
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/heronetworks.jpg"
-          alt="Contacto Networks Perú"
-          fill
-          className="object-cover opacity-30 grayscale-50"
-          priority
-        />
-      </div>
+    <section 
+      className="w-full border-b border-slate-200"
+      // Gradiente corporativo: Azul muy oscuro a un azul técnico en el centro
+      style={{ background: "linear-gradient(to right, #0f172a, #1e3a8a, #0f172a)" }}
+    >
+      {/* Ajustamos el padding (py-12 md:py-16) para que no sea tan gigante y mantenga la proporción */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex flex-col items-center justify-center text-center relative z-10">
+        
+        <div className="max-w-3xl">
+          {/* Título unificado al tamaño del resto de la web (text-2xl sm:text-3xl) */}
+          <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-4 shadow-sm leading-tight">
+            Hablemos de su próximo proyecto tecnológico
+          </h1>
+          
+          {/* Descripción directa, corporativa y clara */}
+          <p className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed max-w-2xl mx-auto my-0 drop-shadow-md">
+            Nuestro equipo de especialistas está listo para asesorarlo. Solicite una cotización, una visita técnica o soporte corporativo para su empresa.
+          </p>
+        </div>
 
-      <div className="relative z-10 text-center px-4 w-full">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 tracking-tight">
-          Contacto Corporativo
-        </h1>
-        <p className="text-base md:text-lg text-blue-100 font-medium max-w-2xl mx-auto drop-shadow-md">
-          Ingeniería y soporte técnico a su disposición.
-        </p>
       </div>
     </section>
   );

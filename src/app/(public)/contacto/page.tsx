@@ -16,7 +16,7 @@ export default function ContactoPage() {
 
   return (
     // pt-24 (96px) para evitar chocar con el Navbar fijo
-    <div className="min-h-screen bg-gray-50 font-sans selection:bg-blue-600 selection:text-white pt-16">
+    <div className="min-h-screen bg-gray-50 font-sans selection:bg-blue-600 selection:text-white">
       
       {/* 1. HERO */}
       <HeroContacto />

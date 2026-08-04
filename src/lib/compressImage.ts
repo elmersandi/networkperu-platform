@@ -26,12 +26,14 @@ export function compressImage(
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              resolve(new File([blob], file.name, { type: "image/jpeg" }));
+              // Cambiamos la extensión original por .webp
+              const newName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+              resolve(new File([blob], newName, { type: "image/webp" }));
             } else {
               reject(new Error("Error al comprimir la imagen"));
             }
           },
-          "image/jpeg",
+          "image/webp", // Aquí lo forzamos a WebP
           quality
         );
       };

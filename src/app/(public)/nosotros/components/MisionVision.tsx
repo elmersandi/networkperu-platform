@@ -51,7 +51,7 @@ export default function IdentidadEmpresa() {
                 Misión
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                Proveer soluciones de infraestructura de red y desarrollo de software de alta disponibilidad. Nos aseguramos de que la tecnología sea el motor, no el obstáculo, para el éxito corporativo.
+                Brindar soluciones tecnológicas innovadoras y confiables que optimicen los procesos de nuestros clientes, mediante servicios de calidad en infraestructura tecnológica, redes, seguridad informática y soporte especializado, contribuyendo el conocimiento y transformación digital de las organizaciones.
               </p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function IdentidadEmpresa() {
                 Visión
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                Ser la empresa líder en telecomunicaciones e innovación B2B en Loreto, reconocida por nuestra calidad técnica, tiempos de respuesta implacables y soluciones de vanguardia.
+                Ser una empresa líder en soluciones tecnológicas a nivel nacional, reconocida por la calidad de nuestros servicios, la innovación constante y el compromiso con el desarrollo tecnológico de nuestros clientes.
               </p>
             </div>
           </div>

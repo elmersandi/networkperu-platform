@@ -224,7 +224,7 @@ function DrawerUnificado() {
       localStorage.removeItem("network_cart");
 
       window.open(
-        `https://api.whatsapp.com/send?phone=51925030648&text=${encodeURIComponent(textoWA)}`,
+        `https://api.whatsapp.com/send?phone=51993370797&text=${encodeURIComponent(textoWA)}`,
         "_blank",
       );
     },

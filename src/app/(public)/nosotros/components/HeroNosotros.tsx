@@ -1,21 +1,43 @@
 // src/app/(public)/nosotros/components/HeroNosotros.tsx
 export default function HeroNosotros() {
   return (
-    <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 px-6 overflow-hidden bg-slate-900">
-      <div className="absolute inset-0 bg-slate-900"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-transparent"></div>
+    <section className="w-full border-b border-slate-200 relative bg-[#0f172a] overflow-hidden">
       
-      <div className="max-w-4xl mx-auto relative z-10 text-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
-        <span className="px-4 py-1.5 bg-blue-800/30 text-blue-300 rounded-full text-xs font-semibold uppercase tracking-widest border border-blue-700/50 mb-6 inline-block">
-          Nuestra Esencia
-        </span>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight mb-6 leading-tight">
-          Conectando la Amazonía <br className="hidden md:block"/> 
-          con el Futuro Digital.
-        </h1>
-        <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-          No solo instalamos cables y servidores. Construimos los puentes tecnológicos que permiten a las empresas crecer sin límites geográficos.
-        </p>
+      {/* 1. LA IMAGEN AHORA OCUPA TODO EL ESPACIO (inset-0) 
+          Usamos bg-right para asegurarnos de que el ingeniero siempre salga en pantalla 
+          sin importar el tamaño del monitor. */}
+      <div 
+        className="absolute inset-0 bg-cover bg-right z-0"
+        style={{ backgroundImage: "url('/heronetworks.jpg')" }}
+      />
+      
+      {/* 2. EL GRADIENTE MÁGICO (Adiós a la línea divisoria)
+          - 0% a 40%: Azul oscuro súper sólido (Protege la legibilidad del texto).
+          - 40% a 75%: Zona de transición (El azul se va desvaneciendo suavemente).
+          - 100%: Totalmente transparente (Muestra la foto nítida a la derecha).
+      */}
+      <div 
+        className="absolute inset-0 z-10"
+        style={{ 
+          background: "linear-gradient(to right, #0f172a 0%, #0f172a 40%, rgba(15, 23, 42, 0.8) 60%, rgba(15, 23, 42, 0) 100%)" 
+        }}
+      />
+
+      {/* Contenedor del Texto con padding inferior intermedio balanceado */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-20 sm:pb-24 relative z-20 flex items-center justify-start">
+        
+        <div className="max-w-3xl text-left">
+          {/* Título con el tamaño exacto del de productos */}
+          <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-3 shadow-sm leading-tight">
+            Soluciones Integrales en Infraestructura TI y Seguridad.
+          </h1>
+          
+          {/* Descripción con margen limpio */}
+          <p className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed max-w-2xl my-0 drop-shadow-md">
+            Especialistas en el diseño, implementación y mantenimiento de redes corporativas. Brindamos soporte tecnológico robusto y escalable para garantizar la continuidad operativa de su empresa en toda la Amazonía.
+          </p>
+        </div>
+        
       </div>
     </section>
   );

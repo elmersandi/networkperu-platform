@@ -1,22 +1,30 @@
+// Componente optimizado para enlaces internos/externos en Next.js
 import Link from "next/link";
 
+// Exige que el componente reciba un número de teléfono
 interface Props {
   numero: string;
 }
 
+// Función principal que recibe el número dinámico
 export default function WhatsappFlotante({ numero }: Props) {
   return (
+    // Contenedor fijo abajo a la derecha con animación de entrada
     <div className="fixed bottom-6 right-6 z-50 animate-in fade-in zoom-in duration-500 delay-500">
+      
       <Link 
-        href={`https://wa.me/${51958278904}`} 
+        // Genera la URL con el código de Perú (51) y el mensaje predeterminado
+        href={`https://wa.me/51${numero}?text=Hola,%20me%20comunico%20desde%20su%20página%20web.%20¿Podrían%20brindarme%20más%20información%20sobre%20sus%20servicios%20de%20infraestructura%20y%20equipos,%20por%20favor?`} 
+        // Abre el chat en una pestaña nueva
         target="_blank" 
+        // Estilos del botón: color verde, redondo, sombra y efecto de crecimiento al pasar el mouse
         className="bg-[#25D366] hover:bg-[#1EBE53] text-white p-4 rounded-full shadow-lg shadow-green-500/30 hover:scale-110 transition-transform flex items-center justify-center group relative"
         aria-label="Contactar por WhatsApp"
       >
-        {/* El efecto de "ping" o latido */}
+        {/* Círculo trasero que crea el efecto visual de latido constante */}
         <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping group-hover:animate-none"></span>
         
-        {/* 🔥 SVG OFICIAL DE WHATSAPP 🔥 */}
+        {/* Ícono vectorial de WhatsApp */}
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           width="28" 

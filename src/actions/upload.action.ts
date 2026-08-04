@@ -2,9 +2,9 @@
 
 import { v2 as cloudinary } from "cloudinary";
 
-// 🔐 Configuración corregida leyendo exactamente tu .env
+// Configuración
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME, // 🔥 Agregamos NEXT_PUBLIC_
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
@@ -18,10 +18,14 @@ export async function uploadImagen(formData: FormData): Promise<string | null> {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // 2. Lo subimos usando upload_stream envuelto en una Promesa
+    // 2. Lo subimos usando upload_stream con OPTIMIZACIÓN ACTIVA
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
-        { folder: "networkperu" }, // Opcional: crea una carpeta en tu Cloudinary
+        { 
+          folder: "networkperu",
+          format: "webp", //  Fuerza la conversión a WebP
+          quality: "auto" //  Cloudinary decide cuánto exprimir la foto sin que se vea fea
+        }, 
         function (error, result) {
           if (error) {
             reject(error);

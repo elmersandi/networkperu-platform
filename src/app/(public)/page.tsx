@@ -4,7 +4,6 @@ import { obtenerConfiguracion } from "@/src/actions/configuracion.action";
 // Importamos todos nuestros componentes modulares
 import HeroSlider from "./components/HeroSlider";
 import ServiceCards from "./components/ServiceCards";
-import LogosConfianza from "./components/LogosConfianza";
 import Estadisticas from "./components/Estadisticas";
 import FormularioCta from "./components/CtaBanner";
 import PorQueElegirnos from "./components/PorQueElegirnos";
@@ -45,9 +44,6 @@ export default async function Home() {
         subtituloHero={heroSubtitulo}
         imagenEquiposUrl="/equipos-seguridad.png" 
       />
-
-      {/* SECCIÓN 2: Pruebas Sociales (Marcas) */}
-      <LogosConfianza />
 
       {/* SECCIÓN 3: Diferenciadores */}
       <PorQueElegirnos />
