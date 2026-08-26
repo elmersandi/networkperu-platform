@@ -2,15 +2,16 @@
 
 export default function IdentidadEmpresa() {
   return (
-    <section className="py-24 md:py-32" style={{ backgroundColor: "#e5e7eb" }}>
+    // 1. Cambiamos el fondo gris duro por bg-white y redujimos el padding vertical (de py-32 a py-20)
+    <section className="py-16 md:py-20 bg-white border-y border-slate-100">
       <div className="max-w-[1200px] w-full mx-auto px-14 md:px-8">
         
         {/* =======================
             CABECERA DE LA SECCIÓN
             ======================= */}
-        {/* Aumentamos drásticamente el mb (margin-bottom) para forzar la separación */}
-        <div className="text-center mb-16 md:mb-24 px-4">
-          <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6 tracking-tight">
+        {/* 2. Redujimos el mb (margin-bottom) de 24 a 12/16 para pegar el texto a las tarjetas */}
+        <div className="text-center mb-12 md:mb-16 px-4">
+          <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-4 tracking-tight">
             Nuestra identidad
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium">
@@ -18,14 +19,16 @@ export default function IdentidadEmpresa() {
           </p>
         </div>
         
-        {/* Le agregamos pt-8 (padding-top) y mt-8 (margin-top) a la cuadrícula para asegurar que baje */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 gap-y-28 justify-items-center pt-8 mt-8">
+        {/* =======================
+            CONTENEDOR DE TARJETAS
+            ======================= */}
+        {/* 3. Eliminamos el pt-8 y mt-8. Redujimos el gap-y-28 a gap-y-16 (suficiente para que no choquen en móvil) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12 gap-y-16 justify-items-center">
           
           {/* =======================
               TARJETA 1: MISIÓN (Azul)
               ======================= */}
           <div className="relative block w-full mx-auto z-10" style={{ maxWidth: "320px" }}>
-            
             <div 
               className="absolute rounded-3xl" 
               style={{ 
@@ -35,7 +38,6 @@ export default function IdentidadEmpresa() {
                 zIndex: -1 
               }}
             ></div>
-            
             <div 
               className="absolute rounded-3xl border-4" 
               style={{ 
@@ -60,7 +62,6 @@ export default function IdentidadEmpresa() {
               TARJETA 2: VISIÓN (Naranja)
               ======================= */}
           <div className="relative block w-full mx-auto z-10" style={{ maxWidth: "320px" }}>
-            
             <div 
               className="absolute rounded-3xl" 
               style={{ 
@@ -70,7 +71,6 @@ export default function IdentidadEmpresa() {
                 zIndex: -1 
               }}
             ></div>
-            
             <div 
               className="absolute rounded-3xl border-4" 
               style={{ 
@@ -95,7 +95,6 @@ export default function IdentidadEmpresa() {
               TARJETA 3: VALORES (Verde)
               ======================= */}
           <div className="relative block w-full mx-auto z-10" style={{ maxWidth: "320px" }}>
-            
             <div 
               className="absolute rounded-3xl" 
               style={{ 
@@ -105,7 +104,6 @@ export default function IdentidadEmpresa() {
                 zIndex: -1 
               }}
             ></div>
-            
             <div 
               className="absolute rounded-3xl border-4" 
               style={{ 

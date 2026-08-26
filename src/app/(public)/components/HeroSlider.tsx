@@ -2,95 +2,128 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 
 interface Props {
   tituloHero: string;
   subtituloHero: string;
-  imagenEquiposUrl: string; 
+  imagenEquiposUrl?: string; 
 }
 
-export default function HeroSlider({ tituloHero, subtituloHero, imagenEquiposUrl }: Props) {
+export default function HeroSlider({ tituloHero, subtituloHero }: Props) {
+  
+  // 1. Tipamos explícitamente el objeto como 'Variants'
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  // 2. Tipamos explícitamente como 'Variants'
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.7, ease: "easeOut" } 
+    }
+  };
+
+  // Función opcional para resaltar la última palabra en naranja
+  // Si tu título de BD es "Especialistas en soluciones TIC", esto hará "TIC" naranja.
+  const formatTitle = (title: string) => {
+    const words = title.split(" ");
+    if (words.length <= 1) return title;
+    const lastWord = words.pop();
+    return (
+      <>
+        {words.join(" ")} <span className="text-orange-500">{lastWord}</span>
+      </>
+    );
+  };
+
   return (
-    // 🔥 Cambiamos a min-h-[85vh] y h-auto para que crezca si es necesario
-    <section className="relative w-full min-h-[100svh] lg:min-h-[85vh] lg:h-auto overflow-hidden bg-gradient-to-b lg:bg-gradient-to-r from-[#002855] via-[#004b91] to-[#007bd9] flex items-center">
+    <section className="relative w-full min-h-[100svh] lg:min-h-[75vh] overflow-hidden flex items-center bg-[#0050a4]">
       
-      {/* 1. LA MARCA DE AGUA (SOLO PARA CELULAR) */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-15 lg:hidden pointer-events-none px-4">
-        <div className="relative w-full max-w-[450px] aspect-square">
+      {/* FONDO MÓVIL */}
+      <div className="absolute inset-0 z-0 lg:hidden flex items-center justify-center">
+        <div className="relative w-full h-full max-w-[500px]">
           <Image 
-            src={imagenEquiposUrl} 
-            alt="Fondo Equipos" 
+            src="/hero-movil.jpg" 
+            alt="Fondo Móvil Equipos" 
             fill 
-            className="object-contain" 
+            className="object-contain object-center opacity-30 mix-blend-luminosity" 
             priority 
             sizes="100vw"
           />
         </div>
+        <div className="absolute inset-0 bg-[#002855]/40 mix-blend-multiply"></div>
       </div>
 
-      {/* 2. LA CURVA BLANCA (SOLO PARA PC) */}
-      <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-1/2 right-[-10%] w-[800px] h-[800px] border-[32px] border-white/15 rounded-full transform -translate-y-1/2"></div>
+      {/* FONDO PC */}
+      <div className="absolute inset-0 z-0 hidden lg:block">
+        <Image 
+          src="/hero-pc.jpg" 
+          alt="Fondo PC Equipos" 
+          fill 
+          className="object-contain object-right" 
+          priority 
+          sizes="100vw"
+        />
       </div>
 
-      {/* 🔥 3. CONTENEDOR PRINCIPAL: Le pusimos lg:py-28 (112px de margen arriba y abajo obligatorio) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 py-24 sm:py-32 lg:py-28">
+      {/* CONTENEDOR PRINCIPAL */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-8 flex flex-col justify-center py-20 lg:py-24">
         
-        {/* LADO IZQUIERDO: TEXTOS Y BOTONES */}
         <motion.div 
-          initial={{ x: -30, opacity: 0 }} 
-          animate={{ x: 0, opacity: 1 }} 
-          transition={{ duration: 0.6 }} 
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
           className="w-full lg:w-[55%] flex flex-col items-center lg:items-start text-center lg:text-left"
         >
-          {/* 🔥 Separamos más el título del párrafo (lg:mb-10) */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-white leading-tight mb-6 lg:mb-10 tracking-tight max-w-2xl drop-shadow-md lg:drop-shadow-none">
-            {tituloHero}
-          </h1>
           
-          <p className="text-sm sm:text-base lg:text-lg text-blue-50 mb-10 lg:mb-14 max-w-xl leading-relaxed font-medium drop-shadow-md lg:drop-shadow-none">
+          {/* TÍTULO ANIMADO: Ahora usamos la variable tituloHero formateada */}
+          <motion.h1 
+            variants={itemVariants}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-2xl tracking-tight"
+          >
+            {formatTitle(tituloHero)}
+          </motion.h1>
+          
+          {/* PÁRRAFO ANIMADO */}
+          <motion.p 
+            variants={itemVariants}
+            className="text-base sm:text-lg md:text-xl text-blue-50 mb-10 max-w-xl leading-relaxed font-medium drop-shadow-xl"
+          >
             {subtituloHero}
-          </p>
+          </motion.p>
 
-          {/* CONTENEDOR DE BOTONES */}
-          <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-5 w-full sm:w-auto">
+          {/* BOTONES ANIMADOS */}
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto"
+          >
             <Link 
               href="/contacto" 
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 sm:px-8 lg:px-10 py-3.5 sm:py-4 rounded-lg transition-colors flex items-center justify-center text-[11px] sm:text-sm lg:text-base uppercase tracking-wide w-1/2 sm:w-auto shadow-lg"
+              className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 sm:px-8 py-4 rounded-xl transition-colors flex items-center justify-center text-sm uppercase tracking-wide shadow-lg"
             >
               Cotizar Ahora
             </Link>
             
             <Link 
               href="/servicios" 
-              className="bg-transparent text-white hover:bg-white/10 font-semibold px-4 sm:px-8 lg:px-10 py-3.5 sm:py-4 rounded-lg border border-white/40 transition-colors flex items-center justify-center gap-1.5 group text-[11px] sm:text-sm lg:text-base uppercase tracking-wide w-1/2 sm:w-auto"
+              className="w-full sm:w-auto bg-transparent text-white hover:bg-white/10 font-semibold px-6 sm:px-8 py-4 rounded-xl border border-white/40 transition-colors flex items-center justify-center gap-2 group text-sm uppercase tracking-wide backdrop-blur-sm"
             >
               Ver Servicios
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
             </Link>
-          </div>
-        </motion.div>
-
-        {/* 4. LADO DERECHO: IMAGEN NÍTIDA (SOLO PARA PC) */}
-        <motion.div 
-          initial={{ x: 30, opacity: 0 }} 
-          animate={{ x: 0, opacity: 1 }} 
-          transition={{ duration: 0.8, delay: 0.2 }} 
-          className="hidden lg:flex w-full lg:w-[45%] justify-end relative h-[400px] xl:h-[500px]"
-        >
-          <div className="relative w-full max-w-[450px] h-full">
-            <Image 
-              src={imagenEquiposUrl} 
-              alt="Equipos de Seguridad Electrónica y Redes" 
-              fill 
-              className="object-contain drop-shadow-2xl" 
-              priority 
-              quality={100}
-              sizes="(max-width: 1024px) 100vw, 500px"
-            />
-          </div>
+          </motion.div>
+          
         </motion.div>
 
       </div>

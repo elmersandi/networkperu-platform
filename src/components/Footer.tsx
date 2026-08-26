@@ -1,5 +1,7 @@
+'use client'; // Agregamos 'use client' si usas lucide-react, aunque en Next 13+ a veces no es estrictamente necesario para SVGs, es buena práctica si el ícono es interactivo.
+
 import Link from "next/link";
-import Image from "next/image"; // 🔥 Importamos Image para la optimización del logo
+import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 // Definimos los props a mano para evitar el error de caché de TypeScript
@@ -46,7 +48,8 @@ export default function Footer({ config }: Props) {
   const textoDerechos = config?.textoFooter || `© ${new Date().getFullYear()} ${razonSocial} RUC: ${ruc}. Todos los derechos reservados.`;
 
   return (
-    <footer className="bg-[#0a0a0a] text-gray-400 py-12 md:py-16 border-t border-gray-900">
+    // 🔥 CAMBIO: bg-slate-950 en lugar de bg-[#0a0a0a], y border-slate-900
+    <footer className="bg-slate-950 text-slate-300 py-12 md:py-16 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -67,11 +70,11 @@ export default function Footer({ config }: Props) {
                 </div>
               ) : (
                 <span className="text-2xl font-black text-white tracking-tight">
-                  {nombreEmpresa.replace(" Perú", "")} <span className="text-gray-600">Perú</span>
+                  {nombreEmpresa.replace(" Perú", "")} <span className="text-slate-600">Perú</span>
                 </span>
               )}
             </Link>
-            <p className="text-sm font-medium leading-relaxed max-w-sm text-gray-400">
+            <p className="text-sm font-medium leading-relaxed max-w-sm text-slate-400">
               {descripcionSeo}
             </p>
           </div>
@@ -80,11 +83,11 @@ export default function Footer({ config }: Props) {
           <div>
             <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Navegación</h4>
             <ul className="space-y-4 text-sm font-medium">
-              <li><Link href="/servicios" className="hover:text-white transition-colors">Servicios TI</Link></li>
-              <li><Link href="/productos" className="hover:text-white transition-colors">Catálogo de Hardware</Link></li>
-              <li><Link href="/nosotros" className="hover:text-white transition-colors">La Empresa</Link></li>
-              <li><Link href="/contacto" className="hover:text-white transition-colors">Contacto B2B</Link></li>
-              <li><Link href="/admin" className="text-gray-600 hover:text-white transition-colors">Portal Administrativo</Link></li>
+              <li><Link href="/servicios" className="text-slate-400 hover:text-white transition-colors">Servicios TI</Link></li>
+              <li><Link href="/productos" className="text-slate-400 hover:text-white transition-colors">Catálogo de Hardware</Link></li>
+              <li><Link href="/nosotros" className="text-slate-400 hover:text-white transition-colors">La Empresa</Link></li>
+              <li><Link href="/contacto" className="text-slate-400 hover:text-white transition-colors">Contacto</Link></li>
+              <li><Link href="/admin" className="text-slate-600 hover:text-white transition-colors">Portal Administrativo</Link></li>
             </ul>
           </div>
 
@@ -93,34 +96,35 @@ export default function Footer({ config }: Props) {
             <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-6">Contacto</h4>
             <ul className="space-y-4 text-sm font-medium">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 text-gray-500 flex-shrink-0" />
-                <span className="leading-snug hover:text-gray-300 transition-colors">{direccion}</span>
+                <MapPin size={16} className="mt-0.5 text-slate-500 flex-shrink-0" />
+                <span className="leading-snug text-slate-400 hover:text-slate-200 transition-colors">{direccion}</span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone size={16} className="mt-0.5 text-gray-500 flex-shrink-0" />
-                <span className="hover:text-gray-300 transition-colors">{telefonosUnidos}</span>
+                <Phone size={16} className="mt-0.5 text-slate-500 flex-shrink-0" />
+                <span className="text-slate-400 hover:text-slate-200 transition-colors">{telefonosUnidos}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={16} className="text-gray-500 flex-shrink-0" />
-                <span className="truncate hover:text-gray-300 transition-colors">{email}</span>
+                <Mail size={16} className="text-slate-500 flex-shrink-0" />
+                <span className="truncate text-slate-400 hover:text-slate-200 transition-colors">{email}</span>
               </li>
             </ul>
           </div>
 
         </div>
 
-        {/* 🔥 Línea divisoria y Copyright (CON MÁS ESPACIO Y MEJOR DISTRIBUCIÓN) */}
-        <div className="border-t border-gray-300 mt-14 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-center lg:text-left text-gray-500">
-          <p className=" text-white leading-relaxed max-w-2xl" >{textoDerechos}</p>
+        {/* 🔥 Línea divisoria y Copyright */}
+        {/* 🔥 CAMBIO: border-slate-800 en lugar de border-gray-300 para que sea oscuro y sutil */}
+        <div className="border-t border-slate-800 mt-14 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-center lg:text-left text-slate-500">
+          <p className="text-slate-400 leading-relaxed max-w-2xl">{textoDerechos}</p>
           
           <div className="flex flex-wrap justify-center gap-5">
             {/* Ocultamos las redes dinámicamente si no existen */}
-            {config?.facebook && <a href={config.facebook} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Facebook</a>}
-            {config?.instagram && <a href={config.instagram} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram</a>}
-            {config?.linkedin && <a href={config.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>}
+            {config?.facebook && <a href={config.facebook} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors">Facebook</a>}
+            {config?.instagram && <a href={config.instagram} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors">Instagram</a>}
+            {config?.linkedin && <a href={config.linkedin} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors">LinkedIn</a>}
             
-            <span className="hover:text-white cursor-pointer transition-colors hidden sm:inline-block">Términos de Servicio</span>
-            <span className="hover:text-white cursor-pointer transition-colors hidden sm:inline-block">Política de Privacidad</span>
+            <span className="text-slate-500 hover:text-white cursor-pointer transition-colors hidden sm:inline-block">Términos de Servicio</span>
+            <span className="text-slate-500 hover:text-white cursor-pointer transition-colors hidden sm:inline-block">Política de Privacidad</span>
           </div>
         </div>
 

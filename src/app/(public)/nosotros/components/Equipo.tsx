@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const equipo = [
   {
@@ -19,7 +18,7 @@ const equipo = [
     imagen: "/rolin.png",
   },
   {
-    nombre: "Ing.Raul Flores",
+    nombre: "Ing. Raul Flores",
     cargo: "Director de Proyectos",
     descripcion:
       "Estratega principal de la empresa. Supervisa los estándares de calidad en cada implementación tecnológica.",
@@ -28,140 +27,60 @@ const equipo = [
 ];
 
 export default function Equipo() {
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (sliderRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-
-        if (scrollLeft + clientWidth >= scrollWidth - 10) {
-          sliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          sliderRef.current.scrollBy({ left: 344, behavior: "smooth" });
-        }
-      }
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollLeftBtn = () => {
-    if (sliderRef.current)
-      sliderRef.current.scrollBy({ left: -344, behavior: "smooth" });
-  };
-
-  const scrollRightBtn = () => {
-    if (sliderRef.current)
-      sliderRef.current.scrollBy({ left: 344, behavior: "smooth" });
-  };
-
   return (
-    <section className="py-12 md:py-16 bg-slate-200 border-y border-slate-300 overflow-hidden relative shadow-inner">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-10">
-          <div className="max-w-2xl">
-            {/* Título ahora con font-semibold máximo */}
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 mb-3">
-              Nuestro Equipo Especializado
-            </h2>
-            <p className="text-slate-700 font-medium text-base md:text-lg">
-              Detrás de cada proyecto hay profesionales comprometidos con la
-              calidad, la seguridad y el rendimiento continuo de su
-              infraestructura.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={scrollLeftBtn}
-              className="w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-blue-700 hover:border-blue-700 hover:bg-blue-50 transition-all shadow-sm"
-              aria-label="Anterior"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <button
-              onClick={scrollRightBtn}
-              className="w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-blue-700 hover:border-blue-700 hover:bg-blue-50 transition-all shadow-sm"
-              aria-label="Siguiente"
-            >
-              <ArrowRight size={20} />
-            </button>
-          </div>
+    // Fondo azul muy oscuro (casi negro) y padding reducido
+    <section className="py-16 md:py-20 bg-slate-950 border-y border-slate-900">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+        
+        {/* CABECERA (Centrada y compacta) */}
+        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">
+            Nuestro Equipo Especializado
+          </h2>
+          <p className="text-slate-400 font-medium text-base md:text-lg">
+            Detrás de cada proyecto hay profesionales comprometidos con la calidad, la seguridad y el rendimiento continuo de su infraestructura.
+          </p>
         </div>
 
-        <div
-          ref={sliderRef}
-          className="flex flex-nowrap gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
-          {equipo.map((miembro, index) => {
-            const esPar = index % 2 === 0;
-
-            return (
-              <div
-                key={index}
-                style={{ minWidth: "320px", width: "320px" }}
-                className="bg-white rounded-3xl p-3 shadow-lg border border-slate-100 flex flex-col shrink-0 snap-center transform transition-transform hover:-translate-y-1"
-              >
-                {esPar ? (
-                  <>
-                    {/* IMAGEN: Altura estricta forzada con style para que jamás desaparezca */}
-                    <div
-                      style={{ height: "200px", minHeight: "200px" }}
-                      className="w-full rounded-2xl overflow-hidden bg-slate-100 shrink-0 block"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={miembro.imagen}
-                        alt={miembro.nombre}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    {/* TEXTO: Todo en font-semibold */}
-                    <div className="flex-1 p-5 flex flex-col justify-center">
-                      <span className="text-blue-600 font-semibold text-[10px] uppercase tracking-widest mb-2 block">
-                        {miembro.cargo}
-                      </span>
-                      <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                        {miembro.nombre}
-                      </h3>
-                      <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                        {miembro.descripcion}
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* TEXTO: Todo en font-semibold */}
-                    <div className="flex-1 p-5 flex flex-col justify-center">
-                      <span className="text-blue-600 font-semibold text-[10px] uppercase tracking-widest mb-2 block">
-                        {miembro.cargo}
-                      </span>
-                      <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                        {miembro.nombre}
-                      </h3>
-                      <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                        {miembro.descripcion}
-                      </p>
-                    </div>
-                    {/* IMAGEN: Altura estricta forzada con style para que jamás desaparezca */}
-                    <div
-                      style={{ height: "200px", minHeight: "200px" }}
-                      className="w-full rounded-2xl overflow-hidden bg-slate-100 shrink-0 block"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={miembro.imagen}
-                        alt={miembro.nombre}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </>
-                )}
+        {/* GRID DE TARJETAS (1 columna en móvil, 3 en PC) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {equipo.map((miembro, index) => (
+            <div
+              key={index}
+              // Fondo de tarjeta ligeramente más claro que el fondo general, con borde sutil
+              className="group bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 flex flex-col transition-all duration-300 hover:border-blue-600/50 hover:shadow-xl hover:shadow-blue-900/20"
+            >
+              
+              {/* IMAGEN (Ocupa la mitad superior estricta) */}
+              <div className="relative h-64 md:h-72 w-full overflow-hidden">
+                <Image
+                  src={miembro.imagen}
+                  alt={miembro.nombre}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                {/* Gradiente oscuro de abajo hacia arriba para difuminar el corte con el texto */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
               </div>
-            );
-          })}
+
+              {/* TEXTO (Ocupa la mitad inferior) */}
+              <div className="flex-1 p-6 md:p-8 flex flex-col justify-start relative z-10 -mt-8">
+                <span className="text-blue-500 font-bold text-xs uppercase tracking-widest mb-2 block">
+                  {miembro.cargo}
+                </span>
+                <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">
+                  {miembro.nombre}
+                </h3>
+                <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                  {miembro.descripcion}
+                </p>
+              </div>
+
+            </div>
+          ))}
         </div>
+        
       </div>
     </section>
   );

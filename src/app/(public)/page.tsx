@@ -48,23 +48,8 @@ export default async function Home() {
       {/* SECCIÓN 3: Diferenciadores */}
       <PorQueElegirnos />
 
-      {/* SECCIÓN 4: Servicios y Beneficios */}
-      <section className="py-16 md:py-24 bg-slate-50 px-4 md:px-8 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-12 md:mb-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold text-slate-800 mb-4 tracking-tight">
-              Ingeniería de Redes Avanzada.
-            </h2>
-            <div className="h-1.5 w-24 bg-blue-700 mx-auto rounded-full"></div>
-            <p className="mt-6 text-slate-700 max-w-2xl mx-auto font-medium">
-              Soluciones integrales diseñadas para garantizar la continuidad operativa de su empresa en Iquitos.
-            </p>
-          </div>
-          
-          <ServiceCards />
-          
-        </div>
-      </section>
+      {/* SECCIÓN 4: Servicios y Beneficios */}  
+      <ServiceCards />
 
       {/* SECCIÓN 5: Estadísticas de Confianza */}
       <Estadisticas />

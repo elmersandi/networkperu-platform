@@ -32,25 +32,21 @@
 
   /* --- JERARQUÍA DE TÍTULOS (Sólidos, Serios y Responsivos) --- */
   h1, h2, h3, h4, h5, h6 {
-    /* font-semibold (600) y tracking-tighter para máxima seriedad */
-    @apply font-semibold tracking-tighter text-slate-900;
+    /* Mantenemos el peso y el tracking, pero QUITAMOS 'text-slate-900' */
+    /* Dejamos que el color se herede o se defina con clases de Tailwind */
+    @apply font-semibold tracking-tighter;
   }
   
-  /* H1: Para portadas/Heros (Muy grande en PC, adaptado en móvil) */
+  /* H1, H2, H3, H4 se quedan igual (solo definen tamaños y márgenes) */
   h1 { @apply text-4xl md:text-5xl lg:text-6xl mb-4 leading-none; }
-  
-  /* H2: Para secciones principales (Ej: "Nuestros Servicios") */
   h2 { @apply text-3xl md:text-4xl mb-3 leading-tight; }
-  
-  /* H3: Para tarjetas de servicios o bloques de contenido */
   h3 { @apply text-xl md:text-2xl mb-3 leading-snug; }
-  
-  /* H4: Para subtítulos pequeños o etiquetas */
   h4 { @apply text-lg md:text-xl mb-2 leading-snug; }
 
   /* --- PÁRRAFOS GLOBALES --- */
   p {
-    @apply mb-4 text-base md:text-[16px] text-slate-600 font-normal leading-relaxed;
+    /* Mantenemos tamaños y fuentes, pero QUITAMOS 'text-slate-600' */
+    @apply mb-4 text-base md:text-[16px] font-normal leading-relaxed;
   }
   
   /* --- RESET GENERAL PARA INPUTS --- */

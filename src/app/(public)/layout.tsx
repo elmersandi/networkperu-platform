@@ -52,7 +52,7 @@ export default async function PublicLayout({
         <Navbar config={config} />
 
         {/* 'grow' es la versión moderna de 'flex-grow' en Tailwind v3+ */}
-        <main className="grow pt-[65px]">
+        <main className="grow">
           {children}
         </main>
 

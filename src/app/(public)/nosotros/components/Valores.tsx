@@ -1,56 +1,63 @@
-import { Shield, Zap, Globe } from 'lucide-react';
+import { ShieldCheck, Zap, Globe2 } from 'lucide-react';
 
 export default function Valores() {
   return (
-    <section className="py-16 md:py-24 px-6 bg-white">
+    // Redujimos los paddings verticales (py-12 md:py-20) y cambiamos a fondo blanco puro
+    <section className="py-12 md:py-20 px-6 bg-white border-y border-slate-100">
       <div className="max-w-7xl mx-auto">
         
-        {/* CABECERA LIMPIA */}
-        <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">
-            Pilares de nuestro trabajo
+        {/* CABECERA (Redujimos el margin-bottom para que no haya tanto espacio vacío) */}
+        <div className="max-w-2xl mb-10 md:mb-14">
+          <h2 className="text-sm font-bold tracking-widest text-blue-700 uppercase mb-3">
+            Filosofía de Trabajo
           </h2>
+          <h3 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 leading-tight">
+            Pilares operativos que garantizan el éxito de cada proyecto.
+          </h3>
         </div>
 
-        {/* CONTENEDOR GRID PERFECTAMENTE ALINEADO */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+        {/* CONTENEDOR GRID */}
+        {/* Redujimos un poco el gap (gap-8 md:gap-12) para que se vea más compacto */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           
           {/* PILAR 1 */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-slate-50 text-blue-600 border border-slate-100 rounded-2xl flex items-center justify-center mb-6 transition-colors hover:bg-blue-50">
-              <Shield size={32} strokeWidth={1.5} />
+          {/* Añadimos border-t para enmarcar la tarjeta y pt-6 para separarlo de la línea */}
+          <div className="flex flex-col border-t border-slate-200 pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-xl font-semibold text-slate-900">
+                Confiabilidad Extrema
+              </h4>
+              {/* Ícono a la derecha, color azul marca, sin fondo ni hover */}
+              <ShieldCheck size={24} className="text-blue-600 flex-shrink-0" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Confiabilidad Extrema
-            </h3>
             <p className="text-slate-600 text-base leading-relaxed">
-              Diseñamos infraestructura tolerante a fallos. Garantizamos la continuidad operativa para que el negocio de nuestros clientes nunca se detenga.
+              Diseñamos infraestructura tolerante a fallos. Garantizamos la continuidad operativa para que el negocio de nuestros clientes nunca se detenga, sin importar las condiciones.
             </p>
           </div>
           
           {/* PILAR 2 */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-slate-50 text-blue-600 border border-slate-100 rounded-2xl flex items-center justify-center mb-6 transition-colors hover:bg-blue-50">
-              <Zap size={32} strokeWidth={1.5} />
+          <div className="flex flex-col border-t border-slate-200 pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-xl font-semibold text-slate-900">
+                Respuesta Ágil
+              </h4>
+              <Zap size={24} className="text-blue-600 flex-shrink-0" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Respuesta Ágil
-            </h3>
             <p className="text-slate-600 text-base leading-relaxed">
-              Brindamos soporte técnico proactivo. Identificamos y resolvemos incidencias críticas con rapidez para minimizar los tiempos de inactividad.
+              Brindamos soporte técnico proactivo. Identificamos y resolvemos incidencias críticas con rapidez quirúrgica para minimizar cualquier tiempo de inactividad.
             </p>
           </div>
 
           {/* PILAR 3 */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-slate-50 text-blue-600 border border-slate-100 rounded-2xl flex items-center justify-center mb-6 transition-colors hover:bg-blue-50">
-              <Globe size={32} strokeWidth={1.5} />
+          <div className="flex flex-col border-t border-slate-200 pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-xl font-semibold text-slate-900">
+                Estándares Globales
+              </h4>
+              <Globe2 size={24} className="text-blue-600 flex-shrink-0" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Estándares Globales
-            </h3>
             <p className="text-slate-600 text-base leading-relaxed">
-              Implementamos normativas internacionales en redes y seguridad, adaptando las mejores prácticas del sector a la realidad de nuestra región.
+              Implementamos normativas internacionales en redes y seguridad, adaptando las mejores prácticas del sector tecnológico global a la realidad de nuestra región.
             </p>
           </div>
 

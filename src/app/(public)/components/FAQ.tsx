@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 const preguntas = [
@@ -46,62 +46,92 @@ export default function FAQ() {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  // 🔥 1. VARIANTES PARA EL EFECTO CASCADA
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // Retraso rápido para que no se sienta lento
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.4, ease: "easeOut" } 
+    },
+  };
+
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
+        {/* ENVOLVEMOS TODO EN EL CONTENEDOR ANIMADO */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-            Preguntas Frecuentes
-          </h2>
-          <p className="text-lg text-gray-600">
-            Resolvemos tus dudas principales sobre nuestras metodologías de trabajo y servicios.
-          </p>
-        </motion.div>
+          
+          {/* ENCABEZADO ANIMADO */}
+          <motion.div variants={itemVariants} className="text-center mb-10 md:mb-14">
+            <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 mb-4 tracking-tight">
+              Preguntas Frecuentes
+            </h2>
+            <p className="text-base md:text-lg text-gray-600">
+              Resolvemos tus dudas principales sobre nuestras metodologías de trabajo y servicios.
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 items-start">
-          {preguntas.map((item, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-            >
-              <button
-                onClick={() => togglePregunta(index)}
-                className="w-full flex items-center justify-between p-5 lg:p-6 text-left focus:outline-none hover:bg-slate-50 transition-colors cursor-pointer"
+          {/* GRID DE PREGUNTAS */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 items-start">
+            {preguntas.map((item, index) => (
+              
+              // CADA CAJA DE PREGUNTA ANIMADA INDIVIDUALMENTE 
+              <motion.div 
+                key={index}
+                variants={itemVariants}
+                // 🔥 BORDES FINOS (border-slate-200) y SOMBRA SUTIL (shadow-sm)
+                className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:border-slate-300 transition-colors"
               >
-                <span className="font-semibold text-gray-900 pr-4">{item.pregunta}</span>
-                <ChevronDown 
-                  className={`w-5 h-5 text-blue-600 transition-transform duration-300 flex-shrink-0 ${activeIndex === index ? "rotate-180" : ""}`} 
-                />
-              </button>
-              <AnimatePresence>
-                {activeIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="p-5 lg:p-6 text-gray-600 bg-slate-50 border-t border-slate-200">
-                      {item.respuesta}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </div>
+                <button
+                  onClick={() => togglePregunta(index)}
+                  // 🔥 REDUCIDO EL PADDING (p-4 en lugar de p-6) PARA HACERLO MÁS ANGOSTO
+                  className="w-full flex items-center justify-between p-4 text-left focus:outline-none hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  {/* Título un poco más pequeño para encajar mejor en la caja delgada */}
+                  <span className="text-sm md:text-base font-semibold text-slate-800 pr-4">{item.pregunta}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 text-blue-600 transition-transform duration-300 flex-shrink-0 ${activeIndex === index ? "rotate-180" : ""}`} 
+                  />
+                </button>
+                
+                <AnimatePresence>
+                  {activeIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* PADDING REDUCIDO TAMBIÉN EN LA RESPUESTA */}
+                      <div className="p-4 pt-0 text-sm md:text-base text-slate-600 bg-white">
+                        {item.respuesta}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+              </motion.div>
+            ))}
+          </div>
 
+        </motion.div>
       </div>
     </section>
   );

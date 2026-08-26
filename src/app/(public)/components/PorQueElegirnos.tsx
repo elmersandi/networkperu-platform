@@ -1,76 +1,107 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ShieldCheck, Clock, Award, Users } from "lucide-react";
+import { motion, Variants } from "framer-motion";
+import { ShieldCheck, Clock, Award, Network } from "lucide-react";
 
 const beneficios = [
   {
-    icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
-    title: "Seguridad Garantizada",
-    description: "Implementamos protocolos de ciberseguridad de clase mundial para proteger tu infraestructura.",
+    icon: <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-white" />,
+    title: "Seguridad Perimetral",
+    description: "Implementamos firewalls y protocolos de ciberseguridad robustos para blindar tu información corporativa.",
   },
   {
-    icon: <Clock className="w-8 h-8 text-blue-600" />,
-    title: "Soporte Rápido",
-    description: "Atención ágil ante incidencias. Entendemos que la operatividad de tu empresa no puede parar.",
+    icon: <Clock className="w-5 h-5 md:w-6 md:h-6 text-white" />,
+    title: "Disponibilidad 24/7",
+    description: "Soporte técnico ágil y monitoreo continuo. Garantizamos que la operatividad de tu red nunca se detenga.",
   },
   {
-    icon: <Award className="w-8 h-8 text-blue-600" />,
-    title: "Especialistas Certificados",
-    description: "Nuestro equipo cuenta con certificaciones oficiales en Fortinet, Cisco y Mikrotik.",
+    icon: <Award className="w-5 h-5 md:w-6 md:h-6 text-white" />,
+    title: "Ingenieros Certificados",
+    description: "Personal altamente capacitado con certificaciones oficiales para diseñar soluciones a medida.",
   },
   {
-    icon: <Users className="w-8 h-8 text-blue-600" />,
-    title: "Atención Personalizada",
-    description: "Evaluamos las necesidades específicas de cada proyecto para brindar soluciones a medida.",
+    icon: <Network className="w-5 h-5 md:w-6 md:h-6 text-white" />,
+    title: "Cableado Estructurado",
+    description: "Diseño e instalación de infraestructura de red eficiente, escalable y bajo normativas internacionales.",
   },
 ];
 
 export default function PorQueElegirnos() {
+  
+  // 🔥 TIPAMOS COMO ': Variants'
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, 
+      },
+    },
+  };
+
+  // 🔥 TIPAMOS COMO ': Variants'
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 }, 
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
+
   return (
-    <section className="py-16 md:py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="py-16 md:py-24 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        {/* Cabecera de la sección */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-16"
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }} 
+          className="flex flex-col"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-            ¿Por qué confiar en <span className="text-blue-600">Networks Perú</span>?
-          </h2>
-          <p className="text-lg text-gray-600">
-            Combinamos experiencia técnica con un compromiso absoluto hacia la continuidad operativa de tu negocio.
-          </p>
-        </motion.div>
-
-        {/* Grid de Beneficios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {beneficios.map((beneficio, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+          
+          <div className="max-w-2xl text-left">
+            <motion.h2 
+              variants={itemVariants}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900"
             >
-              <div className="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                {beneficio.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                {beneficio.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {beneficio.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+              Soluciones TIC de alto rendimiento.
+            </motion.h2>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="mt-4 md:mt-6 text-base md:text-lg leading-relaxed text-slate-600 font-medium"
+            >
+              Optimizamos y protegemos la infraestructura tecnológica de tu empresa con estándares de calidad y equipos de última generación.
+            </motion.p>
+          </div>
 
+          <div className="mt-12 md:mt-16 lg:mt-20 max-w-2xl lg:max-w-none">
+            <dl className="grid grid-cols-1 gap-x-8 gap-y-12 md:gap-y-16 lg:grid-cols-4">
+              {beneficios.map((beneficio, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="flex flex-col"
+                >
+                  <dt className="flex items-center gap-x-4 text-lg font-semibold text-slate-900">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0050a4] shrink-0 shadow-md">
+                      {beneficio.icon}
+                    </div>
+                    {beneficio.title}
+                  </dt>
+                  
+                  <dd className="mt-4 flex flex-auto flex-col text-sm md:text-base leading-relaxed text-slate-600">
+                    <p className="flex-auto">{beneficio.description}</p>
+                  </dd>
+                </motion.div>
+              ))}
+            </dl>
+          </div>
+          
+        </motion.div>
+        
       </div>
     </section>
   );

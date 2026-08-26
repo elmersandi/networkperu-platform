@@ -28,7 +28,7 @@ export default function HeroNosotros() {
         
         <div className="max-w-3xl text-left">
           {/* Título con el tamaño exacto del de productos */}
-          <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-3 shadow-sm leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-3 shadow-sm leading-tight">
             Soluciones Integrales en Infraestructura TI y Seguridad.
           </h1>
           
